@@ -14,7 +14,7 @@ super + n
 super + i
 	$TERMINAL -e htop
 super + y
-	$TERMINAL -e calcurse -D ~/.config/calcurse
+	$TERMINAL -e startcal
 super + shift + a
 	$TERMINAL -e pulsemixer; pkill -RTMIN+10 i3blocks
 super + shift + c
@@ -22,11 +22,15 @@ super + shift + c
 super + shift + e
 	tutorialvids
 super + w
-	webby | xargs -r $BROWSER
+	$TERMINAL -e nmtui
 super + shift + w
 	$BROWSER
 super + shift + g
 	gimp
+super + shift + p
+	i3 "[class=\"jetbrains-toolbox\"] scratchpad show" | grep "\"success\":false" && jetbrains-toolbox
+super + shift + m
+	telegram-desktop
 
 # Et cetera...
 super + grave
@@ -40,7 +44,7 @@ super + shift + x
 super + shift + BackSpace
 	prompt "Reboot computer?" "sudo -A shutdown -r now"
 super + x
-	mpc pause; pauseallmpv; i3lock -e -f -c 1d2021; xset dpms force off
+	mpc pause; pauseallmpv; i3lock -e -f -i $HOME/.local/laptop.png -c 1d2021; xset dpms force off
 XF86Launch1
 	xset dpms force off
 XF86AudioMute

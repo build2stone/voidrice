@@ -8,6 +8,7 @@ if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/plugged')
+Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdtree'
 Plug 'junegunn/goyo.vim'
@@ -21,7 +22,7 @@ Plug 'vifm/vifm.vim'
 Plug 'kovetskiy/sxhkd-vim'
 call plug#end()
 
-set bg=light
+set bg=dark
 set go=a
 set mouse=a
 set nohlsearch
@@ -32,6 +33,8 @@ set clipboard+=unnamedplus
 	set nocompatible
 	filetype plugin on
 	syntax on
+	colorscheme gruvbox
+	" highlight Normal ctermbg=none
 	set encoding=utf-8
 	set number relativenumber
 " Enable autocompletion:
@@ -40,13 +43,16 @@ set clipboard+=unnamedplus
 	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Goyo plugin makes text more readable when writing prose:
-	map <leader>f :Goyo \| set bg=light \| set linebreak<CR>
+	map <leader>f :Goyo \| set linebreak<CR>
 
 " Spell-check set to <leader>o, 'o' for 'orthography':
 	map <leader>o :setlocal spell! spelllang=en_us<CR>
 
 " Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
 	set splitbelow splitright
+
+" airline
+	let g:airline_theme='dark'
 
 " Nerd tree
 	map <leader>n :NERDTreeToggle<CR>

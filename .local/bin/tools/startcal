@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+attemptcalsync() {
+	ping -c1 google.com &>/dev/null && calcurse-caldav
+}
+
+attemptcalsync &>/dev/null &
+calcurse -D ~/.config/calcurse
+attemptcalsync

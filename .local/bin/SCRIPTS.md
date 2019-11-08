@@ -26,7 +26,7 @@ For modules used in i3blocks.
 - `popupgrade` -- Called by clicking on the update icon if there are new packages. Spawns a `yay` upgrade of the main Arch repos and AUR packages, updates the i3blocks module once complete.
 - `torrent` -- i3blocks module. Shows torrents idle (⌛️), downloading (⬇️) or finished (🌱).
 - `volume` -- i3blocks module. Shows volume percentage or mute notification.
-- `weather` -- i3blocks module. Gets weather forcast from wttr.in and returns today's precipitation chance (☔), daily low (❄️) and daily high (☀️).
+- `weather` -- i3blocks module. Gets weather forecast from wttr.in and returns today's precipitation chance (☔), daily low (❄️) and daily high (☀️).
 
 ## `cron/`
 

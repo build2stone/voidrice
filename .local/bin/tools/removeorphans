@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+pkgs=$(pacman -Qtdq)
+
+[ -z "${pkgs}" ] && echo "No orphans found." && exit
+
+sudo pacman -Rns $pkgs

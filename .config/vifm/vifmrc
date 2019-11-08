@@ -24,6 +24,16 @@ map <C-o> <C-w>o
 map <C-s> <C-w>s
 map <C-v> <C-w>v
 
+qn <C-h> <C-w>h
+qn <C-j> <C-w>j
+qn <C-k> <C-w>k
+qn <C-l> <C-w>l
+qn <C-s> <C-w>s
+qn <C-v> <C-w>v
+
+map W <C-w>w
+qn W <C-w>w
+
 map R :restart<CR>
 map x :!sxiv -ft * 2>/dev/null &<CR>
 nnoremap o :file &<cr>
@@ -44,12 +54,14 @@ nmap <space> tj
 nmap q ZQ
 
 fileview */ tree %c -L 1 --dirsfirst
+fileview .*/ tree %c -L 1 --dirsfirst
 fileview ../ tree %c -L 1 --dirsfirst
 fileviewer *.html w3m -dump %c
 filextype *.html,*.htm firefox %f 2>/dev/null &
 
 fileviewer *.docx docx2txt %c -
 fileviewer *.odt odt2txt %c -
+filextype *.docx,*.doc,*.odt,*.xlsx,*.xsl,*.ods libreoffice %f 2>/dev/null &
 
 filetype *.csv,*.xlsx sc-im %c
 fileviewer *.csv sed "s/,,,,/,,-,,/g;s/,,/ /g" %c | column -t | sed "s/ - /  /g" | cut -c -%pw
@@ -67,9 +79,16 @@ fileviewer *.[1-8] man ./%c | col -b
 filetype *.[1-8] man ./%c
 
 fileviewer *.jpg,*.jpeg,*.png,*.ico vifmimg draw %px %py %pw %ph %c %pc vifmimg clear
+" fileviewer *.jpg,*.jpeg,*.png,*.ico magick identify -format "%%f %%m %%wx%%h %%[colorspace] %%b" %c &
 filextype *.bmp,*.jpg,*.jpeg,*.png,*.ico,*.gif,*.xpm  rotdir %f 2>/dev/null | sxiv -ia 2>/dev/null &
 
 filextype *.svg inkscape %f 2>/dev/null &
 filextype *.xcf gimp %f 2>/dev/null &
+
+filextype *.dig digital %f 2>/dev/null &
+
+" fileview * vifmview %c
+fileview * highlight --style=pablo --out-format=xterm256 --force
+fileview .* highlight --out-format=ansi --force ./%c
 
 set vifminfo=dhistory,chistory,tui,shistory,phistory,fhistory,dirstack,registers,bookmarks,bmarks

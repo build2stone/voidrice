@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+i3 "restart" && \
+	i3 "[instance=\"dropdown_*\"] scratchpad show;
+	    [class=\"jetbrains-toolbox\"] scratchpad show"
