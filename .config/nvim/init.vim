@@ -122,6 +122,9 @@ vmap <LeftRelease> "*ygv
 " Run xrdb whenever Xdefaults or Xresources are updated.
 	autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
 
+" Auto-compile zsh files
+	autocmd BufWritePost *.zsh !zcompile %
+
 " Navigating with guides
 	inoremap <leader><leader> <Esc>/<++><Enter>"_c4l
 	vnoremap <leader><leader> <Esc>/<++><Enter>"_c4l
