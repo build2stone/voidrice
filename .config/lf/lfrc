@@ -89,7 +89,7 @@ cmd blkrename ${{
 # Bindings
 map c $lf -remote "send $id cd $(cut -d'	' -f2 ~/.config/bmdirs | fzf)"
 map J $lf -remote "send $id cd $(cut -d'	' -f2 ~/.config/bmdirs | fzf)"
-map E $$EDITOR $(cut -d'	' -f2 ~/.config/bmfiles | fzf | sed "s/~/$(echo $HOME | sed -e 's/[\/&]/\\&/g')/g")
+map E $cut -d'	' -f2 ~/.config/bmfiles | fzf | awk -v home=$HOME '{ gsub("^~", home, $0); print $0 }' | xargs -r -I % $EDITOR %
 map gh
 map g top
 map D delete
