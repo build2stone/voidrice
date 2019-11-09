@@ -30,7 +30,6 @@ interval=20
 signal=7
 
 [weather]
-command=weather
 interval=18000
 signal=5
 
