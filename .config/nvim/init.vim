@@ -18,7 +18,8 @@ Plug 'LukeSmithxyz/vimling'
 Plug 'vimwiki/vimwiki'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-commentary'
-Plug 'vifm/vifm.vim'
+Plug 'ptzz/lf.vim'
+Plug 'rbgrouleff/bclose.vim'
 Plug 'kovetskiy/sxhkd-vim'
 call plug#end()
 
@@ -57,6 +58,9 @@ vmap <LeftRelease> "*ygv
 
 " airline
 	let g:airline_theme='dark'
+" lf
+	let g:lf_map_keys = 0
+	map <leader>l :Lf<CR>
 
 " Nerd tree
 	map <leader>n :NERDTreeToggle<CR>
