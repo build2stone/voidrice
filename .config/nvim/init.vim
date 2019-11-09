@@ -28,6 +28,10 @@ set mouse=a
 set nohlsearch
 set clipboard+=unnamedplus
 
+" Text selected with mouse goes to primary selection
+set mouse=a
+vmap <LeftRelease> "*ygv
+
 " Some basics:
 	nnoremap c "_c
 	set nocompatible
