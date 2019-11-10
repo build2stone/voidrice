@@ -1,18 +1,18 @@
 #!/usr/bin/env sh
-export FIFO_EXIF_IN="/tmp/lf-exiftool-${PPID}"
+export FILE_EXIF_IN="/tmp/lf-exiftool-${PPID}"
 export FIFO_EXIF_OUT="/tmp/exiftool-lf-${PPID}"
 
 cleanup() {
-	rm "$FIFO_EXIF_IN" "$FIFO_EXIF_OUT" 2>/dev/null
+	rm "$FILE_EXIF_IN" "$FIFO_EXIF_OUT" 2>/dev/null
 	pkill -P $$ 2>/dev/null
 }
 
-rm "$FIFO_EXIF_IN" "$FIFO_EXIF_OUT" &>/dev/null
-mkfifo "$FIFO_EXIF_IN" "$FIFO_EXIF_OUT"
+rm "$FILE_EXIF_IN" "$FIFO_EXIF_OUT" &>/dev/null
+mkfifo "$FIFO_EXIF_OUT"
 
 trap cleanup EXIT
 
-tail --follow "$FIFO_EXIF_IN" | exiftool -stay_open True -@ - >$FIFO_EXIF_OUT &
+exiftool -stay_open True -@ $FILE_EXIF_IN >$FIFO_EXIF_OUT &
 
 lf $@
 cleanup

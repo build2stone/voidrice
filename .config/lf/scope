@@ -124,8 +124,8 @@ handle_fallback() {
 }
 
 exifget() {
-   echo "${FILE_PATH}" >$FIFO_EXIF_IN
-   echo -e '-execute\n' >$FIFO_EXIF_IN
+   echo "${FILE_PATH}" >>$FILE_EXIF_IN
+   echo -e '-execute\n' >>$FILE_EXIF_IN
    sed "/{ready}/{s/{ready}//; q}" <$FIFO_EXIF_OUT
 }
 
