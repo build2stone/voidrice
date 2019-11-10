@@ -13,7 +13,5 @@ dunst &			# dunst for notifications
 mpdupdate &
 nm-applet &		# nm-applet for easy wireless
 
-xrdb $HOME/.Xresources
-
 # Load Xkeymap
 test -f $HOME/.Xkeymap && xkbcomp $HOME/.Xkeymap $DISPLAY
