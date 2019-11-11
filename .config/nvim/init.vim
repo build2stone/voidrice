@@ -10,8 +10,8 @@ endif
 call plug#begin('~/.config/nvim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdtree'
-Plug 'junegunn/goyo.vim'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'jreybert/vimagit'
 Plug 'LukeSmithxyz/vimling'
@@ -21,6 +21,7 @@ Plug 'tpope/vim-commentary'
 Plug 'ptzz/lf.vim'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'kovetskiy/sxhkd-vim'
+Plug 'tmsvg/pear-tree'
 call plug#end()
 
 set bg=dark
@@ -65,6 +66,12 @@ vmap <LeftRelease> "*ygv
 " Nerd tree
 	map <leader>n :NERDTreeToggle<CR>
 	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" pear-tree
+	let g:pear_tree_smart_openers = 1
+	let g:pear_tree_smart_closers = 1
+	let g:pear_tree_smart_backspace = 1
+	imap <space> <Plug>(PearTreeSpace)
 
 " vimling:
 	nm <leader>d :call ToggleDeadKeys()<CR>
