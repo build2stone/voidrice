@@ -14,7 +14,7 @@ cmd open ${{
         *.dig) setsid digital $f >/dev/null 2>&1 &
 	exit;;
     esac
-    case $(file --mime-type $f -b) in
+    case $(file --mime-type $f -b -L) in
     	text/troff) man ./ $f;;
         text/*) $EDITOR $fx;;
 	image/x-xcf|image/svg+xml) setsid gimp $f >/dev/null 2>&1 & ;;
