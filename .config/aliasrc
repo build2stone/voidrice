@@ -29,6 +29,8 @@ alias ka="killall" \
 	dec="gpg --no-symkey-cache -d" \
 	td="todoist --color" \
 	tdq="printf \"Quick-add task: \"; read task && todoist q \"#Agenda \$task\"" \
+	tds="todoist --color show \$(todoist list | dmenu -l 20 | cut -d ' ' -f 1)" \
+	tdc="todoist --color close \$(todoist list | dmenu -l 20 | cut -d ' ' -f 1)" \
 	ls="ls -hN --color=auto --group-directories-first" \
 	less="less +k" \
 	grep="grep --color=auto" \
