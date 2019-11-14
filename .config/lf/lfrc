@@ -100,8 +100,7 @@ map <enter> shell
 map R reload
 map x $$f
 map X !$f
-map o &mimeopen $f
-map O $mimeopen --ask $f
+map o $setsid $OPENER $f >/dev/null 2>&1 &
 map V $sxiv -ft *
 map <esc> clear
 cmap <up> cmd-history-prev
