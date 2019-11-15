@@ -13,6 +13,8 @@ cmd open ${{
     case $f in
         *.dig) setsid digital $f >/dev/null 2>&1 &
 	exit;;
+	*.org) setsid startemacs $f >/dev/null 2>&1 &
+	exit;;
     esac
     case $(file --mime-type $f -b -L) in
     	text/troff) man ./ $f;;
