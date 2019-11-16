@@ -41,9 +41,10 @@
 ;; Display entities (like \pi) as unicode characters
 (setq org-pretty-entities t)
 
-;;
+;; Configuring latex preview
 (require 'org)
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.4))
+(setq org-latex-create-formula-image-program 'dvisvgm)
 
 ;; Faces - Text font, colour and size
 (let* ((font 			'(:family "Sans Serif"))
