@@ -246,6 +246,12 @@
 :init
 (push 'company-lsp company-backends))
 
+;; Use posframe for compat with variable pitch text
+(use-package company-posframe
+  :ensure t
+  :init
+  (add-hook 'text-mode-hook 'company-posframe-mode))
+
 ;; Statusline
 (use-package spaceline
   :ensure t
