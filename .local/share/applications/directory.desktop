@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=File manager
+Exec=/usr/local/bin/st -e lfifo %u
