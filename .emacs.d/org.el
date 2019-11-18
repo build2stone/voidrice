@@ -35,11 +35,9 @@
                         '(("^ *\\([-]\\) "
                            (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
-;; Hide emphasis markers
-(setq org-hide-emphasis-markers t)
-
-;; Display entities (like \pi) as unicode characters
-(setq org-pretty-entities t)
+;; Make things prettier (bold text is bold, character stand-ins become those characters etc.)
+(setq org-hide-emphasis-markers t
+      org-pretty-entities	t)
 
 ;; Configuring latex preview
 (require 'org)

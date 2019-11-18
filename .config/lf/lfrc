@@ -24,7 +24,8 @@ cmd open ${{
 	audio/*) mpv --input-ipc-server=/tmp/mpvsoc$(date +%%s) $f ;;
 	video/*) setsid mpv --input-ipc-server=/tmp/mpvsoc$(date +%%s) $f -quiet >/dev/null 2>&1 & ;;
 	application/pdf) setsid zathura $fx >/dev/null 2>&1 & ;;
-        *) for f in $fx; do setsid $OPENER $f >/dev/null 2>&1 & done;;
+        #*) for f in $fx; do setsid $OPENER $f >/dev/null 2>&1 & done;;
+        *) setsid $OPENER $f >/dev/null 2>&1 &;;
     esac
 }}
 
@@ -57,34 +58,34 @@ cmd copyto ${{
 # Adapted from here: https://github.com/gokcehan/lf/issues/149
 cmd blkrename ${{
 	index=$(mktemp /tmp/lf-bulk-rename-index.XXXXXXXXXX)
-	index_edit=$(mktemp /tmp/lf-bulk-rename.XXXXXXXXXX)
+	index_edit=$(mktemp /tmp/lf-bulk-rename-edit.XXXXXXXXXX)
+	index_move=$(mktemp /tmp/lf-bulk-rename-move.XXXXXXXXXX)
 
+	# If files selected use those, else grab all in current directory
 	if [ -n "${fs}" ]; then
 		echo "$fs" > $index
-		cat $index | awk '{ system("basename "$0) }' > $index_edit
+		echo "$fs" | xargs -d "\n" -n 1 basename > $index_edit
 	else
-		echo "$(ls "$(dirname $f)" | cat)" > $index
-		cat $index > $index_edit
+		ls | tee $index $index_edit
 	fi
 
+	# Edit names while displaying original names in scratch buffer (with prepended paths if selected)
+	# (Assuming $EDITOR is vim/nvim)
 	$EDITOR -c "source $HOME/.config/lf/withdisplay.vim" -O $index_edit $index
 
 	if [ -n "${fs}" ]; then
-		# The buffer variable is needed because pasting a file's contents into itself doesn't work
-		# The awk script returns the absolute directory of every file in $index_edit
-		buffer=$(cat $index_edit | awk '{ system("dirname $(readlink -f "$0")") }' | paste -d "/" - $index_edit)
-		echo "$buffer" > $index_edit
+		cat $index_edit | xargs -d "\n" -I %f -n 1 dirname $(readlink -f '%f') | paste -d "/" - $index_edit > $index_move
+	else
+		cat $index_edit > $index_move
 	fi
 
-	# To replace newlines stripped by process substitution
-	sed -i "s/ \//\n\//g" $index_edit
-
+	# Move files if number of lines unchanged
 	if [ $(cat $index | wc -l) -eq $(cat $index_edit | wc -l) ]; then
-		 paste $index $index_edit | awk -F"\t" '{ if( $1 != $2 ) { system("mv -n "$1" "$2) } }'
+		 paste -d "\n" $index $index_move | xargs -d "\n" -n 2 mv -n
 	else
 		echo "Number of lines must stay the same"
 	fi
-	rm $index $index_edit
+	rm $index $index_edit $index_move
 }}
 
 # Bindings
