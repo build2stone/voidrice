@@ -20,8 +20,10 @@
 ;; Indent automatically
 (add-hook 'org-mode-hook 'org-indent-mode)
 
+;; html-export
 (use-package htmlize
   :ensure t)
+
 
 ;; Visual changes
 

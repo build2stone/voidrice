@@ -24,8 +24,7 @@ cmd open ${{
 	audio/*) mpv --input-ipc-server=/tmp/mpvsoc$(date +%%s) $f ;;
 	video/*) setsid mpv --input-ipc-server=/tmp/mpvsoc$(date +%%s) $f -quiet >/dev/null 2>&1 & ;;
 	application/pdf) setsid zathura $fx >/dev/null 2>&1 & ;;
-        #*) for f in $fx; do setsid $OPENER $f >/dev/null 2>&1 & done;;
-        *) setsid $OPENER $f >/dev/null 2>&1 &;;
+        *) for f in $fx; do setsid $OPENER $f >/dev/null 2>&1 & done;;
     esac
 }}
 
@@ -66,7 +65,7 @@ cmd blkrename ${{
 		echo "$fs" > $index
 		echo "$fs" | xargs -d "\n" -n 1 basename > $index_edit
 	else
-		ls | tee $index $index_edit
+		ls | tee $index $index_edit >/dev/null
 	fi
 
 	# Edit names while displaying original names in scratch buffer (with prepended paths if selected)
@@ -74,17 +73,18 @@ cmd blkrename ${{
 	$EDITOR -c "source $HOME/.config/lf/withdisplay.vim" -O $index_edit $index
 
 	if [ -n "${fs}" ]; then
-		cat $index_edit | xargs -d "\n" -I %f -n 1 dirname $(readlink -f '%f') | paste -d "/" - $index_edit > $index_move
+		xargs -a $index_edit -d "\n" -I %f -n 1 dirname $(realpath -s '%f') | paste -d "/" - $index_edit > $index_move
 	else
 		cat $index_edit > $index_move
 	fi
 
 	# Move files if number of lines unchanged
-	if [ $(cat $index | wc -l) -eq $(cat $index_edit | wc -l) ]; then
-		 paste -d "\n" $index $index_move | xargs -d "\n" -n 2 mv -n
+	if [ $(cat $index | wc -l) -eq $(cat $index_move | wc -l) ]; then
+		paste -d "\n" $index $index_move | xargs -d "\n" -n 2 mv -Tn
 	else
 		echo "Number of lines must stay the same"
 	fi
+
 	rm $index $index_edit $index_move
 }}
 
