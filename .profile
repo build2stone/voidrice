@@ -13,11 +13,12 @@ export REFER="$HOME/Documents/referbib"
 export SUDO_ASKPASS="$HOME/.local/bin/tools/dmenupass"
 export NOTMUCH_CONFIG="$HOME/.config/notmuch-config"
 export GTK2_RC_FILES="$HOME/.config/gtk-2.0/gtkrc-2.0"
+export LESSHISTFILE="-"
+export INPUTRC="$HOME/.config/inputrc"
 
-# Add ~/bin to PATH
 export PATH=$PATH:$HOME/bin
-# Make swing applications look nicer (Antialiasing etc.)
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+
 # For proper touch input in firefox
 export MOZ_USE_XINPUT2=1
 
