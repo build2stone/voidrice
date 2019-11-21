@@ -1,31 +1,16 @@
 ;; org-mode settings and plugins
 
-(setq org-html-validation-link nil)
-(setq org-todo-keywords
-      '((sequence "TODO" "WORKING" "HOLD" "|" "DONE")))
-(setq org-todo-keyword-faces
-      '(("TODO"    . "blue")
-	("WORKING" . "yellow")
-	("HOLD"    . "red")
-	("DONE"    . "green")))
-
-(setq org-startup-indented 'f)
-(setq org-directory "~/org")
-;; (setq org-special-ctrl-a/e 't)
-(setq org-default-notes-file (concat org-directory "/notes.org"))
-(setq org-src-fontify-natively 't)
-(setq org-src-tab-acts-natively t)
-(setq org-src-window-setup 'current-window)
-
-;; Indent automatically
-(add-hook 'org-mode-hook 'org-indent-mode)
+(setq org-startup-indented t
+      org-directory "~/org"
+      org-default-notes-file (concat org-directory "/notes.org")
+      org-src-fontify-natively t
+      org-src-tab-acts-natively t
+      org-hide-emphasis-markers t
+      org-pretty-entities	t)
 
 ;; html-export
 (use-package htmlize
   :ensure t)
-
-
-;; Visual changes
 
 ;; Fancy unicode bullets
 (use-package org-bullets
@@ -37,13 +22,10 @@
                         '(("^ *\\([-]\\) "
                            (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
-;; Make things prettier (bold text is bold, character stand-ins become those characters etc.)
-(setq org-hide-emphasis-markers t
-      org-pretty-entities	t)
 
-;; Configuring latex preview
+;; Latex preview
 (require 'org)
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.4))
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
 (setq org-latex-create-formula-image-program 'dvisvgm)
 
 ;; Faces - Text font, colour and size

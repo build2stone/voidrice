@@ -98,6 +98,7 @@ map D delete
 map C copyto
 map M moveto
 map a push %mkdir<space>
+map t push %touch<space>
 map r push :rename<space>
 map <enter> shell
 map R reload

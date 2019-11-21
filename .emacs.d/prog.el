@@ -24,9 +24,19 @@
 ; (add-hook 'prog-mode-hook 'electric-pair-mode)
 
 ;; Auto-indent
-(add-hook 'prog-mode-hook 'aggressive-indent-mode)
-
 (use-package aggressive-indent
   :ensure t
   :config
   (add-hook 'prog-mode-hook 'aggressive-indent-mode))
+
+;; LSP
+(use-package lsp-mode
+  :ensure t
+  :init
+  (add-hook 'prog-major-mode #'lsp-prog-major-mode-enable))
+
+(use-package lsp-ui
+  :ensure t
+  :init
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+
