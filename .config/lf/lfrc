@@ -109,4 +109,6 @@ map V $sxiv -ft *
 map <esc> clear
 cmap <up> cmd-history-prev
 cmap <down> cmd-history-next
+map <c-e> up
+map <c-y> down
 map i $SHOWALL=true ~/.config/lf/scope $f | less +k
