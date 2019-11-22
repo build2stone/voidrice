@@ -41,6 +41,9 @@ alias ka="killall" \
 	lf="lfifo" \
 	emacs="startemacs"
 
+# These aliases require zsh
+alias tdl="pty todoist --color list | less"
+
 command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d" # Use neovim for vim if present.
 
 vf() { fzf | xargs -r -I % $EDITOR % ;}

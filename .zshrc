@@ -89,6 +89,10 @@ bindkey '^e' edit-command-line
 [ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc"
 [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
 
+# Load pty.zsh for piping colored output
+# (Makes commands think stdout is a tty)
+source "$HOME/.local/zshscripts/pty.zsh"
+
 # Load plugins
 zplugin light zsh-users/zsh-autosuggestions
 zplugin light hlissner/zsh-autopair

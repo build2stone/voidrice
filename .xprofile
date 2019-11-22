@@ -14,4 +14,4 @@ mpdupdate &
 nm-applet &		# nm-applet for easy wireless
 
 # Load Xkeymap
-test -f $HOME/.Xkeymap && xkbcomp $HOME/.Xkeymap $DISPLAY
+test -f $HOME/.config/Xkeymap && xkbcomp $HOME/.config/Xkeymap $DISPLAY
