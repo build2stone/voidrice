@@ -41,12 +41,23 @@
   :init
   (add-hook 'org-mode-hook 'company-posframe-mode))
 
-;; Display docs in prog-mode
+;; Adds a hook that's run on buffer switch
+;; Why do I have to install an extra package for this?
+(use-package switch-buffer-functions
+  :ensure t)
+
+;; Only enable company-posframe-mode in org-mode
+;; (It conflicts with company-quickhelp)
+(defun my-use-company-posframe-mode-maybe(prev cur)
+    (cond ((derived-mode-p 'org-mode)
+	    (company-posframe-mode 1))
+	  (t
+	    (company-posframe-mode -1))))
+(add-hook 'switch-buffer-functions 'my-use-company-posframe-mode-maybe)
+
+;; Display docs in company completions
 (use-package company-quickhelp
   :ensure t
   :init
-  (add-hook 'prog-mode-hook 'company-quickhelp-mode)
-  (add-hook 'prog-mode-hook '(lambda() (company-posframe-mode -1)))
-  )
-;; That second hook also activates when viewing a src block in org-mode...
+  (add-hook 'prog-mode-hook 'company-quickhelp-mode))
 
