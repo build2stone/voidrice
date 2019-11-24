@@ -70,8 +70,22 @@
 ;; Evil-mode
 (use-package evil
   :ensure t
+  :init
+  (setq evil-want-keybinding nil)
   :config
   (evil-mode 1))
+
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :custom (evil-collection-setup-minibuffer t)
+  :config
+  (evil-collection-init))
+
+(use-package evil-surround
+  :ensure t
+  :config
+  (global-evil-surround-mode 1))
 
 (use-package evil-escape
   :ensure t

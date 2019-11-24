@@ -12,6 +12,20 @@
 (use-package htmlize
   :ensure t)
 
+;; Unbind org-shifttab when in company completion
+(defun my-unbind-org-shifttab (var)
+    (define-key org-mode-map (kbd "<backtab>") nil)
+    (define-key org-mode-map (kbd "<S-tab>") nil)
+    (define-key org-mode-map (kbd "<S-iso-lefttab>") nil))
+(add-hook 'company-completion-started-hook 'my-unbind-org-shifttab)
+
+(defun my-rebind-org-shifttab (var)
+    (define-key org-mode-map (kbd "<backtab>") 'org-shifttab)
+    (define-key org-mode-map (kbd "<S-tab>") 'org-shifttab)
+    (define-key org-mode-map (kbd "<S-iso-lefttab>") 'org-shifttab))
+(add-hook 'company-completion-finished-hook 'my-rebind-org-shifttab)
+(add-hook 'company-completion-cancelled-hook 'my-rebind-org-shifttab)
+
 ;; Fancy unicode bullets
 (use-package org-bullets
   :ensure t
