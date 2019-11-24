@@ -12,6 +12,11 @@
   (package-install 'use-package))
 (require 'use-package)
 
+(use-package paradox
+  :ensure t
+  :config (setq paradox-execute-asynchronously t)
+  :init (paradox-enable))
+
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
       backup-by-copying t
       version-control t
