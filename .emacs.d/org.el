@@ -17,14 +17,17 @@
     (define-key org-mode-map (kbd "<backtab>") nil)
     (define-key org-mode-map (kbd "<S-tab>") nil)
     (define-key org-mode-map (kbd "<S-iso-lefttab>") nil))
-(add-hook 'company-completion-started-hook 'my-unbind-org-shifttab)
-
+(add-hook 'org-mode-hook (lambda()
+			   (add-hook 'company-completion-started-hook 'my-unbind-org-shifttab nil 'local)))
+;; And rebind when exiting
 (defun my-rebind-org-shifttab (var)
     (define-key org-mode-map (kbd "<backtab>") 'org-shifttab)
     (define-key org-mode-map (kbd "<S-tab>") 'org-shifttab)
     (define-key org-mode-map (kbd "<S-iso-lefttab>") 'org-shifttab))
-(add-hook 'company-completion-finished-hook 'my-rebind-org-shifttab)
-(add-hook 'company-completion-cancelled-hook 'my-rebind-org-shifttab)
+(add-hook 'org-mode-hook (lambda()
+			   (add-hook 'company-completion-finished-hook 'my-rebind-org-shifttab nil 'local)))
+(add-hook 'org-mode-hook (lambda()
+			   (add-hook 'company-completion-cancelled-hook 'my-rebind-org-shifttab nil 'local)))
 
 ;; Fancy unicode bullets
 (use-package org-bullets
