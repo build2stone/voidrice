@@ -12,6 +12,11 @@
   (package-install 'use-package))
 (require 'use-package)
 
+;; Makes garbage-collection smooth
+(use-package gcmh
+  :ensure t
+  :init (gcmh-mode 1))
+
 (use-package paradox
   :ensure t
   :config (setq paradox-execute-asynchronously t)
@@ -23,15 +28,12 @@
       delete-old-versions t
       kept-new-versions 20
       kept-old-versions 5
-      auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
+      auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
+      bidi-paragraph-direction 'left-to-right)
 
 (fset 'yes-or-no-p 'y-or-n-p) 				;; Fast y/n
 (setq custom-file (make-temp-file "emacs-custom")) 	;; Add customized settings to temp file
 (global-auto-revert-mode t) 				;; Auto-reload files
-
-(setq gc-cons-threshold (* 128 1024 1024))
-(add-hook 'emacs-startup-hook
-          (lambda () (setq gc-cons-threshold (* 20 1024 1024))))
 
 ;; UI configurations
 (setq inhibit-startup-screen t
@@ -116,7 +118,8 @@
 	helm-move-to-line-cycle-in-source t
 	helm-echo-input-in-header-line t
 	helm-autoresize-max-height 0
-	helm-autoresize-min-height 20)
+	helm-autoresize-min-height 20
+	helm-buffer-skip-remote-checking t)
   :config
   (helm-mode 1))
 
