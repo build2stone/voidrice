@@ -122,11 +122,14 @@ handle_fallback() {
     echo '----- File Type Classification -----' && file --dereference --brief -- "${FILE_PATH}"
     exit 1
 }
-
+LOG=$HOME/log
 exifget() {
+   (
+   flock 200
    echo "${FILE_PATH}" >>$FILE_EXIF_IN
    echo -e '-execute\n' >>$FILE_EXIF_IN
-   sed "/{ready}/{s/{ready}//; q}" <$FIFO_EXIF_OUT
+   sed "/{ready}/{s/{ready}//; q}" <$FIFO_EXIF_OUT | tail -n +2
+   ) 200>>"$FILE_EXIF_IN"
 }
 
 
