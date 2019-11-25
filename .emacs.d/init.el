@@ -44,6 +44,11 @@
 (menu-bar-mode   -1)
 (blink-cursor-mode -1)
 
+;; Make scrolling nicer
+(setq scroll-margin 7
+      scroll-conservatively 10000
+      scroll-preserve-screen-position 1)
+
 ;; Show matching parens
 (setq show-paren-delay 0)
 (show-paren-mode  1)
@@ -59,11 +64,8 @@
 		   "prog.el"))
 (load-file (concat (file-name-directory load-file-name)
 		   "company.el"))
-
-;; Make scrolling nicer
-(setq scroll-margin 7
-      scroll-conservatively 10000
-      scroll-preserve-screen-position 1)
+(load-file (concat (file-name-directory load-file-name)
+		   "evil.el"))
 
 ;; Markdown-mode
 (use-package markdown-mode
@@ -73,33 +75,6 @@
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
-
-;; Evil-mode
-(use-package evil
-  :ensure t
-  :init
-  (setq evil-want-keybinding nil)
-  :config
-  (evil-mode 1))
-
-(use-package evil-collection
-  :after evil
-  :ensure t
-  :custom (evil-collection-setup-minibuffer t)
-  :config
-  (evil-collection-init))
-
-(use-package evil-surround
-  :ensure t
-  :config
-  (global-evil-surround-mode 1))
-
-(use-package evil-escape
-  :ensure t
-  :init
-  (setq-default evil-escape-key-sequence "fd")
-  :config
-  (evil-escape-mode 1))
 
 ;; Helm
 (use-package helm
@@ -154,8 +129,10 @@
 ;; Custom keybinding
 (use-package general
   :ensure t
-  :config (general-define-key
-  :states '(normal visual insert emacs)
+  :config
+  (general-define-key
+  :states '(normal visual motion insert emacs)
+  :keymaps 'override
   :prefix "SPC"
   :non-normal-prefix "M-SPC"
   "/"   '(helm-projectile-rg :which-key "ripgrep")
