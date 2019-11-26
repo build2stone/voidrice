@@ -129,32 +129,33 @@
 ;; Custom keybinding
 (use-package general
   :ensure t
+  :init (general-evil-setup)
   :config
   (general-define-key
   :states '(normal visual motion insert emacs)
   :keymaps 'override
   :prefix "SPC"
   :non-normal-prefix "M-SPC"
-  "/"   '(helm-projectile-rg :which-key "ripgrep")
+  "/"   '(helm-projectile-rg 	:which-key "ripgrep")
   "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
-  "SPC" '(helm-M-x :which-key "M-x")
-  "pf"  '(helm-projectile-find-file :which-key "find files")
-  "pp"  '(helm-projectile-switch-project :which-key "switch project")
-  "pb"  '(helm-projectile-switch-to-buffer :which-key "switch buffer")
-  "pr"  '(helm-show-kill-ring :which-key "show kill ring")
+  "SPC" '(helm-M-x 		:which-key "M-x")
+  ;; Projectile
+  "p"	'(:ignore t 				:which-key "projectile")
+  "pf"  '(helm-projectile-find-file		:which-key "find files")
+  "pp"  '(helm-projectile-switch-project	:which-key "switch project")
+  "pb"  '(helm-projectile-switch-to-buffer	:which-key "switch buffer")
+  ;; Kill ring
+  "k"  '(helm-show-kill-ring	:which-key "show kill ring")
   ;; Buffers
-  "bb"  '(helm-mini :which-key "buffers list")
-  ;; Window
-  "wl"  '(windmove-right :which-key "move right")
-  "wh"  '(windmove-left :which-key "move left")
-  "wk"  '(windmove-up :which-key "move up")
-  "wj"  '(windmove-down :which-key "move bottom")
-  "w/"  '(split-window-right :which-key "split right")
-  "w-"  '(split-window-below :which-key "split bottom")
-  "wx"  '(delete-window :which-key "delete window")
-  "qz"  '(delete-frame :which-key "delete frame")
-  "qq"  '(kill-emacs :which-key "quit")
-))
+  "b"  '(helm-mini 		:which-key "buffers list")
+  ;; Quit
+  "q"	'(:ignore t		:which-key "quit")
+  "qz"  '(delete-frame		:which-key "delete frame")
+  "qq"  '(kill-emacs 		:which-key "quit"))
+
+  ;; Access evil window keybinds with SPC-w
+  (general-nmap "<SPC>w" (general-simulate-key "C-w" :which-key "window operations"))
+  )
 
 ;; Flycheck
 (use-package flycheck

@@ -18,6 +18,18 @@
   :config
   (global-evil-surround-mode 1))
 
+(use-package evil-commentary
+  :ensure t
+  :config
+  (evil-commentary-mode))
+
+(use-package evil-goggles
+  :ensure t
+  :init (setq evil-goggles-blocking-duration 0.150)
+  :config
+  (evil-goggles-use-diff-refine-faces)
+  (evil-goggles-mode))
+
 ;; Make evil use default paragraph definitions
 (with-eval-after-load 'evil
   (defadvice forward-evil-paragraph (around default-values activate)
