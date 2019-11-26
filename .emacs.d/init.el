@@ -57,7 +57,8 @@
 
 ;; Load theme
 (use-package gruvbox-theme
-  :ensure t)
+  :ensure t
+  :config (load-theme 'gruvbox t))
 
 ;; Load other files
 (load-file (concat (file-name-directory load-file-name)
@@ -139,15 +140,14 @@
   "pb"  '(helm-projectile-switch-to-buffer	:which-key "switch buffer")
   ;; Kill ring
   "k"  '(helm-show-kill-ring	:which-key "show kill ring")
+  ;; Window commands
+  "w"  (general-simulate-key "C-w" :which-key "window operations")
   ;; Buffers
   "b"  '(helm-mini 		:which-key "buffers list")
   ;; Quit
   "q"	'(:ignore t		:which-key "quit")
   "qz"  '(delete-frame		:which-key "delete frame")
   "qq"  '(kill-emacs 		:which-key "quit"))
-
-  ;; Access evil window keybinds with SPC-w
-  (general-nmap "<SPC>w" (general-simulate-key "C-w" :which-key "window operations"))
   )
 
 ;; Flycheck
