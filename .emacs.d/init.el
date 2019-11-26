@@ -20,6 +20,8 @@
 (use-package paradox
   :ensure t
   :config (setq paradox-execute-asynchronously t)
+  :custom
+  (paradox-github-token t)
   :init (paradox-enable))
 
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))

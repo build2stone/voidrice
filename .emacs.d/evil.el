@@ -30,6 +30,17 @@
   (evil-goggles-use-diff-refine-faces)
   (evil-goggles-mode))
 
+(use-package evil-org
+  :ensure t
+  :after org
+  :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook 'evil-org-mode-hook
+            (lambda ()
+              (evil-org-set-key-theme)))
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
+
 ;; Make evil use default paragraph definitions
 (with-eval-after-load 'evil
   (defadvice forward-evil-paragraph (around default-values activate)
