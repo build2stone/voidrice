@@ -130,24 +130,34 @@
   :keymaps 'override
   :prefix "SPC"
   :non-normal-prefix "M-SPC"
-  "/"   '(helm-projectile-rg 	:which-key "ripgrep")
-  "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
-  "SPC" '(helm-M-x 		:which-key "M-x")
+  "/"	'(helm-projectile-rg 			:which-key "ripgrep")
+  "TAB"	'(switch-to-prev-buffer 		:which-key "previous buffer")
+  "SPC"	'(helm-M-x 				:which-key "M-x")
   ;; Projectile
   "p"	'(:ignore t 				:which-key "projectile")
-  "pf"  '(helm-projectile-find-file		:which-key "find files")
-  "pp"  '(helm-projectile-switch-project	:which-key "switch project")
-  "pb"  '(helm-projectile-switch-to-buffer	:which-key "switch buffer")
+  "pf"	'(helm-projectile-find-file		:which-key "find files")
+  "pp"	'(helm-projectile-switch-project	:which-key "switch project")
+  "pb"	'(helm-projectile-switch-to-buffer	:which-key "switch buffer")
   ;; Kill ring
-  "k"  '(helm-show-kill-ring	:which-key "show kill ring")
+  "k"	'(helm-show-kill-ring			:which-key "show kill ring")
   ;; Window commands
-  "w"  (general-simulate-key "C-w" :which-key "window operations")
+  "w"	(general-simulate-key "C-w" 		:which-key "window operations")
   ;; Buffers
-  "b"  '(helm-mini 		:which-key "buffers list")
+  "b"	'(helm-mini 				:which-key "buffers list")
   ;; Quit
-  "q"	'(:ignore t		:which-key "quit")
-  "qz"  '(delete-frame		:which-key "delete frame")
-  "qq"  '(kill-emacs 		:which-key "quit"))
+  "q"	'(:ignore t				:which-key "quit")
+  "qz"	'(delete-frame				:which-key "delete frame")
+  "qq"	'(kill-emacs 				:which-key "quit"))
+
+  ;; Minibuffer movement
+  (general-define-key
+  :keymaps '(minibuffer-local-map
+	     minibuffer-local-ns-map
+	     minibuffer-local-completion-map
+	     minibuffer-local-must-match-map
+	     minibuffer-local-isearch-map)
+  "M-j" (general-key "C-n")
+  "M-k" (general-key "C-p"))
   )
 
 ;; Flycheck
