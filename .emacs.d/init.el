@@ -125,9 +125,12 @@
   :ensure t
   :init (general-evil-setup)
   :config
-  (general-define-key
+  ;; Basic definer
+  (general-create-definer my-define-almost-everywhere
   :states '(normal visual motion insert emacs)
-  :keymaps 'override
+  :keymaps 'override)
+
+  (my-define-almost-everywhere
   :prefix "SPC"
   :non-normal-prefix "M-SPC"
   "/"	'(helm-projectile-rg 			:which-key "ripgrep")
@@ -149,6 +152,10 @@
   "q"	'(:ignore t				:which-key "quit")
   "qz"	'(delete-frame				:which-key "delete frame")
   "qq"	'(kill-emacs 				:which-key "quit"))
+
+  ;; , for mode-specific prefix
+  (my-define-almost-everywhere
+  "," (general-simulate-key "C-c"))
 
   ;; Minibuffer movement
   (general-define-key

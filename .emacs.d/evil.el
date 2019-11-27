@@ -31,7 +31,7 @@
 
 (use-package evil-goggles
   :ensure t
-  :init (setq evil-goggles-blocking-duration 0.150)
+  :init (setq evil-goggles-blocking-duration 0.100)
   :config
   (evil-goggles-use-diff-refine-faces)
   (evil-goggles-mode))
