@@ -1,7 +1,7 @@
 ;; org-mode settings and plugins
 
-(use-package org-plus-contrib
-  :ensure t
+(use-package org
+  :ensure org-plus-contrib
   :init (setq org-startup-indented t
 	        org-directory "~/org"
 	        org-default-notes-file (concat org-directory "/notes.org")
