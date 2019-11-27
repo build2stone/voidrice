@@ -140,8 +140,9 @@
   "pb"	'(helm-projectile-switch-to-buffer	:which-key "switch buffer")
   ;; Kill ring
   "k"	'(helm-show-kill-ring			:which-key "show kill ring")
-  ;; Window commands
+  ;; Simulated keys
   "w"	(general-simulate-key "C-w" 		:which-key "window operations")
+  "h"	(general-simulate-key "C-h" 		:which-key "help")
   ;; Buffers
   "b"	'(helm-mini 				:which-key "buffers list")
   ;; Quit
