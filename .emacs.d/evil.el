@@ -47,10 +47,3 @@
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 
-;; Make evil use default paragraph definitions
-(with-eval-after-load 'evil
-  (defadvice forward-evil-paragraph (around default-values activate)
-    (let ((paragraph-start (default-value 'paragraph-start))
-          (paragraph-separate (default-value 'paragraph-separate)))
-      ad-do-it)))
-
