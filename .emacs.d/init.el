@@ -95,22 +95,6 @@
 ;; RipGrep
 (use-package helm-rg :ensure t)
 
-;; Projectile
-(use-package projectile
-  :ensure t
-  :init
-  (setq projectile-require-project-root nil)
-  :config
-  (projectile-mode 1))
-
-;; Helm Projectile
-(use-package helm-projectile
-  :ensure t
-  :init
-  (setq helm-projectile-fuzzy-match t)
-  :config
-  (helm-projectile-on))
-
 ;; Which Key
 (use-package which-key
   :ensure t
@@ -136,11 +120,6 @@
   "/"	'(helm-projectile-rg 			:which-key "ripgrep")
   "TAB"	'(switch-to-prev-buffer 		:which-key "previous buffer")
   "SPC"	'(helm-M-x 				:which-key "M-x")
-  ;; Projectile
-  "p"	'(:ignore t 				:which-key "projectile")
-  "pf"	'(helm-projectile-find-file		:which-key "find files")
-  "pp"	'(helm-projectile-switch-project	:which-key "switch project")
-  "pb"	'(helm-projectile-switch-to-buffer	:which-key "switch buffer")
   ;; Kill ring
   "k"	'(helm-show-kill-ring			:which-key "show kill ring")
   ;; Simulated keys
@@ -167,11 +146,6 @@
   "M-j" (general-key "C-n")
   "M-k" (general-key "C-p"))
   )
-
-;; Flycheck
-(use-package flycheck
-  :ensure t
-  :init (global-flycheck-mode))
 
 ;; Statusline
 (use-package spaceline
