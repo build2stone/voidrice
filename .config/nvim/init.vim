@@ -22,6 +22,7 @@ Plug 'ptzz/lf.vim'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'kovetskiy/sxhkd-vim'
 Plug 'tmsvg/pear-tree'
+Plug 'machakann/vim-highlightedyank'
 call plug#end()
 
 set bg=dark
@@ -79,6 +80,9 @@ vmap <LeftRelease> "*ygv
 	nm <leader>i :call ToggleIPA()<CR>
 	imap <leader>i <esc>:call ToggleIPA()<CR>a
 	nm <leader>q :call ToggleProse()<CR>
+
+" highlightedyank
+	let g:highlightedyank_highlight_duration = 200
 
 " Shortcutting split navigation, saving a keypress:
 	map <C-h> <C-w>h
