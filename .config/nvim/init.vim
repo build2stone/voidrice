@@ -8,29 +8,39 @@ if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/plugged')
+Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdtree'
-Plug 'junegunn/goyo.vim'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'jreybert/vimagit'
 Plug 'lukesmithxyz/vimling'
 Plug 'vimwiki/vimwiki'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-commentary'
+Plug 'ptzz/lf.vim'
 Plug 'kovetskiy/sxhkd-vim'
+Plug 'tmsvg/pear-tree'
+Plug 'machakann/vim-highlightedyank'
 call plug#end()
 
-set bg=light
+set bg=dark
 set go=a
 set mouse=a
 set nohlsearch
 set clipboard+=unnamedplus
+
+" Text selected with mouse goes to primary selection
+set mouse=a
+vmap <LeftRelease> "*ygv
 
 " Some basics:
 	nnoremap c "_c
 	set nocompatible
 	filetype plugin on
 	syntax on
+	colorscheme gruvbox
+	" highlight Normal ctermbg=none
 	set encoding=utf-8
 	set number relativenumber
 " Enable autocompletion:
@@ -39,7 +49,7 @@ set clipboard+=unnamedplus
 	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Goyo plugin makes text more readable when writing prose:
-	map <leader>f :Goyo \| set bg=light \| set linebreak<CR>
+	map <leader>f :Goyo \| set linebreak<CR>
 
 " Spell-check set to <leader>o, 'o' for 'orthography':
 	map <leader>o :setlocal spell! spelllang=en_us<CR>
@@ -47,9 +57,21 @@ set clipboard+=unnamedplus
 " Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
 	set splitbelow splitright
 
+" airline
+	let g:airline_theme='dark'
+" lf
+	let g:lf_map_keys = 0
+	map <leader>l :Lf<CR>
+
 " Nerd tree
 	map <leader>n :NERDTreeToggle<CR>
 	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" pear-tree
+	let g:pear_tree_smart_openers = 1
+	let g:pear_tree_smart_closers = 1
+	let g:pear_tree_smart_backspace = 1
+	imap <space> <Plug>(PearTreeSpace)
 
 " vimling:
 	nm <leader>d :call ToggleDeadKeys()<CR>
@@ -57,6 +79,9 @@ set clipboard+=unnamedplus
 	nm <leader>i :call ToggleIPA()<CR>
 	imap <leader>i <esc>:call ToggleIPA()<CR>a
 	nm <leader>q :call ToggleProse()<CR>
+
+" highlightedyank
+	let g:highlightedyank_highlight_duration = 200
 
 " Shortcutting split navigation, saving a keypress:
 	map <C-h> <C-w>h
@@ -109,3 +134,5 @@ set clipboard+=unnamedplus
 	autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
 " Update binds when sxhkdrc is updated.
 	autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
+" Auto-compile zsh files
+	autocmd BufWritePost *.zsh !zcompile %

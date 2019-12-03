@@ -4,7 +4,7 @@ shell_shortcuts="$HOME/.config/shortcutrc"
 ranger_shortcuts="$HOME/.config/ranger/shortcuts.conf"
 qute_shortcuts="/dev/null"
 fish_shortcuts="/dev/null"
-vifm_shortcuts="$HOME/.config/vifm/vifmshortcuts"
+vifm_shortcuts="/dev/null"
 
 # Remove, prepare files
 rm -f "$ranger_shortcuts" "$qute_shortcuts" 2>/dev/null

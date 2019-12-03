@@ -9,10 +9,12 @@
 
 # #---Basic Definitions---# #
 for_window [class="^.*"] border pixel 2
-gaps inner 15
-gaps outer 15
+gaps inner 0
+gaps outer 0
 set $term --no-startup-id $TERMINAL
 set $mod Mod4
+
+workspace_auto_back_and_forth yes
 
 # #---Dropdown Windows---# #
 # General dropdown window traits. The order can matter.
@@ -21,10 +23,14 @@ for_window [instance="dropdown_*"] move scratchpad
 for_window [instance="dropdown_*"] sticky enable
 for_window [instance="dropdown_*"] scratchpad show
 for_window [instance="dropdown_tmuxdd"] resize set 625 450
-for_window [instance="dropdown_dropdowncalc"] resize set 800 300
+for_window [instance="dropdown_rcalc"] resize set 800 300
 for_window [instance="dropdown_tmuxdd"] border pixel 3
-for_window [instance="dropdown_dropdowncalc"] border pixel 2
+for_window [instance="dropdown_rcalc"] border pixel 2
 for_window [instance="dropdown_*"] move position center
+
+for_window [class="jetbrains-toolbox"] move scratchpad
+for_window [class="jetbrains-toolbox"] sticky enable
+for_window [class="jetbrains-toolbox"] scratchpad show
 
 bar {
 	font pango:mono 10
@@ -47,7 +53,7 @@ bindsym $mod+Shift+Escape 	exec --no-startup-id prompt "Exit i3?" "i3-msg exit"
 bindsym $mod+Shift+Delete	exec --no-startup-id lmc truemute ; exec --no-startup-id lmc pause ; exec --no-startup-id pauseallmpv; workspace 0; exec $term -e htop ; exec $term -e $FILE
 
 # #---Letter Key Bindings---# #
-bindsym $mod+q			[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
+bindsym $mod+q			[con_id="__focused__" instance="^(?!dropdown_|JetBrains Toolbox).*$"] kill
 bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdown_).*$"] exec --no-startup-id kill -9 `xdotool getwindowfocus getwindowpid`
 
 bindsym $mod+Shift+r		exec --no-startup-id winresize
@@ -65,7 +71,7 @@ bindsym $mod+Shift+i		exec --no-startup-id i3resize up
 bindsym $mod+o			sticky toggle
 bindsym $mod+Shift+o		exec --no-startup-id i3resize right
 
-bindsym $mod+a			exec --no-startup-id ddspawn dropdowncalc -f mono:pixelsize=24
+bindsym $mod+a			exec --no-startup-id ddspawn rcalc
 
 bindsym $mod+s			gaps inner current plus 5
 bindsym $mod+Shift+s		gaps inner current minus 5
@@ -179,7 +185,7 @@ for_window [title="mpvfloat"] border pixel 0
 no_focus [title="mpvfloat"]
 
 # #---Function Buttons---# #
-bindsym $mod+F2		restart
+bindsym $mod+F2		exec --no-startup-id i3restart
 
 # #---Arrow Keys---# #
 bindsym $mod+Left		focus left

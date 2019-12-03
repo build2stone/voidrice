@@ -7,11 +7,17 @@ set shellopts '-eu'
 set ifs "\n"
 set scrolloff 10
 set color256
-set icons		# Enable icons. Requires nerd fonts and LF_ICONS variable.
+# set icons		# Enable icons. Requires nerd fonts and LF_ICONS variable.
 
 # cmds/functions
 cmd open ${{
-    case $(file --mime-type $f -b) in
+    case $f in
+        *.dig) setsid digital $f >/dev/null 2>&1 &
+	exit;;
+	*.org) setsid startemacs $f >/dev/null 2>&1 &
+	exit;;
+    esac
+    case $(file --mime-type $f -b -L) in
     	text/troff) man ./ $f;;
         text/*) $EDITOR $fx;;
 	image/x-xcf|image/svg+xml) setsid gimp $f >/dev/null 2>&1 & ;;
@@ -49,21 +55,67 @@ cmd copyto ${{
 	notify-send "📋 File(s) copied." "File(s) copies to $dest."
 }}
 
+cmd blkrename ${{
+	index=$(mktemp /tmp/lf-bulk-rename-index.XXXXXXXXXX)
+	index_edit=$(mktemp /tmp/lf-bulk-rename-edit.XXXXXXXXXX)
+	index_move=$(mktemp /tmp/lf-bulk-rename-move.XXXXXXXXXX)
+
+	# If files selected use those, else grab all in current directory
+	if [ -n "${fs}" ]; then
+		echo "$fs" > $index
+		echo "$fs" | xargs -d "\n" -n 1 basename > $index_edit
+	else
+		ls | tee $index $index_edit >/dev/null
+	fi
+
+	# Edit names while displaying original names in scratch buffer (with prepended paths if selected)
+	# (Assuming $EDITOR is vim/nvim)
+	$EDITOR -c "source $HOME/.config/lf/withdisplay.vim" -O $index_edit $index
+
+	if [ -n "${fs}" ]; then
+		xargs -a $index_edit -d "\n" -I %f -n 1 dirname $(realpath -s '%f') | paste -d "/" - $index_edit > $index_move
+	else
+		cat $index_edit > $index_move
+	fi
+
+	# Move files if number of lines unchanged
+	if [ $(cat $index | wc -l) -eq $(cat $index_move | wc -l) ]; then
+		paste -d "\n" $index $index_move | xargs -d "\n" -n 2 mv -Tn
+	else
+		echo "Number of lines must stay the same"
+	fi
+
+	rm $index $index_edit $index_move
+}}
+
 # Bindings
 map c $lf -remote "send $id cd $(cut -d'	' -f2 ~/.config/directories | fzf)"
 map <c-f> $lf -remote "send $id select '$(fzf)'"
 map J $lf -remote "send $id cd $(cut -d'	' -f2 ~/.config/directories | fzf)"
+map E $cut -d'	' -f2 ~/.config/files | fzf | awk -v home=$HOME '{ gsub("^~", home, $0); print $0 }' | xargs -r -I % $EDITOR %
 map gh
 map g top
 map D delete
 map C copyto
 map M moveto
 map a push %mkdir<space>
+map t push %touch<space>
 map r push :rename<space>
 map R $lf -remote "send $id push :rename<space>$f"
 map <c-r> reload
 map <enter> shell
 map x $$f
 map X !$f
-map o &mimeopen $f
+# map o &mimeopen $f
+map o $setsid $OPENER $f >/dev/null 2>&1 &
 map O $mimeopen --ask $f
+map <enter> shell
+map x $$f
+map X !$f
+map V $sxiv -ft *
+map <esc> clear
+cmap <up> cmd-history-prev
+cmap <down> cmd-history-next
+map <c-e> down
+map <c-y> up
+map i $SHOWALL=true ~/.config/lf/scope $f | less +k

@@ -23,11 +23,15 @@ super + m
 super + n
 	$TERMINAL -e newsboat
 super + c
-	$TERMINAL -e calcurse -D ~/.config/calcurse
+	$TERMINAL -e startcal -D ~/.config/calcurse
 super + v
 	$TERMINAL -e nvim -c VimwikiIndex
+# super + shift + a
+# 	$TERMINAL -e alsamixer; pkill -RTMIN+10 $STATUSBAR
 super + shift + a
-	$TERMINAL -e alsamixer; pkill -RTMIN+10 $STATUSBAR
+	$TERMINAL -e pulsemixer; pkill -RTMIN+10 i3blocks
+super + i
+	$TERMINAL -e htop
 super + shift + c
 	mpv --no-osc --no-input-default-bindings --input-conf=/dev/null --title='mpvfloat' /dev/video0
 super + shift + e
@@ -36,6 +40,12 @@ super + w
 	$TERMINAL -e sudo nmtui
 super + shift + w
 	$BROWSER
+super + shift + g
+	gimp
+super + shift + p
+	i3 "[class=\"jetbrains-toolbox\"] scratchpad show" | grep "\"success\":false" && jetbrains-toolbox
+# super + shift + m
+# 	telegram-desktop
 
 # Et cetera...
 super + grave

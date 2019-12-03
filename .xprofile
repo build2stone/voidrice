@@ -13,3 +13,10 @@ xset r rate 300 50 &	# Speed xrate up
 unclutter &		# Remove mouse when idle
 mpd-module-update &	# Check for when to update the mpd module
 notify-send -i /home/luke/.local/share/larbs/larbs.png "Welcome to LARBS" "Press super+F1 for the help menu." # LARBSWELCOME
+nm-applet &		# nm-applet for easy wireless
+
+# Load .Xresources
+xrdb $HOME/.Xresources
+
+# Load Xkeymap
+test -f $HOME/.config/Xkeymap && xkbcomp $HOME/.config/Xkeymap $DISPLAY

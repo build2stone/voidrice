@@ -2,6 +2,8 @@
 
 # Adds `~/.local/bin` to $PATH
 export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
+# Adds `~/bin` to $PATH
+export PATH=$PATH:$HOME/bin
 
 # Get default LARBS WM from ~/.local/share/larbs/wm
 export LARBSWM="$(cat ~/.local/share/larbs/wm 2>/dev/null)" &&
@@ -10,9 +12,9 @@ export LARBSWM="$(cat ~/.local/share/larbs/wm 2>/dev/null)" &&
 # Default programs:
 export EDITOR="nvim"
 export TERMINAL="st"
-export BROWSER="brave"
+export BROWSER="firefox"
 export READER="zathura"
-export FILE="ranger"
+export FILE="lf"
 export STATUSBAR="${LARBSWM}blocks"
 
 # ~/ Clean-up:
@@ -35,6 +37,13 @@ export LESS_TERMCAP_so="$(printf '%b' '[01;44;33m')"
 export LESS_TERMCAP_se="$(printf '%b' '[0m')"
 export LESS_TERMCAP_us="$(printf '%b' '[1;32m')"
 export LESS_TERMCAP_ue="$(printf '%b' '[0m')"
+eval `dircolors $HOME/.config/dircolors`
+
+# For proper font-rendering in swing programs
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+
+# For touch input in firefox
+export MOZ_USE_XINPUT2=1
 
 mpd >/dev/null 2>&1 &
 

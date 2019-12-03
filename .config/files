@@ -5,6 +5,9 @@ cfa	~/.config/aliasrc
 cfz	~/$ZDOTDIR/.zshrc
 cfv	~/.config/nvim/init.vim
 cfm	~/.config/mutt/muttrc
+cfp	~/.profile
+eb	~/Documents/LaTeX/uni.bib
+cv	~/Documents/LaTeX/cv.tex
 cfd	~/.Xdefaults
 cfu	~/.config/newsboat/urls
 cfn	~/.config/newsboat/config
@@ -13,3 +16,4 @@ cfmc	~/.config/ncmpcpp/config
 cfk	~/.config/sxhkd/sxhkdrc
 cfi	~/.config/i3/config
 cfb	~/.config/i3blocks/config
+ar	~/Documents/arbeiten/refer.bib
