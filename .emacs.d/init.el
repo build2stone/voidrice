@@ -111,13 +111,12 @@
   :config
   ;; Basic definer
   (general-create-definer my-define-almost-everywhere
-  :states '(normal visual motion insert emacs)
+  :states '(normal visual motion emacs)
   :keymaps 'override)
 
   (my-define-almost-everywhere
   :prefix "SPC"
-  :non-normal-prefix "M-SPC"
-  "/"	'(helm-projectile-rg 			:which-key "ripgrep")
+  "/"	'(helm-rg 				:which-key "ripgrep")
   "TAB"	'(switch-to-prev-buffer 		:which-key "previous buffer")
   "SPC"	'(helm-M-x 				:which-key "M-x")
   ;; Kill ring

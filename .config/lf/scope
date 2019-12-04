@@ -28,7 +28,6 @@ HIGHLIGHT_SIZE_MAX=262143  # 256KiB
 HIGHLIGHT_TABWIDTH=8
 HIGHLIGHT_STYLE='pablo'
 
-# TODO Add docx preview with docx2txt
 handle_mime() {
     local mimetype="${1}"
     case "${mimetype}" in
@@ -49,7 +48,8 @@ handle_mime() {
         image/*) chafa --fill=block --symbols=block -c 256 -s 80x"${HEIGHT}" "${FILE_PATH}" || exit 1;;
         video/* | audio/*|application/octet-stream) mediainfo "${FILE_PATH}" || exit 1;;
         */pdf) pdftotext -l 10 -nopgbrk -layout -q -- "${FILE_PATH}" - ;;
-        *opendocument*) odt2txt "${FILE_PATH}" ;;
+        *opendocument.text) odt2txt "${FILE_PATH}" ;;
+        *wordprocessingml*) docx2txt <"${FILE_PATH}";;
     esac
 }
 

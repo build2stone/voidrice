@@ -107,8 +107,7 @@ map <c-r> reload
 map <enter> shell
 map x $$f
 map X !$f
-# map o &mimeopen $f
-map o $setsid $OPENER $f >/dev/null 2>&1 &
+map o &mimeopen $f
 map O $mimeopen --ask $f
 map <enter> shell
 map x $$f
@@ -119,4 +118,4 @@ cmap <up> cmd-history-prev
 cmap <down> cmd-history-next
 map <c-e> down
 map <c-y> up
-map i $SHOWALL=true ~/.config/lf/scope $f | less +k
+map i $$HOME/.config/lf/scope $f -1 | less +k
