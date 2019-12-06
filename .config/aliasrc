@@ -12,7 +12,7 @@ alias \
 	mkd="mkdir -pv" \
 	yt="youtube-dl --add-metadata -i" \
 	yta="yt -x -f bestaudio/best" \
-	ffmpeg="ffmpeg -hide_banner"
+	ffmpeg="ffmpeg -hide_banner" \
 	less="less +k"
 
 # Colorize commands when possible.
@@ -20,7 +20,7 @@ alias \
 	ls="ls -hN --color=auto --group-directories-first" \
 	grep="grep --color=auto" \
 	diff="diff --color=auto" \
-	ccat="highlight --style=pablo --out-format=ansi --force"
+	ccat="highlight --style=pablo --out-format=ansi --force" \
 	td="todoist --color"
 
 # These common commands are just too long! Abbreviate them.
@@ -55,7 +55,7 @@ alias \
 	dec="gpg --no-symkey-cache -d" \
 	tdq="printf \"Quick-add task: \"; read task && todoist q \"#Agenda \$task\"" \
 	tds="todoist --color show \$(todoist list | dmenu -l 20 | cut -d ' ' -f 1)" \
-	tdc="todoist --color close \$(todoist list | dmenu -l 20 | cut -d ' ' -f 1)" \
+	tdc="todoist --color close \$(todoist list | dmenu -l 20 | cut -d ' ' -f 1)"
 
 # Start certain programs with wrapper scripts
 alias \
@@ -73,6 +73,6 @@ alias mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)"
 alias \
 	magit="nvim -c MagitOnly" \
 	ref="shortcuts >/dev/null; source ~/.config/shortcutrc" \
-	weath="less -S ~/.local/share/weatherreport" \
+	weath="less -S ~/.local/share/weatherreport"
 
 vf() { fzf | xargs -r -I % $EDITOR % ;}
