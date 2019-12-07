@@ -107,8 +107,9 @@ map <c-r> reload
 map <enter> shell
 map x $$f
 map X !$f
-map o &mimeopen $f
+map o &mimeopen --no-ask $f
 map O $mimeopen --ask $f
+map <c-o> $mimeopen --ask-default $f
 map <enter> shell
 map x $$f
 map X !$f
