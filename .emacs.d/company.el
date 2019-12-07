@@ -35,6 +35,11 @@
   :init
   (push 'company-lsp company-backends))
 
+;; math
+(use-package company-math
+  :ensure t
+  :init (add-to-list 'company-backends 'company-math-symbols-unicode))
+
 ;; Use posframe for compat with variable pitch text
 (use-package company-posframe
   :ensure t
