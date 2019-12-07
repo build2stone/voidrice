@@ -7,7 +7,6 @@
 	        org-default-notes-file (concat org-directory "/notes.org")
 	        org-src-fontify-natively t
 	        org-src-tab-acts-natively t
-	        org-hide-emphasis-markers t
 	        org-pretty-entities	t)
   )
 
