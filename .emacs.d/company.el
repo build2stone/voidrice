@@ -38,7 +38,11 @@
 ;; math
 (use-package company-math
   :ensure t
-  :init (add-to-list 'company-backends 'company-math-symbols-unicode))
+  :init
+  (add-to-list 'company-backends 'company-math-symbols-unicode)
+  (add-to-list 'company-backends 'company-math-symbols-latex)
+  (add-to-list 'company-math-disallow-unicode-symbols-in-faces 'org-latex-and-related)
+  (add-to-list 'company-math-allow-latex-symbols-in-faces 'org-latex-and-related))
 
 ;; Use posframe for compat with variable pitch text
 (use-package company-posframe
@@ -66,3 +70,5 @@
   :init
   (add-hook 'prog-mode-hook 'company-quickhelp-mode))
 
+;; Customize company-preview font face
+(set-face-attribute 'company-preview nil :foreground "white" :background "#458588")

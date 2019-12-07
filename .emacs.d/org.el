@@ -7,7 +7,8 @@
 	        org-default-notes-file (concat org-directory "/notes.org")
 	        org-src-fontify-natively t
 	        org-src-tab-acts-natively t
-	        org-pretty-entities	t)
+	        org-pretty-entities	t
+		org-highlight-latex-and-related '(latex script entities))
   )
 
 ;; html-export
