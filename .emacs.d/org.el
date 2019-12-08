@@ -8,7 +8,7 @@
 	        org-src-fontify-natively t
 	        org-src-tab-acts-natively t
 	        org-pretty-entities	t
-		org-highlight-latex-and-related '(latex script entities))
+		org-highlight-latex-and-related '(latex script))
   )
 
 ;; html-export
