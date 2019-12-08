@@ -37,11 +37,15 @@
 \\usepackage[margin=2cm] {geometry}
 \\usepackage{fontspec}
 \\setmainfont{DejaVu Serif}
-\\newfontfamily\\defaultfont{Source Serif Pro}
-\\newfontfamily\\symbolfont{Symbola}
-\\usepackage[Mathematics, Symbols]{ucharclasses}
+\\newfontfamily{\\defaultfont}{DejaVu Serif}
+\\newfontfamily{\\symbolfont}{Symbola}
+\\usepackage[Latin,Mathematics,NumberForms,Punctuation,Symbols]{ucharclasses}
+\\setTransitionsForSymbols{\\symbolfont}{\\defaultfont}
+\\setTransitionsFor{NumberForms}{\\symbolfont}{\\defaultfont}
 \\setTransitionsForMathematics{\\symbolfont}{\\defaultfont}
-\\setTransitionsForSymbols{\\symbolfont}{\\defaultfont}"))
+\\setTransitionTo{Punctuation}{\\defaultfont}
+\\setTransitionTo{Latin}{\\defaultfont}
+"))
 
 (setq org-latex-pdf-process (list "latexmk -f -pdfxe %f"))
 
