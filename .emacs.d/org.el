@@ -27,9 +27,23 @@
 
 
 ;; Latex preview
-(require 'org)
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
+(with-eval-after-load 'org
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0)))
 (setq org-latex-create-formula-image-program 'dvisvgm)
+
+(setq org-latex-packages-alist '(
+"
+\\usepackage{parskip}
+\\usepackage[margin=2cm] {geometry}
+\\usepackage{fontspec}
+\\setmainfont{DejaVu Serif}
+\\newfontfamily\\defaultfont{Source Serif Pro}
+\\newfontfamily\\symbolfont{Symbola}
+\\usepackage[Mathematics, Symbols]{ucharclasses}
+\\setTransitionsForMathematics{\\symbolfont}{\\defaultfont}
+\\setTransitionsForSymbols{\\symbolfont}{\\defaultfont}"))
+
+(setq org-latex-pdf-process (list "latexmk -f -pdfxe %f"))
 
 ;; Faces - Text font, colour and size
 (let* ((font 			'(:family "Sans Serif"))

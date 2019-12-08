@@ -9,7 +9,7 @@
 (use-package evil-collection
   :after evil
   :ensure t
-  :custom (setq evil-collection-company-use-tng nil)
+  :init (setq evil-collection-company-use-tng nil)
   :config
   (evil-collection-init))
 

@@ -40,7 +40,10 @@
   :ensure t
   :init
   (add-to-list 'company-backends 'company-math-symbols-unicode)
-  (add-to-list 'company-backends 'company-math-symbols-latex)
+  (add-to-list 'company-backends 'company-math-symbols-latex))
+
+;; Use appropriate math completion in org latex snippets
+(with-eval-after-load 'org
   (add-to-list 'company-math-disallow-unicode-symbols-in-faces 'org-latex-and-related)
   (add-to-list 'company-math-allow-latex-symbols-in-faces 'org-latex-and-related))
 
