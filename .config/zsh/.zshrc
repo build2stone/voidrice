@@ -27,6 +27,8 @@ HISTFILE=~/.cache/zsh/history
 autoload -U compinit
 zstyle ':completion:*' menu select
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-dirs-first true
+zstyle ':completion:*' group-name ''
 zmodload zsh/complist
 compinit
 
