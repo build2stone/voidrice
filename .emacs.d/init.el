@@ -70,30 +70,34 @@
 (load-file (concat (file-name-directory load-file-name)
 		   "evil.el"))
 
-;; Helm
-(use-package helm
+;; ivy/counsel config
+(use-package ivy
   :ensure t
-  :init
-  (setq helm-M-x-fuzzy-match t
-	helm-mode-fuzzy-match t
-	helm-buffers-fuzzy-matching t
-	helm-recentf-fuzzy-match t
-	helm-locate-fuzzy-match t
-	helm-semantic-fuzzy-match t
-	helm-imenu-fuzzy-match t
-	helm-completion-in-region-fuzzy-match t
-	helm-candidate-number-list 80
-	helm-split-window-in-side-p t
-	helm-move-to-line-cycle-in-source t
-	helm-echo-input-in-header-line t
-	helm-autoresize-max-height 0
-	helm-autoresize-min-height 20
-	helm-buffer-skip-remote-checking t)
   :config
-  (helm-mode 1))
+  (ivy-mode 1))
+(use-package counsel
+  :ensure t)
 
-;; RipGrep
-(use-package helm-rg :ensure t)
+(setq ivy-on-del-error-function nil		;; backspace on empty line does nothing (as opposed to exiting ivy)
+      ivy-height 20
+      ivy-count-format 	"(%d/%d) "
+      ivy-use-virtual-buffers t)
+
+;; fancy icons
+(use-package all-the-icons-ivy
+  :ensure t
+  :config
+  (all-the-icons-ivy-setup))
+
+;; prescient for better sorting and filtering
+(use-package prescient
+  :ensure t)
+(use-package ivy-prescient
+  :ensure t
+  :config (ivy-prescient-mode 1))
+(use-package company-prescient
+  :ensure t
+  :config (company-prescient-mode 1))
 
 ;; Which Key
 (use-package which-key
@@ -116,16 +120,16 @@
 
   (my-define-almost-everywhere
   :prefix "SPC"
-  "/"	'(helm-rg 				:which-key "ripgrep")
+  "/"	'(counsel-rg 				:which-key "ripgrep")
   "TAB"	'(switch-to-prev-buffer 		:which-key "previous buffer")
-  "SPC"	'(helm-M-x 				:which-key "M-x")
+  "SPC"	'(counsel-M-x 				:which-key "M-x")
   ;; Kill ring
-  "k"	'(helm-show-kill-ring			:which-key "show kill ring")
+  "k"	'(counsel-yank-pop			:which-key "show kill ring")
   ;; Simulated keys
   "w"	(general-simulate-key "C-w" 		:which-key "window operations")
   "h"	(general-simulate-key "C-h" 		:which-key "help")
   ;; Buffers
-  "b"	'(helm-mini 				:which-key "buffers list")
+  "b"	'(counsel-switch-buffer 		:which-key "buffers list")
   ;; Quit
   "q"	'(:ignore t				:which-key "quit")
   "qz"	'(delete-frame				:which-key "delete frame")
@@ -141,7 +145,8 @@
 	     minibuffer-local-ns-map
 	     minibuffer-local-completion-map
 	     minibuffer-local-must-match-map
-	     minibuffer-local-isearch-map)
+	     minibuffer-local-isearch-map
+	     ivy-minibuffer-map)
   "M-j" (general-key "C-n")
   "M-k" (general-key "C-p"))
   )
