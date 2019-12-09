@@ -49,6 +49,13 @@
 
 (setq org-latex-pdf-process (list "latexmk -f -pdfxe %f"))
 
+(use-package org-ref
+  :ensure t
+  :init
+  (setq org-ref-default-bibliography	reftex-default-bibliography
+        org-ref-pdf-directory		bibtex-completion-library-path
+        org-ref-bibliography-notes	bibtex-completion-notes-path))
+
 ;; Faces - Text font, colour and size
 (let* ((font 			'(:family "Sans Serif"))
        (headline		`(:inherit default :weight bold)))

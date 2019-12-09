@@ -69,25 +69,8 @@
 		   "company.el"))
 (load-file (concat (file-name-directory load-file-name)
 		   "evil.el"))
-
-;; ivy/counsel config
-(use-package ivy
-  :ensure t
-  :config
-  (ivy-mode 1))
-(use-package counsel
-  :ensure t)
-
-(setq ivy-on-del-error-function nil		;; backspace on empty line does nothing (as opposed to exiting ivy)
-      ivy-height 20
-      ivy-count-format 	"(%d/%d) "
-      ivy-use-virtual-buffers t)
-
-;; fancy icons
-(use-package all-the-icons-ivy
-  :ensure t
-  :config
-  (all-the-icons-ivy-setup))
+(load-file (concat (file-name-directory load-file-name)
+		   "ivy.el"))
 
 ;; prescient for better sorting and filtering
 (use-package prescient
@@ -98,6 +81,12 @@
 (use-package company-prescient
   :ensure t
   :config (company-prescient-mode 1))
+
+;; Set bibligraphies
+(setq reftex-default-bibliography  '("~/Documents/arbeiten/refer.bib")
+      bibtex-completion-bibliography reftex-default-bibliography
+      bibtex-completion-library-path "~/Documents/arbeiten/pdf"
+      bibtex-completion-notes-path   "~/Documents/arbeiten/notes")
 
 ;; Which Key
 (use-package which-key
@@ -130,6 +119,8 @@
   "h"	(general-simulate-key "C-h" 		:which-key "help")
   ;; Buffers
   "b"	'(counsel-switch-buffer 		:which-key "buffers list")
+  ;; Citations
+  "c"	'(ivy-bibtex				:which-key "ivy-bibtex")
   ;; Quit
   "q"	'(:ignore t				:which-key "quit")
   "qz"	'(delete-frame				:which-key "delete frame")
