@@ -16,9 +16,3 @@
   :ensure t
   :config
   (all-the-icons-ivy-setup))
-
-;; ivy-bibtex for citations
-(use-package ivy-bibtex
-  :ensure t
-  :init
-  (setq ivy-bibtex-default-action 'ivy-bibtex-insert-citation))

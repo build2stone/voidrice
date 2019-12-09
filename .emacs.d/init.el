@@ -119,8 +119,10 @@
   "h"	(general-simulate-key "C-h" 		:which-key "help")
   ;; Buffers
   "b"	'(counsel-switch-buffer 		:which-key "buffers list")
-  ;; Citations
-  "c"	'(ivy-bibtex				:which-key "ivy-bibtex")
+  ;; Org-mode
+  "c"	'(org-ref-helm-insert-cite-link		:which-key "insert citation")
+  "l"	'(org-insert-link			:which-key "insert/edit link")
+  "o"	'(org-open-at-point			:which-key "open link")
   ;; Quit
   "q"	'(:ignore t				:which-key "quit")
   "qz"	'(delete-frame				:which-key "delete frame")

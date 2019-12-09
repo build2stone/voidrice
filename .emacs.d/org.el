@@ -47,7 +47,8 @@
 \\setTransitionTo{Latin}{\\defaultfont}
 "))
 
-(setq org-latex-pdf-process (list "latexmk -f -pdfxe %f"))
+(setq org-latex-pdf-process (list "latexmk -f -pdfxe %f")
+      org-latex-caption-above nil)
 
 (use-package org-ref
   :ensure t
