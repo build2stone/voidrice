@@ -60,6 +60,12 @@
   :ensure t
   :config (load-theme 'gruvbox t))
 
+;; Set bibligraphies
+(setq reftex-default-bibliography  '("~/Documents/arbeiten/refer.bib")
+      bibtex-completion-bibliography reftex-default-bibliography
+      bibtex-completion-library-path "~/Documents/arbeiten/pdf/"
+      bibtex-completion-notes-path   "~/Documents/arbeiten/notes/")
+
 ;; Load other files
 (load-file (concat (file-name-directory load-file-name)
 		   "org.el"))
@@ -81,12 +87,6 @@
 (use-package company-prescient
   :ensure t
   :config (company-prescient-mode 1))
-
-;; Set bibligraphies
-(setq reftex-default-bibliography  '("~/Documents/arbeiten/refer.bib")
-      bibtex-completion-bibliography reftex-default-bibliography
-      bibtex-completion-library-path "~/Documents/arbeiten/pdf"
-      bibtex-completion-notes-path   "~/Documents/arbeiten/notes")
 
 ;; Which Key
 (use-package which-key
