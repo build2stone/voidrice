@@ -13,13 +13,6 @@
   :config
   (evil-collection-init))
 
-(use-package evil-escape
-  :ensure t
-  :init (setq
-	    evil-escape-key-sequence "jk"
-	    evil-escape-unordered-key-sequence t)
-  :config (evil-escape-mode))
-
 (use-package evil-surround
   :ensure t
   :config

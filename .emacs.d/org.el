@@ -8,7 +8,8 @@
 	        org-src-fontify-natively t
 	        org-src-tab-acts-natively t
 	        org-pretty-entities	t
-		org-highlight-latex-and-related '(latex script))
+		org-highlight-latex-and-related '(latex script)
+		org-list-indent-offset 1)
   )
 
 ;; html-export
@@ -45,6 +46,7 @@
 \\setTransitionsForMathematics{\\symbolfont}{\\defaultfont}
 \\setTransitionTo{Punctuation}{\\defaultfont}
 \\setTransitionTo{Latin}{\\defaultfont}
+\\usepackage{tabulary}
 "))
 
 (setq org-latex-pdf-process (list "latexmk -f -pdfxe %f")
