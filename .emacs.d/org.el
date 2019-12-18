@@ -92,6 +92,5 @@
 ;; Enable variable text pitch
 (add-hook 'org-mode-hook 'variable-pitch-mode)
 
-;; Enable visual lines and make evil respect them
+;; Enable visual line mode in org-mode
 (add-hook 'org-mode-hook 'visual-line-mode)
-(setq evil-respect-visual-line-mode t)

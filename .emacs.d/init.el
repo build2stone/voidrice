@@ -66,29 +66,7 @@
       bibtex-completion-library-path "~/Documents/arbeiten/pdf/"
       bibtex-completion-notes-path   "~/Documents/arbeiten/notes/")
 
-;; Load other files
-(load-file (concat (file-name-directory load-file-name)
-		   "org.el"))
-(load-file (concat (file-name-directory load-file-name)
-		   "prog.el"))
-(load-file (concat (file-name-directory load-file-name)
-		   "company.el"))
-(load-file (concat (file-name-directory load-file-name)
-		   "evil.el"))
-(load-file (concat (file-name-directory load-file-name)
-		   "ivy.el"))
-
-;; prescient for better sorting and filtering
-(use-package prescient
-  :ensure t)
-(use-package ivy-prescient
-  :ensure t
-  :config (ivy-prescient-mode 1))
-(use-package company-prescient
-  :ensure t
-  :config (company-prescient-mode 1))
-
-;; Which Key
+;; Keybinding help menu
 (use-package which-key
   :ensure t
   :init
@@ -143,6 +121,28 @@
   "M-j" (general-key "C-n")
   "M-k" (general-key "C-p"))
   )
+
+;; Load other files
+(load-file (concat (file-name-directory load-file-name)
+		   "org.el"))
+(load-file (concat (file-name-directory load-file-name)
+		   "prog.el"))
+(load-file (concat (file-name-directory load-file-name)
+		   "company.el"))
+(load-file (concat (file-name-directory load-file-name)
+		   "evil.el"))
+(load-file (concat (file-name-directory load-file-name)
+		   "ivy.el"))
+
+;; prescient for better sorting and filtering
+(use-package prescient
+  :ensure t)
+(use-package ivy-prescient
+  :ensure t
+  :config (ivy-prescient-mode 1))
+(use-package company-prescient
+  :ensure t
+  :config (company-prescient-mode 1))
 
 ;; Statusline
 (use-package spaceline

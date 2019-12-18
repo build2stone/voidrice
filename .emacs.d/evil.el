@@ -4,7 +4,10 @@
   :init
   (setq evil-want-keybinding nil)
   :config
-  (evil-mode 1))
+  (evil-mode 1)
+  (general-nmap
+  "j" 'evil-next-visual-line
+  "k" 'evil-previous-visual-line))
 
 (use-package evil-collection
   :after evil
