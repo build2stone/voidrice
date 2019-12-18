@@ -27,7 +27,6 @@ call plug#end()
 set bg=dark
 set go=a
 set mouse=a
-set nohlsearch
 set clipboard+=unnamedplus
 
 " Text selected with mouse goes to primary selection
