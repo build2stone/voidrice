@@ -3,4 +3,4 @@ pkgs=$(pacman -Qtdq)
 
 [ -z "${pkgs}" ] && echo "No orphans found." && exit
 
-sudo pacman -Rns "$pkgs"
+echo "$pkgs" | sudo pacman -Rns -
