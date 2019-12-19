@@ -13,7 +13,8 @@ alias \
 	yt="youtube-dl --add-metadata -i" \
 	yta="yt -x -f bestaudio/best" \
 	ffmpeg="ffmpeg -hide_banner" \
-	less="less +k"
+	less="less +k" \
+	du="du -h"
 
 # Colorize commands when possible.
 alias \
@@ -55,7 +56,7 @@ alias \
 	dec="gpg --no-symkey-cache -d" \
 	tdq="printf \"Quick-add task: \"; read task && todoist q \"#Agenda \$task\"" \
 	tds="todoist --color show \$(todoist list | dmenu -l 20 | cut -d ' ' -f 1)" \
-	tdc="todoist --color close \$(todoist list | dmenu -l 20 | cut -d ' ' -f 1)"
+	tdc="todoist --color close \$(todoist list | dmenu -l 20 | cut -d ' ' -f 1) &"
 
 # Start certain programs with wrapper scripts
 alias \
