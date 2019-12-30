@@ -76,6 +76,6 @@ alias \
 	ref="shortcuts >/dev/null; source ~/.config/shortcutrc" \
 	weath="less -S ~/.local/share/weatherreport"
 
-vf() { fzf | xargs -r -I % $EDITOR % ;}
-df() { find $HOME/Documents/ | fzf | xargs -r -I % $FILE % ; }
-xf() { fzf | xargs -r -I % setsid -f xdg-open % >/dev/null 2>&1 ; }
+fv() { fzf | xargs -r -I % $EDITOR % ;}
+fx() { find $HOME/Documents/ | fzf | xargs -r -I % $FILE % ; }
+fd() { fzf | xargs -r -I % setsid -f xdg-open % >/dev/null 2>&1 ; }
