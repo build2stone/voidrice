@@ -78,3 +78,4 @@ alias \
 
 vf() { fzf | xargs -r -I % $EDITOR % ;}
 df() { find $HOME/Documents/ | fzf | xargs -r -I % $FILE % ; }
+xf() { fzf | xargs -r -I % setsid -f xdg-open % >/dev/null 2>&1 ; }
