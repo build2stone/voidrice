@@ -97,6 +97,8 @@
   "h"	(general-simulate-key "C-h" 		:which-key "help")
   ;; Buffers
   "b"	'(counsel-switch-buffer 		:which-key "buffers list")
+  ;; Package-management
+  "p"	'(list-packages				:which-key "package management")
   ;; Org-mode
   "c"	'(org-ref-helm-insert-cite-link		:which-key "insert citation")
   "l"	'(org-insert-link			:which-key "insert/edit link")
