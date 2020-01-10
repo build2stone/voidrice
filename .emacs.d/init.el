@@ -128,6 +128,8 @@
 (load-file (concat (file-name-directory load-file-name)
 		   "org.el"))
 (load-file (concat (file-name-directory load-file-name)
+		   "fixes.el"))
+(load-file (concat (file-name-directory load-file-name)
 		   "prog.el"))
 (load-file (concat (file-name-directory load-file-name)
 		   "company.el"))
