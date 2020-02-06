@@ -22,9 +22,12 @@ Plug 'ptzz/lf.vim'
 Plug 'kovetskiy/sxhkd-vim'
 Plug 'tmsvg/pear-tree'
 Plug 'machakann/vim-highlightedyank'
+Plug 'soli/prolog-vim'
+Plug 'jaxbot/semantic-highlight.vim'
 call plug#end()
 
 set bg=dark
+set tabstop=4
 set go=a
 set mouse=a
 set clipboard+=unnamedplus
@@ -81,6 +84,9 @@ vmap <LeftRelease> "*ygv
 
 " highlightedyank
 	let g:highlightedyank_highlight_duration = 200
+
+" semantic-highlight
+	nnoremap <Leader>h :SemanticHighlightToggle<cr>
 
 " Shortcutting split navigation, saving a keypress:
 	map <C-h> <C-w>h
