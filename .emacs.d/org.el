@@ -58,7 +58,8 @@
   (setq org-ref-default-bibliography		reftex-default-bibliography
         org-ref-pdf-directory			bibtex-completion-library-path
         org-ref-bibliography-notes		bibtex-completion-notes-path
-        bibtex-completion-pdf-open-function	'org-open-file))
+        bibtex-completion-pdf-open-function	'org-open-file
+	org-ref-default-citation-link		"autocite"))
 
 ;; Faces - Text font, colour and size
 (let* ((font 			'(:family "Sans Serif"))
