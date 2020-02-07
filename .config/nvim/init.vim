@@ -24,6 +24,7 @@ Plug 'tmsvg/pear-tree'
 Plug 'machakann/vim-highlightedyank'
 Plug 'soli/prolog-vim'
 Plug 'jaxbot/semantic-highlight.vim'
+Plug 'ap/vim-css-color'
 call plug#end()
 
 set bg=dark
