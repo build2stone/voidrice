@@ -77,5 +77,5 @@ alias \
 	weath="less -S ~/.local/share/weatherreport"
 
 fv() { fzf | xargs -r -I % $EDITOR % ;}
-fx() { find $HOME/Documents/ | fzf | xargs -r -I % $FILE % ; }
-fd() { fzf | xargs -r -I % setsid -f xdg-open % >/dev/null 2>&1 ; }
+fd() { find $HOME/Documents/ | fzf | xargs -r -I % $FILE % ; }
+fx() { fzf | xargs -r -I % setsid -f xdg-open % >/dev/null 2>&1 ; }
