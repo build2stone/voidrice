@@ -42,9 +42,12 @@ vmap <LeftRelease> "*ygv
 	filetype plugin on
 	syntax on
 	colorscheme gruvbox
-	" highlight Normal ctermbg=none
+" Removes background:
+"	highlight Normal ctermbg=none
 	set encoding=utf-8
 	set number relativenumber
+" Enable 24-bit color
+	set termguicolors
 " Enable autocompletion:
 	set wildmode=longest,list,full
 " Disables automatic commenting on newline:
