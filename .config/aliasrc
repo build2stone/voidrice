@@ -48,7 +48,7 @@ alias \
 	yt="youtube-dl --add-metadata -i -o '%(upload_date)s-%(title)s.%(ext)s'" \
 	yta="yt -x -f bestaudio/best" \
 	YT="youtube-viewer" \
-     	odmnt="rclone --vfs-cache-mode writes mount onedrive: $HOME/odmnt &" \
+   	odmnt="rclone --vfs-cache-mode writes mount onedrive: $HOME/odmnt &" \
 	odjnl="journalctl --user-unit onedrive -f" \
 	odstart="systemctl --user start onedrive" \
 	odoff="systemctl --user stop onedrive" \
