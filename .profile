@@ -1,7 +1,7 @@
 # Profile file. Runs on login. Environmental variables are set here.
 
 # Adds `~/.local/bin` to $PATH
-export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
+export PATH="$PATH:$(du -L "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
 # Adds `~/bin` to $PATH
 export PATH=$PATH:$HOME/bin
 
