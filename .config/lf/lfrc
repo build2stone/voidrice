@@ -115,6 +115,7 @@ map <enter> shell
 map x $$f
 map X !$f
 map V $sxiv -ft *
+map U !du -sh $f
 map <esc> clear
 cmap <up> cmd-history-prev
 cmap <down> cmd-history-next
