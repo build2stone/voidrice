@@ -33,7 +33,7 @@ handle_mime() {
     case "${mimetype}" in
 	text/html) w3m -dump "${FILE_PATH}" ;;
 	text/troff) man ./ "${FILE_PATH}" | col -b ;;
-	text/* | */xml)
+	text/* | */xml | */json | */json5)
             if [ "$( stat --printf='%s' -- "${FILE_PATH}" )" -gt "${HIGHLIGHT_SIZE_MAX}" ]; then
                 exit 2
             fi
@@ -45,11 +45,11 @@ handle_mime() {
             highlight --replace-tabs="${HIGHLIGHT_TABWIDTH}" --out-format="${highlight_format}" \
                 --style="${HIGHLIGHT_STYLE}" --force -- "${FILE_PATH}" ;;
 	application/zip) atool --list -- "${FILE_PATH}" ;;
-        image/*) chafa --fill=block --symbols=block -c 256 -s 80x"${HEIGHT}" "${FILE_PATH}" || exit 1;;
-        video/* | audio/*|application/octet-stream) mediainfo "${FILE_PATH}" || exit 1;;
-        */pdf) pdftotext -l 10 -nopgbrk -layout -q -- "${FILE_PATH}" - ;;
-        *opendocument.text) odt2txt "${FILE_PATH}" ;;
-        *wordprocessingml*) docx2txt <"${FILE_PATH}";;
+    image/*) chafa --fill=block --symbols=block -c 256 -s 80x"${HEIGHT}" "${FILE_PATH}" || exit 1;;
+    video/* | audio/*|application/octet-stream) mediainfo "${FILE_PATH}" || exit 1;;
+    */pdf) pdftotext -l 10 -nopgbrk -layout -q -- "${FILE_PATH}" - ;;
+    *opendocument.text) odt2txt "${FILE_PATH}" ;;
+    *wordprocessingml*) docx2txt <"${FILE_PATH}";;
     esac
 }
 
