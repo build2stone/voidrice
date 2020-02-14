@@ -49,6 +49,12 @@ bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
 
+# Fix various keys
+bindkey "^[[P" delete-char
+bindkey "^[[4~" end-of-line
+bindkey "^[[H" beginning-of-line
+bindkey "^[[4h" vi-put-after-xclip # This command is added by the script below
+
 # Make yank and paste point to xclip
 source $HOME/.local/zshscripts/xclip.zsh
 
