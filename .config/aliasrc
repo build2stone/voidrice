@@ -62,7 +62,6 @@ alias \
 # Start certain programs with wrapper scripts
 alias \
 	calcurse="startcal" \
-	diff="diff --color=auto" \
 	emacs="startemacs"
 
 # This alias requires zsh and .local/zshscripts/pty.zsh
