@@ -38,6 +38,7 @@ alias \
 	p="sudo pacman" \
 	upc="sudo pacman -Syu; pkill -RTMIN+8 i3blocks" \
 	lsp="pacman -Qett --color=always | less" \
+	lsps="expac -H M \"%m %n\" | sort -nr | less" \
 	cpc="removeorphans" \
 	SS="sudo systemctl" \
 	g="git" \
