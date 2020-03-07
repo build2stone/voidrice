@@ -1,17 +1,17 @@
 # Adapted from Luke's config for the Zoomer Shell
 
 # zplugin module setup
-module_path+=( "/home/seggers/.config/zplugin/bin/zmodules/Src" )
+module_path+=( "/home/seggers/.config/zinit/bin/zmodules/Src" )
 zmodload zdharma/zplugin
 
 # This makes the prompt appear instantly (using instant-zsh-pre/post)
 source $HOME/.local/zshscripts/instant-zsh.zsh
 
 # zplugin setup
-declare -A ZPLGM
-ZPLGM[HOME_DIR]="$HOME/.config/zplugin"
-ZPLGM[ZCOMPDUMP_PATH]="$HOME/.cache/zcompdump"
-source $HOME/.config/zplugin/bin/zplugin.zsh
+declare -A ZINIT
+ZINIT[HOME_DIR]="$HOME/.config/zinit"
+ZINIT[ZCOMPDUMP_PATH]="$HOME/.cache/zcompdump"
+source $HOME/.config/zinit/bin/zplugin.zsh
 
 # Enable colors and change prompt:
 autoload -U colors && colors
