@@ -38,8 +38,6 @@ super + shift + w
 	$BROWSER
 super + shift + g
 	gimp
-super + shift + p
-	i3 "[class=\"jetbrains-toolbox\"] scratchpad show" | grep "\"success\":false" && jetbrains-toolbox
 
 # Et cetera...
 super + grave

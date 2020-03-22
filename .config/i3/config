@@ -33,10 +33,6 @@ for_window [instance="dropdown_tmuxdd"] border pixel 3
 for_window [instance="dropdown_rcalc"] border pixel 2
 for_window [instance="dropdown_*"] move position center
 
-for_window [class="jetbrains-toolbox"] move scratchpad
-for_window [class="jetbrains-toolbox"] sticky enable
-for_window [class="jetbrains-toolbox"] scratchpad show
-
 bar {
 	font pango:mono 10
 	status_command i3blocks
@@ -68,7 +64,7 @@ bindsym $mod+Insert		exec --no-startup-id showclip
 ##bindsym $mod+Pause
 
 # #---Letter Key Bindings---# #
-bindsym $mod+q			[con_id="__focused__" instance="^(?!dropdown_|JetBrains Toolbox).*$"] kill
+bindsym $mod+q			[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
 bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdown_).*$"] exec --no-startup-id kill -9 `xdotool getwindowfocus getwindowpid`
 
 bindsym $mod+w			exec $term -e nmtui
