@@ -32,7 +32,7 @@ alias \
 	YT="youtube-viewer" \
 	sdn="sudo shutdown -h now" \
 	mkd="mkdir -pv" \
-	f="$FILE" \
+	f="lf" \
 	e="$EDITOR" \
 	v="$EDITOR" \
 	p="sudo pacman" \
