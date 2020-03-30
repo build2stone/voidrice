@@ -7,9 +7,8 @@
 # export TERMINAL="st"
 
 # #---Basic Definitions---# #
-for_window [class="^.*"] border pixel 2
-gaps inner 0
-gaps outer 0
+set $inner_gaps 0
+set $outer_gaps 0
 set $term --no-startup-id $TERMINAL
 set $mod Mod4
 set $stoprec --no-startup-id dmenurecord kill
@@ -18,7 +17,10 @@ set $reboot sudo -A reboot
 set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
 set $hibernate sudo -A systemctl suspend
 
-workspace_auto_back_and_forth yes
+# #---Gaps---# #
+for_window [class="^.*"] border pixel 2
+gaps inner $inner_gaps
+gaps outer $outer_gaps
 
 # #---Dropdown Windows---# #
 # General dropdown window traits. The order can matter.
@@ -77,9 +79,9 @@ bindsym $mod+r 			exec $term -e lf
 bindsym $mod+Shift+r		exec --no-startup-id winresize
 
 bindsym $mod+t			split toggle
-bindsym $mod+Shift+t		gaps inner current set 15; gaps outer current set 15
+bindsym $mod+Shift+t		gaps inner current set $inner_gaps; gaps outer current set $outer_gaps
 
-bindsym $mod+y			exec $term -e calcurse -D ~/.config/calcurse
+bindsym $mod+y			exec $term -e calcurse
 bindsym $mod+Shift+y		exec --no-startup-id i3resize left
 
 bindsym $mod+u			exec --no-startup-id ddspawn tmuxdd

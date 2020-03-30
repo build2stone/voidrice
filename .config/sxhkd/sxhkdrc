@@ -21,7 +21,7 @@ super + m
 super + n
 	$TERMINAL -e newsboat
 super + c
-	$TERMINAL -e startcal -D ~/.config/calcurse
+	$TERMINAL -e startcal
 super + v
 	$TERMINAL -e nvim -c VimwikiIndex
 super + shift + a
