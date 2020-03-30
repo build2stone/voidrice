@@ -13,6 +13,7 @@ case $BLOCK_BUTTON in
 esac
 
 # Loop through all attached batteries.
+[ -e /sys/class/power_supply/BAT? ] &&
 for battery in /sys/class/power_supply/BAT?
 do
 	# Get its remaining capacity and charge status.
