@@ -70,8 +70,8 @@
 (use-package which-key
   :ensure t
   :init
-  (setq which-key-separator " ")
-  (setq which-key-prefix-prefix "+")
+  (setq which-key-separator " "
+		which-key-prefix-prefix "+")
   :config
   (which-key-mode))
 
@@ -122,18 +122,6 @@
 				ivy-minibuffer-map)
 	"M-j" (general-key "C-n")
 	"M-k" (general-key "C-p"))
-
-  ;; Change font size with Alt-Shift-j/k/up/down
-  (general-define-key
-	"M-S-<up>"		'text-scale-increase
-	"M-K"			'text-scale-increase
-	"M-S-<down>"	'text-scale-decrease
-	"M-J"			'text-scale-decrease)
-  (my-define-almost-everywhere
-	"M-S-<up>"		'text-scale-increase
-	"M-K"			'text-scale-increase
-	"M-S-<down>"	'text-scale-decrease
-	"M-J"			'text-scale-decrease)
   )
 
 ;; Load other files
@@ -170,3 +158,18 @@
   (spaceline-toggle-minor-modes-off)
   (spaceline-toggle-buffer-size-on)
   (spaceline-toggle-evil-state-on))
+
+;; Text scale adjustment
+;; M-C scales buffer-locally, M-C-S globally
+(use-package default-text-scale
+  :ensure t
+  :config
+  (default-text-scale-mode 1)
+  (general-define-key
+    :keymaps 'default-text-scale-mode-map
+    "M-C-k" 'text-scale-increase
+    "M-C-j" 'text-scale-decrease
+    "M-C-0" (lambda () (interactive) (text-scale-adjust 0))
+    "M-C-S-k" 'default-text-scale-increase
+    "M-C-S-j" 'default-text-scale-decrease
+    "M-C-)" 'default-text-scale-reset))
