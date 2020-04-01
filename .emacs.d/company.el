@@ -50,28 +50,16 @@
 ;; Use posframe for compat with variable pitch text
 (use-package company-posframe
   :ensure t
+  :custom
+  (company-posframe-show-metadata nil)
+  (company-posframe-show-indicator nil)
   :init
-  (add-hook 'org-mode-hook 'company-posframe-mode))
+  (company-posframe-mode 1))
 
 ;; Adds a hook that's run on buffer switch
 ;; Why do I have to install an extra package for this?
 (use-package switch-buffer-functions
   :ensure t)
-
-;; Only enable company-posframe-mode in org-mode
-;; (It conflicts with company-quickhelp)
-(defun my-use-company-posframe-mode-maybe(prev cur)
-    (cond ((derived-mode-p 'org-mode)
-	    (company-posframe-mode 1))
-	  (t
-	    (company-posframe-mode -1))))
-(add-hook 'switch-buffer-functions 'my-use-company-posframe-mode-maybe)
-
-;; Display docs in company completions
-(use-package company-quickhelp
-  :ensure t
-  :init
-  (add-hook 'prog-mode-hook 'company-quickhelp-mode))
 
 ;; Customize company-preview font face
 (set-face-attribute 'company-preview nil :foreground "white" :background "#458588")

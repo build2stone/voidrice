@@ -87,26 +87,26 @@
 
   (my-define-almost-everywhere
   :prefix "SPC"
-  "/"	'(counsel-rg 				:which-key "ripgrep")
+  "/"	'(counsel-rg 					:which-key "ripgrep")
   "TAB"	'(switch-to-prev-buffer 		:which-key "previous buffer")
-  "SPC"	'(counsel-M-x 				:which-key "M-x")
+  "SPC"	'(counsel-M-x 					:which-key "M-x")
   ;; Kill ring
-  "k"	'(counsel-yank-pop			:which-key "show kill ring")
+  "k"	'(counsel-yank-pop				:which-key "show kill ring")
   ;; Simulated keys
-  "w"	(general-simulate-key "C-w" 		:which-key "window operations")
-  "h"	(general-simulate-key "C-h" 		:which-key "help")
+  "w"	(general-simulate-key "C-w" 	:which-key "window operations")
+  "h"	(general-simulate-key "C-h" 	:which-key "help")
   ;; Buffers
   "b"	'(counsel-switch-buffer 		:which-key "buffers list")
   ;; Package-management
-  "p"	'(list-packages				:which-key "package management")
+  "p"	'(list-packages					:which-key "package management")
   ;; Org-mode
-  "c"	'(org-ref-helm-insert-cite-link		:which-key "insert citation")
-  "l"	'(org-insert-link			:which-key "insert/edit link")
-  "o"	'(org-open-at-point			:which-key "open link")
+  "c"	'(org-ref-helm-insert-cite-link	:which-key "insert citation")
+  "l"	'(org-insert-link				:which-key "insert/edit link")
+  "o"	'(org-open-at-point				:which-key "open link")
   ;; Quit
-  "q"	'(:ignore t				:which-key "quit")
-  "qz"	'(delete-frame				:which-key "delete frame")
-  "qq"	'(kill-emacs 				:which-key "quit"))
+  "q"	'(:ignore t						:which-key "quit")
+  "qz"	'(delete-frame					:which-key "delete frame")
+  "qq"	'(kill-emacs 					:which-key "quit"))
 
   ;; , for mode-specific prefix
   (my-define-almost-everywhere
@@ -114,14 +114,26 @@
 
   ;; Minibuffer movement
   (general-define-key
-  :keymaps '(minibuffer-local-map
-	     minibuffer-local-ns-map
-	     minibuffer-local-completion-map
-	     minibuffer-local-must-match-map
-	     minibuffer-local-isearch-map
-	     ivy-minibuffer-map)
-  "M-j" (general-key "C-n")
-  "M-k" (general-key "C-p"))
+	:keymaps '(minibuffer-local-map
+				minibuffer-local-ns-map
+				minibuffer-local-completion-map
+				minibuffer-local-must-match-map
+				minibuffer-local-isearch-map
+				ivy-minibuffer-map)
+	"M-j" (general-key "C-n")
+	"M-k" (general-key "C-p"))
+
+  ;; Change font size with Alt-Shift-j/k/up/down
+  (general-define-key
+	"M-S-<up>"		'text-scale-increase
+	"M-K"			'text-scale-increase
+	"M-S-<down>"	'text-scale-decrease
+	"M-J"			'text-scale-decrease)
+  (my-define-almost-everywhere
+	"M-S-<up>"		'text-scale-increase
+	"M-K"			'text-scale-increase
+	"M-S-<down>"	'text-scale-decrease
+	"M-J"			'text-scale-decrease)
   )
 
 ;; Load other files
