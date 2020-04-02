@@ -96,6 +96,7 @@
 (add-hook 'org-mode-hook 'my-latex-preview-hook)
 
 ;; Change text-scaling binds defined in init.el to update latex preview scale
+;; Reload with C-u C-u C-c C-x C-l
 (defun my-text-scale-increase ()
   (interactive)
   (default-text-scale-increase)
