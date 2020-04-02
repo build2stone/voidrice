@@ -65,10 +65,57 @@
 ;; org-tempo for quick structure templates (ex.: <s<TAB> for source block) as described here https://orgmode.org/manual/Structure-Templates.html
 (require 'org-tempo)
 
-;; Latex preview
-(with-eval-after-load 'org
-					  (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0)))
+;; Latex previews
+
+;; Use dvisvgm and xelatex
 (setq org-latex-create-formula-image-program 'dvisvgm)
+(add-to-list 'org-preview-latex-process-alist
+	     '(dvisvgm :programs
+		       ("xelatex" "dvisvgm")
+		       :description "dvi > svg" :message "you need to install the programs: xelatex and dvisvgm." :image-input-type "xdv" :image-output-type "svg" :image-size-adjust
+		       (1.7 . 1.5)
+		       :latex-compiler
+		       ("xelatex -no-pdf -interaction nonstopmode -output-directory %o %f")
+		       :image-converter
+		       ("dvisvgm %f -n -b min -c %S -o %O")))
+
+;; Move latex preview files to ~/.cache
+(setq org-preview-latex-image-directory "~/.cache/emacs/ltximg/")
+
+;; Toggle previews when cursor enters
+(use-package org-fragtog
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook 'org-fragtog-mode))
+
+;; Scale latex previews according to default font-face height
+;; 0.0265 is just a ratio I think looks nice
+(defun my-latex-preview-hook ()
+  (plist-put org-format-latex-options :scale (* (face-attribute 'default :height) 0.0265))
+  (org--latex-preview-region (point-min) (point-max)))
+(add-hook 'org-mode-hook 'my-latex-preview-hook)
+
+;; Change text-scaling binds defined in init.el to update latex preview scale
+(defun my-text-scale-increase ()
+  (interactive)
+  (default-text-scale-increase)
+  (plist-put org-format-latex-options :scale (* (face-attribute 'default :height) 0.0265)))
+
+(defun my-text-scale-decrease ()
+  (interactive)
+  (default-text-scale-decrease)
+  (plist-put org-format-latex-options :scale (* (face-attribute 'default :height) 0.0265)))
+
+(defun my-text-scale-reset ()
+  (interactive)
+  (default-text-scale-reset)
+  (plist-put org-format-latex-options :scale (* (face-attribute 'default :height) 0.0265)))
+
+(general-define-key
+    :keymaps 'default-text-scale-mode-map
+    "M-C-S-k" 'my-text-scale-increase
+    "M-C-S-j" 'my-text-scale-decrease
+    "M-C-)" 'my-text-scale-reset)
 
 ;; Faces - Text font, colour and size
 (let* ((font 			'(:family "Sans Serif"))

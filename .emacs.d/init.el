@@ -124,6 +124,21 @@
 	"M-k" (general-key "C-p"))
   )
 
+;; Text scale adjustment
+;; M-C scales buffer-locally, M-C-S globally
+(use-package default-text-scale
+  :ensure t
+  :config
+  (default-text-scale-mode 1)
+  (general-define-key
+    :keymaps 'default-text-scale-mode-map
+    "M-C-k" 'text-scale-increase
+    "M-C-j" 'text-scale-decrease
+    "M-C-0" (lambda () (interactive) (text-scale-adjust 0))
+    "M-C-S-k" 'default-text-scale-increase
+    "M-C-S-j" 'default-text-scale-decrease
+    "M-C-)" 'default-text-scale-reset))
+
 ;; Load other files
 (load-file (concat (file-name-directory load-file-name)
 		   "org.el"))
@@ -159,17 +174,3 @@
   (spaceline-toggle-buffer-size-on)
   (spaceline-toggle-evil-state-on))
 
-;; Text scale adjustment
-;; M-C scales buffer-locally, M-C-S globally
-(use-package default-text-scale
-  :ensure t
-  :config
-  (default-text-scale-mode 1)
-  (general-define-key
-    :keymaps 'default-text-scale-mode-map
-    "M-C-k" 'text-scale-increase
-    "M-C-j" 'text-scale-decrease
-    "M-C-0" (lambda () (interactive) (text-scale-adjust 0))
-    "M-C-S-k" 'default-text-scale-increase
-    "M-C-S-j" 'default-text-scale-decrease
-    "M-C-)" 'default-text-scale-reset))
