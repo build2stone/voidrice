@@ -5,13 +5,13 @@ module_path+=( "/home/seggers/.config/zinit/bin/zmodules/Src" )
 zmodload zdharma/zplugin
 
 # This makes the prompt appear instantly (using instant-zsh-pre/post)
-source $HOME/.local/zshscripts/instant-zsh.zsh
+source "$HOME/.local/zshscripts/instant-zsh.zsh"
 
 # zplugin setup
 declare -A ZINIT
 ZINIT[HOME_DIR]="$HOME/.config/zinit"
 ZINIT[ZCOMPDUMP_PATH]="$HOME/.cache/zcompdump"
-source $HOME/.config/zinit/bin/zplugin.zsh
+source "$HOME/.config/zinit/bin/zplugin.zsh"
 
 # Enable colors and change prompt:
 autoload -U colors && colors
@@ -21,7 +21,9 @@ instant-zsh-pre "$PS1"
 # History in cache directory:
 HISTSIZE=10000
 SAVEHIST=10000
-HISTFILE=~/.cache/zsh/history
+HISTFILE="$XDG_CACHE_HOME/zsh/history"
+
+[ -e "$XDG_CACHE_HOME/zsh/" ] || mkdir "$XDG_CACHE_HOME/zsh/"
 
 # Basic auto/tab complete:
 autoload -U compinit
