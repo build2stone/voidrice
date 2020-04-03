@@ -88,10 +88,19 @@
   :config
   (add-hook 'org-mode-hook 'org-fragtog-mode))
 
-;; Scale latex previews according to default font-face height
-;; 0.0265 is just a ratio I think looks nice
+;; Scale latex previews according to default font-face height and correct for x dpi setting
+(defun my-apply-scale ()
+  (plist-put org-format-latex-options :scale (*
+											   (* (face-attribute 'default :height) 0.013)
+											   (/ (string-to-number (cond ((let ((x-resource-class "Xft"))
+																			 (x-get-resource "dpi" "")))
+																		  (t "96")))
+												  96)
+											   )
+			 ))
+
 (defun my-latex-preview-hook ()
-  (plist-put org-format-latex-options :scale (* (face-attribute 'default :height) 0.0265))
+  (my-apply-scale)
   (org--latex-preview-region (point-min) (point-max)))
 (add-hook 'org-mode-hook 'my-latex-preview-hook)
 
@@ -100,17 +109,17 @@
 (defun my-text-scale-increase ()
   (interactive)
   (default-text-scale-increase)
-  (plist-put org-format-latex-options :scale (* (face-attribute 'default :height) 0.0265)))
+  (my-apply-scale))
 
 (defun my-text-scale-decrease ()
   (interactive)
   (default-text-scale-decrease)
-  (plist-put org-format-latex-options :scale (* (face-attribute 'default :height) 0.0265)))
+  (my-apply-scale))
 
 (defun my-text-scale-reset ()
   (interactive)
   (default-text-scale-reset)
-  (plist-put org-format-latex-options :scale (* (face-attribute 'default :height) 0.0265)))
+  (my-apply-scale))
 
 (general-define-key
     :keymaps 'default-text-scale-mode-map
