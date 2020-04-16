@@ -20,8 +20,8 @@
 (setq org-latex-packages-alist '(
 "
 \\usepackage{fontspec}
-\\setmainfont{DejaVu Serif}
-\\newfontfamily{\\defaultfont}{DejaVu Serif}
+\\setmainfont{Latin Modern Roman}
+\\newfontfamily{\\defaultfont}{Latin Modern Roman}
 \\newfontfamily{\\symbolfont}{Symbola}
 \\usepackage[Latin,Mathematics,NumberForms,Punctuation,Symbols]{ucharclasses}
 \\setTransitionsForSymbols{\\symbolfont}{\\defaultfont}
@@ -40,11 +40,16 @@
 (add-to-list 'org-latex-packages-alist
 			 '("" "tabulary"))
 
-;; Use #+LANGUAGE to set document language
+;; Use #+LANGUAGE to set document language (de for german, fr for french etc)
 (add-to-list 'org-latex-packages-alist
 			 '("AUTO" "babel" t ("pdflatex")))
 (add-to-list 'org-latex-packages-alist
 			 '("AUTO" "polyglossia" t ("xelatex" "lualatex")))
+
+; ;; Hijack language key definitions to use ziffer (germany-appropriate maths punctuation) when document language is german
+(eval-after-load "ox-latex"
+  '(add-to-list 'org-latex-polyglossia-language-alist
+		(list "de" "german}\n\\usepackage{ziffer" "german")))
 
 (setq org-latex-pdf-process (list "latexmk -f -pdfxe %f")
 	  org-latex-caption-above nil)
@@ -64,6 +69,9 @@
 
 ;; org-tempo for quick structure templates (ex.: <s<TAB> for source block) as described here https://orgmode.org/manual/Structure-Templates.html
 (require 'org-tempo)
+
+;; Use xelatex
+(setq org-latex-compiler "xelatex")
 
 ;; Latex previews
 
