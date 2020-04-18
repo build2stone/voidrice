@@ -14,16 +14,38 @@ ZINIT[ZCOMPDUMP_PATH]="$HOME/.cache/zcompdump"
 source "$HOME/.config/zinit/bin/zplugin.zsh"
 
 # Enable colors and change prompt:
-autoload -U colors && colors
+autoload -U colors && colors	# Load colors
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+setopt autocd autopushd pushdignoredups # Automatically cd into typed directory.
+stty stop undef		# Disable ctrl-s to freeze terminal.
 instant-zsh-pre "$PS1"
 
 # History in cache directory:
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE="$XDG_CACHE_HOME/zsh/history"
-
 [ -e "$XDG_CACHE_HOME/zsh/" ] || mkdir "$XDG_CACHE_HOME/zsh/"
+
+# Load aliases and shortcuts if existent.
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc"
+
+# Load pty.zsh for piping colored output
+# (Makes commands think stdout is a tty)
+source "$HOME/.local/zshscripts/pty.zsh"
+
+# Load plugins
+zplugin light zsh-users/zsh-autosuggestions
+zplugin light hlissner/zsh-autopair
+zplugin light zsh-vi-more/vi-motions
+zplugin light zsh-users/zsh-history-substring-search
+zplugin light zsh-users/zsh-syntax-highlighting
+
+# Set zsh-autosuggestions options
+export ZSH_AUTOSUGGEST_USE_ASYNC=t
+export ZSH_AUTOSUGGEST_MANUAL_REBIND=t
+export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
 # Basic auto/tab complete:
 autoload -U compinit
@@ -33,12 +55,7 @@ zstyle ':completion:*' list-dirs-first true
 zstyle ':completion:*' group-name ''
 zmodload zsh/complist
 compinit
-
-# Include hidden files in autocomplete:
-_comp_options+=(globdots)
-
-# cd by typing directory name
-setopt autocd autopushd pushdignoredups
+_comp_options+=(globdots)		# Include hidden files.
 
 # vi mode
 bindkey -v
@@ -50,15 +67,6 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
-
-# Fix various keys
-bindkey "^[[P" delete-char
-bindkey "^[[4~" end-of-line
-bindkey "^[[H" beginning-of-line
-bindkey "^[[4h" vi-put-after-xclip # This command is added by the script below
-
-# Make yank and paste point to xclip
-source $HOME/.local/zshscripts/xclip.zsh
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select {
@@ -73,7 +81,6 @@ function zle-keymap-select {
   fi
 }
 zle -N zle-keymap-select
-
 zle-line-init() {
     zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
     echo -ne "\e[5 q"
@@ -88,35 +95,11 @@ lfcd () {
     lfifo -last-dir-path="$tmp" "$@"
     if [ -f "$tmp" ]; then
         dir="$(cat "$tmp")"
-        rm -f "$tmp"
+        rm -f "$tmp" >/dev/null
         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
     fi
 }
 bindkey -s '^o' 'lfcd\n'
-
-# Edit line in vim with ctrl-e:
-autoload edit-command-line; zle -N edit-command-line
-bindkey '^e' edit-command-line
-
-# Load aliases and shortcuts if existent.
-[ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc"
-[ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
-
-# Load pty.zsh for piping colored output
-# (Makes commands think stdout is a tty)
-source "$HOME/.local/zshscripts/pty.zsh"
-
-# Load plugins
-zplugin light zsh-users/zsh-autosuggestions
-zplugin light hlissner/zsh-autopair
-zplugin light zsh-vi-more/vi-motions
-zplugin light zsh-users/zsh-history-substring-search
-zplugin light zsh-users/zsh-syntax-highlighting
-
-# Set zsh-autosuggestions options
-export ZSH_AUTOSUGGEST_USE_ASYNC=yeet
-export ZSH_AUTOSUGGEST_MANUAL_REBIND=yeet
-export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
 # Accept autosuggestion with alt-tab
 bindkey '\e\t' autosuggest-accept
@@ -127,16 +110,18 @@ bindkey '^[[1;2B' history-substring-search-down
 bindkey -M vicmd 'K' history-substring-search-up
 bindkey -M vicmd 'J' history-substring-search-down
 
-# Sync selected region with x primary selection
-function zle-line-pre-redraw {
-	[ $REGION_ACTIVE != "1" ] && return
+bindkey -s '^a' 'bc -l\n'
 
-	if (( $CURSOR > $MARK )) then
-	  echo ${BUFFER[MARK + 1,CURSOR + 1]} | xclip -i
-	else
-	  echo ${BUFFER[CURSOR + 1, MARK + 1]} | xclip -i
-	fi
-}
-zle -N zle-line-pre-redraw
+bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
+
+# Bind Insert, Delete, Home and End to the expected
+bindkey "^[[4h" vi-put-after-xclip
+bindkey '^[[P' delete-char
+bindkey "^[[4~" end-of-line
+bindkey "^[[H" beginning-of-line
+
+# Edit line in vim with ctrl-e:
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^e' edit-command-line
 
 instant-zsh-post
