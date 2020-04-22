@@ -44,9 +44,10 @@
 			 '("" "csquotes"))
 
 ;; Use \textquote{} when smartquotes are enabled
-(dolist (element org-export-smart-quotes-alist)
-  (setcdr (nth 1 element) (plist-put (cdr (nth 1 element)) :latex "\\textquote{"))
-  (setcdr (nth 2 element) (plist-put (cdr (nth 2 element)) :latex "}")))
+(with-eval-after-load "ox"
+    (dolist (element org-export-smart-quotes-alist)
+	  (setcdr (nth 1 element) (plist-put (cdr (nth 1 element)) :latex "\\textquote{"))
+	  (setcdr (nth 2 element) (plist-put (cdr (nth 2 element)) :latex "}"))))
 
 ;; Use #+LANGUAGE to set document language (de for german, fr for french etc)
 (add-to-list 'org-latex-packages-alist
