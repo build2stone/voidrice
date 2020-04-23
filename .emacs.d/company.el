@@ -62,4 +62,4 @@
   :ensure t)
 
 ;; Customize company-preview font face
-(set-face-attribute 'company-preview nil :foreground "white" :background "#458588")
+(set-face-attribute 'company-preview-common nil :foreground "white" :background "#458588")

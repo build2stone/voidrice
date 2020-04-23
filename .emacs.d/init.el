@@ -46,6 +46,9 @@
 (menu-bar-mode   -1)
 (blink-cursor-mode -1)
 
+;; Text size
+; (set-face-attribute 'default nil :height 150)
+
 ;; Make scrolling nicer
 (setq scroll-margin 7
       scroll-conservatively 10000
@@ -55,10 +58,26 @@
 (setq show-paren-delay 0)
 (show-paren-mode  1)
 
-;; Load theme
-(use-package gruvbox-theme
+; ;; Load theme
+(use-package doom-themes
   :ensure t
-  :config (load-theme 'gruvbox t))
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (load-theme 'doom-gruvbox t)
+
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+
+  ;; Enable custom neotree theme (all-the-icons must be installed!)
+  (doom-themes-neotree-config)
+  ;; or for treemacs users
+  (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
+  (doom-themes-treemacs-config)
+
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
 
 ;; Set bibligraphies
 (setq reftex-default-bibliography  '("~/Documents/arbeiten/refer.bib")
@@ -143,8 +162,6 @@
 (load-file (concat (file-name-directory load-file-name)
 		   "org.el"))
 (load-file (concat (file-name-directory load-file-name)
-		   "fixes.el"))
-(load-file (concat (file-name-directory load-file-name)
 		   "prog.el"))
 (load-file (concat (file-name-directory load-file-name)
 		   "company.el"))
@@ -172,5 +189,5 @@
   (spaceline-spacemacs-theme)
   (spaceline-toggle-minor-modes-off)
   (spaceline-toggle-buffer-size-on)
-  (spaceline-toggle-evil-state-on))
-
+  (spaceline-toggle-evil-state-on)
+  (set-face-attribute 'spaceline-highlight-face nil :foreground "black"))

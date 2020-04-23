@@ -74,13 +74,13 @@
 				   org-ref-default-citation-link			"autocite"
 				   org-latex-prefer-user-labels t)) ;; That last one is required to make ref:NAME links work
 
+;; Use xelatex
+(setq org-latex-compiler "xelatex")
+
 ;; From here on out everything is cosmetic (not affecting the final document)
 
 ;; org-tempo for quick structure templates (ex.: <s<TAB> for source block) as described here https://orgmode.org/manual/Structure-Templates.html
 (require 'org-tempo)
-
-;; Use xelatex
-(setq org-latex-compiler "xelatex")
 
 ;; Latex previews
 
@@ -108,7 +108,7 @@
 ;; Scale latex previews according to default font-face height and correct for x dpi setting
 (defun my-apply-scale ()
   (plist-put org-format-latex-options :scale (*
-											   (* (face-attribute 'default :height) 0.013)
+											   (* (face-attribute 'default :height) 0.011)
 											   (/ (string-to-number (cond ((let ((x-resource-class "Xft"))
 																			 (x-get-resource "dpi" "")))
 																		  (t "96")))
@@ -150,29 +150,25 @@
 
   (custom-theme-set-faces
 	'user
-	'(variable-pitch ((t (:family "Sans Serif" :height 1.2 :weight light))))
-	'(fixed-pitch ((t (:family "Mono" :slant normal :weight normal :height 1.0 :width normal))))
-	`(org-level-8 ((t (,@headline ,@font))))
-	`(org-level-7 ((t (,@headline ,@font))))
-	`(org-level-6 ((t (,@headline ,@font))))
-	`(org-level-5 ((t (,@headline ,@font))))
-	`(org-level-4 ((t (,@headline ,@font :height 1.1))))
-	`(org-level-3 ((t (,@headline ,@font :height 1.25))))
-	`(org-level-2 ((t (,@headline ,@font :height 1.5))))
-	`(org-level-1 ((t (,@headline ,@font :height 1.75))))
-	`(org-document-title ((t (,@headline ,@font :height 2.0 :underline t :foreground "aquamarine"))))
+	'(variable-pitch ((t (:family "Sans Serif" :weight light))))
+	'(fixed-pitch ((t (:family "Mono" :slant normal :weight normal :width normal))))
+
 	'(org-block ((t (:inherit fixed-pitch))))
 	'(org-code ((t (:inherit (shadow fixed-pitch)))))
-	'(org-document-info ((t (:foreground "dark orange"))))
 	'(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
 	'(org-indent ((t (:inherit (org-hide fixed-pitch)))))
-	'(org-link ((t (:foreground "royal blue" :underline t))))
 	'(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
 	'(org-property-value ((t (:inherit fixed-pitch))) t)
 	'(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
-	'(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
+	'(org-table ((t (:inherit fixed-pitch))))
 	'(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
 	'(org-verbatim ((t (:inherit (shadow fixed-pitch)))))))
+
+(set-face-attribute 'org-document-title nil :height 2.0)
+(set-face-attribute 'org-level-1 nil :height 1.75)
+(set-face-attribute 'org-level-2 nil :height 1.5)
+(set-face-attribute 'org-level-3 nil :height 1.25)
+(set-face-attribute 'org-level-4 nil :height 1.1)
 
 ;; Enable variable text pitch
 (add-hook 'org-mode-hook 'variable-pitch-mode)
