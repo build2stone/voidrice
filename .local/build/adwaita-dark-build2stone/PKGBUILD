@@ -1,0 +1,49 @@
+# Maintainer: build2stone
+# Adapted from https://aur.archlinux.org/packages/adwaita-dark-darose
+
+pkgname="adwaita-dark-build2stone"
+pkgver=3.22.3
+pkgrel=10
+pkgdesc="Dark adwaita theme with lighter blues."
+url="none"
+license=('GPL')
+arch=('any')
+makedepends=('glib2' 'gtk3')
+
+build() {
+    mkdir "${srcdir}/${pkgname}"
+    cd "${srcdir}/${pkgname}"
+
+    cp -r /usr/share/themes/Adwaita-dark/gtk-2.0 .
+
+    mkdir gtk-3.0
+    for f in $(gresource list /usr/lib/libgtk-3.so.0 | grep Adwaita | grep -v assets); do
+        gresource extract /usr/lib/libgtk-3.so.0 $f > gtk-3.0/$(basename $f)
+    done
+    echo '@import url("gtk-contained-dark.css");' > gtk-3.0/gtk.css
+    echo '@import url("gtk-contained-dark.css");' > gtk-3.0/gtk-dark.css
+
+	sed -i 's|#15539e|#00bcd4|g' gtk-3.0/gtk-contained-dark.css
+    sed -i 's|#15539e|#00bcd4|g' gtk-2.0/gtkrc
+
+	sed -i 's|#3584e4|#55bcea|g' gtk-3.0/gtk-contained-dark.css
+    sed -i 's|#3584e4|#55bcea|g' gtk-2.0/gtkrc
+
+    mkdir gtk-3.0/assets
+    for f in $(gresource list /usr/lib/libgtk-3.so.0 | grep Adwaita/assets); do
+        gresource extract /usr/lib/libgtk-3.so.0 $f > gtk-3.0/assets/$(basename $f)
+    done
+
+    sed -i 's|stepper: false|stepper: true|g' gtk-3.0/gtk-contained-dark.css
+
+    cp /usr/share/themes/Adwaita-dark/index.theme .
+    sed -i 's|Adwaita-dark|Adwaita-dark-build2stone|' index.theme
+
+}
+
+package() {
+    cd "${srcdir}/"
+
+    install -d -m 755 "${pkgdir}/usr/share/themes/"
+    cp -rT "${pkgname}" "${pkgdir}/usr/share/themes/Adwaita-dark-build2stone"
+}
