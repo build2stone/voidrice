@@ -81,7 +81,7 @@ cmd bulkrename ${{
 	$EDITOR -c "source $HOME/.config/lf/withdisplay.vim" -O $index_edit $index
 
 	if [ -n "${fs}" ]; then
-		xargs -a $index_edit -d "\n" -I %f -n 1 dirname "$(realpath -s '%f')" | paste -d "/" - $index_edit > $index_move
+		xargs -a $index -d "\n" -I %f -n 1 dirname '%f' | paste -d "/" - $index_edit > $index_move
 	else
 		cat $index_edit > $index_move
 	fi

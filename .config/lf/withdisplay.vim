@@ -33,10 +33,14 @@ augroup VifmRenameAutoCmds
 	autocmd BufEnter <buffer> call s:QuitIfOnlyWindow()
 augroup END
 
+windo e ++enc=utf-8
+
 " Go back to the original window and ensure it will remain synchronized with
 " the auxiliary one
 wincmd w
 setlocal cursorbind
 setlocal scrollbind
+
+set noro
 
 " vim: set tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab cinoptions-=(0 :
