@@ -115,7 +115,7 @@ bindkey -s '^a' 'bc -l\n'
 bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
 
 # Bind Insert, Delete, Home and End to the expected
-bindkey "^[[4h" vi-put-after-xclip
+bindkey "^[[4h" vi-put-after
 bindkey '^[[P' delete-char
 bindkey "^[[4~" end-of-line
 bindkey "^[[H" beginning-of-line
@@ -123,5 +123,8 @@ bindkey "^[[H" beginning-of-line
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
+
+# Use xclip
+source $HOME/.local/zshscripts/xclip.zsh
 
 instant-zsh-post
