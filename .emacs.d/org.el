@@ -78,9 +78,6 @@
 				   org-ref-default-citation-link			"autocite"
 				   org-latex-prefer-user-labels t)) ;; That last one is required to make ref:NAME links work
 
-;; Use xelatex
-(setq org-latex-compiler "xelatex")
-
 ;; From here on out everything is cosmetic (not affecting the final document)
 
 ;; org-tempo for quick structure templates (ex.: <s<TAB> for source block) as described here https://orgmode.org/manual/Structure-Templates.html
