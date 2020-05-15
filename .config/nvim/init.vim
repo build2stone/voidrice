@@ -20,11 +20,11 @@ Plug 'bling/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'ptzz/lf.vim'
 Plug 'kovetskiy/sxhkd-vim'
+Plug 'ap/vim-css-color'
 Plug 'tmsvg/pear-tree'
 Plug 'machakann/vim-highlightedyank'
 Plug 'soli/prolog-vim'
 Plug 'jaxbot/semantic-highlight.vim'
-Plug 'ap/vim-css-color'
 call plug#end()
 
 set bg=dark
@@ -72,6 +72,11 @@ vmap <LeftRelease> "*ygv
 " Nerd tree
 	map <leader>n :NERDTreeToggle<CR>
 	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+    if has('nvim')
+        let NERDTreeBookmarksFile = stdpath('data') . '/NERDTreeBookmarks'
+    else
+        let NERDTreeBookmarksFile = '~/.vim' . '/NERDTreeBookmarks'
+    endif
 
 " pear-tree
 	let g:pear_tree_smart_openers = 1

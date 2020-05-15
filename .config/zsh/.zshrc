@@ -124,6 +124,7 @@ bindkey "^[[H" beginning-of-line
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
+<<<<<<< HEAD
 # Use xclip
 source $HOME/.local/zshscripts/xclip.zsh
 
