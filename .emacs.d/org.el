@@ -60,8 +60,12 @@
   '(add-to-list 'org-latex-polyglossia-language-alist
 		(list "de" "german}\n\\usepackage{ziffer" "german")))
 
-(setq org-latex-pdf-process (list "latexmk -f -pdfxe %f")
-	  org-latex-caption-above nil)
+;; Use xelatex
+(setq org-latex-compiler "xelatex"
+	  org-latex-pdf-process (list "latexmk -shell-escape -f -pdfxe %f"))
+
+;; Caption below
+(setq org-latex-caption-above nil)
 
 ;; For better references
 (use-package org-ref
