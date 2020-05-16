@@ -13,7 +13,8 @@ alias \
 	yta="yt -x -f bestaudio/best" \
 	ffmpeg="ffmpeg -hide_banner" \
 	less="less +k" \
-	du="du -h"
+	du="du -h" \
+	df="df -h"
 
 # Colorize commands when possible.
 alias \
