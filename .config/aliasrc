@@ -44,7 +44,6 @@ alias \
 	g="git" \
 	gua="git remote | xargs -L1 git push --all" \
 	trem="transmission-remote" \
-	clean="find ./ -regex \"\(.*archtop.*\)\|\(.*\.tex$\)\" -exec rm '{}' \;" \
 	x="sxiv -ft *" \
 	yt="youtube-dl --add-metadata -i -o '%(upload_date)s-%(title)s.%(ext)s'" \
 	yta="yt -x -f bestaudio/best" \
@@ -53,8 +52,6 @@ alias \
 	odjnl="journalctl --user-unit onedrive -f" \
 	odstart="systemctl --user start onedrive" \
 	odoff="systemctl --user stop onedrive" \
-	enc="gpg --no-symkey-cache -c" \
-	dec="gpg --no-symkey-cache -d" \
 	tdq="printf \"Quick-add task: \"; read task && todoist q \"#Agenda \$task\"" \
 	tds="todoist --color show \$(todoist list | dmenu -l 20 | cut -d ' ' -f 1)" \
 	tdc="todoist --color close \$(todoist list | dmenu -l 20 | cut -d ' ' -f 1) &"
