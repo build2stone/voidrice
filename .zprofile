@@ -39,6 +39,7 @@ export GOPATH="${XDG_DATA_HOME:-$HOME/.local/share}/go"
 export ANSIBLE_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/ansible/ansible.cfg"
 export IPYTHONDIR="$XDG_CONFIG_HOME/jupyter"
 export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
+export GRADLE_USER_HOME="$XDG_CONFIG_HOME/gradle"
 
 # Other program settings:
 export DICS="/usr/share/stardict/dic/"
