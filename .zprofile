@@ -27,7 +27,6 @@ export LESSHISTFILE="-"
 export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/wgetrc"
 export INPUTRC="${XDG_CONFIG_HOME:-$HOME/.config}/inputrc"
 export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
-export ALSA_CONFIG_PATH="$XDG_CONFIG_HOME/alsa/asoundrc"
 #export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export WINEPREFIX="${XDG_DATA_HOME:-$HOME/.local/share}/wineprefixes/default"
 export KODI_DATA="${XDG_DATA_HOME:-$HOME/.local/share}/kodi"
@@ -57,8 +56,8 @@ export LESSOPEN="| /usr/bin/highlight -O ansi %s 2>/dev/null"
 export QT_QPA_PLATFORMTHEME="gtk2"	# Have QT use gtk2 theme.
 export MOZ_USE_XINPUT2="1"		# Mozilla smooth scrolling/touchpads.
 export _JAVA_AWT_WM_NONREPARENTING=1	# Java doesn't understand tiling windows
-export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel' # proper font AA in swing apps
 export AWT_TOOLKIT="MToolkit wmname LG3D"	#May have to install wmname
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel' # proper font AA in swing apps
 
 eval `dircolors ${XDG_CONFIG_HOME:-$HOME/.config}/dircolors`
 
