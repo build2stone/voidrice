@@ -1,14 +1,13 @@
 # Maintainer: build2stone
 # Adapted from https://aur.archlinux.org/packages/adwaita-dark-darose
 
-pkgname="adwaita-dark-build2stone"
+pkgname=adwaita-dark-build2stone
 pkgver=3.22.3
 pkgrel=10
 pkgdesc="Dark adwaita theme with lighter blues."
-url="none"
 license=('GPL')
 arch=('any')
-makedepends=('glib2' 'gtk3')
+makedepends=('glib2' 'gtk3' 'gnome-themes-extra')
 
 build() {
     mkdir "${srcdir}/${pkgname}"
