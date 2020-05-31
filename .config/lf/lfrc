@@ -103,7 +103,6 @@ cmd bulkrename ${{
 # Bindings
 map <c-f> $lf -remote "send $id select '$(fzf)'"
 map J $lf -remote "send $id cd $(cut -d'	' -f2 ~/.config/directories | fzf)"
-map E $cut -d'	' -f2 ~/.config/files | fzf | awk -v home=$HOME '{ gsub("^~", home, $0); print $0 }' | xargs -r -I % $EDITOR %
 map gh
 map g top
 map D delete
