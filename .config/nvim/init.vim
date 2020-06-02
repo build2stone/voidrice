@@ -19,12 +19,15 @@ Plug 'vimwiki/vimwiki'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'ptzz/lf.vim'
+Plug 'rbgrouleff/bclose.vim'
 Plug 'kovetskiy/sxhkd-vim'
 Plug 'ap/vim-css-color'
 Plug 'tmsvg/pear-tree'
 Plug 'machakann/vim-highlightedyank'
 Plug 'soli/prolog-vim'
+Plug 'cespare/vim-toml'
 Plug 'jaxbot/semantic-highlight.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 set bg=dark
@@ -99,6 +102,87 @@ vmap <LeftRelease> "*ygv
 
 " semantic-highlight
 	nnoremap <Leader>h :SemanticHighlightToggle<cr>
+
+" coc.nvim
+    let g:coc_start_at_startup=0
+	map <leader>e :call CocSetup() \| :CocStart<CR>
+
+	function! CocSetup()
+			" TextEdit might fail if hidden is not set.
+			set hidden
+			" Some servers have issues with backup files, see #649.
+			set nobackup
+			set nowritebackup
+			" Give more space for displaying messages.
+			set cmdheight=2
+			" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+			" delays and poor user experience.
+			set updatetime=300
+			" Don't pass messages to |ins-completion-menu|.
+			set shortmess+=c
+
+			" Use tab for trigger completion with characters ahead and navigate.
+			inoremap <silent><expr> <TAB>
+									\ pumvisible() ? "\<C-n>" :
+									\ <SID>check_back_space() ? "\<TAB>" :
+									\ coc#refresh()
+			inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+			function! s:check_back_space() abort
+					let col = col('.') - 1
+					return !col || getline('.')[col - 1]  =~# '\s'
+			endfunction
+
+
+			" Use `[g` and `]g` to navigate diagnostics
+			nmap <silent> [g <Plug>(coc-diagnostic-prev)
+			nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+			" GoTo code navigation.
+			nmap <silent> gd <Plug>(coc-definition)
+			nmap <silent> gy <Plug>(coc-type-definition)
+			nmap <silent> gi <Plug>(coc-implementation)
+			nmap <silent> gr <Plug>(coc-references)
+
+			" Use K to show documentation in preview window.
+			nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+			function! s:show_documentation()
+					if (index(['vim','help'], &filetype) >= 0)
+							execute 'h '.expand('<cword>')
+					else
+							call CocAction('doHover')
+					endif
+			endfunction
+
+			" Highlight the symbol and its references when holding the cursor.
+			autocmd CursorHold * silent call CocActionAsync('highlight')
+
+			" Symbol renaming.
+			nmap <leader>rn <Plug>(coc-rename)
+
+			" Formatting selected code.
+			xmap <leader>f  <Plug>(coc-format-selected)
+			nmap <leader>f  <Plug>(coc-format-selected)
+			xmap <leader>a  <Plug>(coc-codeaction-selected)
+			nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+			" Remap keys for applying codeAction to the current buffer.
+			nmap <leader>ac  <Plug>(coc-codeaction)
+			" Apply AutoFix to problem on the current line.
+			nmap <leader>qf  <Plug>(coc-fix-current)
+
+			" Map function and class text objects
+			" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+			xmap if <Plug>(coc-funcobj-i)
+			omap if <Plug>(coc-funcobj-i)
+			xmap af <Plug>(coc-funcobj-a)
+			omap af <Plug>(coc-funcobj-a)
+			xmap ic <Plug>(coc-classobj-i)
+			omap ic <Plug>(coc-classobj-i)
+			xmap ac <Plug>(coc-classobj-a)
+			omap ac <Plug>(coc-classobj-a)
+	endfunction
 
 " Shortcutting split navigation, saving a keypress:
 	map <C-h> <C-w>h
