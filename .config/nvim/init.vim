@@ -84,6 +84,9 @@ vmap <LeftRelease> "*ygv
 	let g:pear_tree_smart_backspace = 1
 	imap <space> <Plug>(PearTreeSpace)
 
+" prolog-vim
+    autocmd BufNewFile,BufRead *.pl set filetype=prolog
+
 " vimling:
 	nm <leader>d :call ToggleDeadKeys()<CR>
 	imap <leader>d <esc>:call ToggleDeadKeys()<CR>a

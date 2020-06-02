@@ -111,7 +111,7 @@ map <c-r> reload
 map <enter> shell
 map x $$f
 map X !$f
-map <c-s> $sxiv -ft *
+map <c-s> $sxiv -fta *
 map U !du -Dsh $f
 map <c-v> $$HOME/.config/lf/scope $f -1 | less +k
 map o &mimeopen $f
