@@ -108,6 +108,9 @@ vmap <LeftRelease> "*ygv
 	map <leader>e :call CocSetup() \| :CocStart<CR>
 
 	function! CocSetup()
+			" Old versions of gradle just straight up crash when there is unicode in the environment
+			unlet $LF_ICONS
+
 			" TextEdit might fail if hidden is not set.
 			set hidden
 			" Some servers have issues with backup files, see #649.
@@ -133,6 +136,17 @@ vmap <LeftRelease> "*ygv
 					return !col || getline('.')[col - 1]  =~# '\s'
 			endfunction
 
+			" Use <c-space> to trigger completion.
+			inoremap <silent><expr> <c-space> coc#refresh()
+
+			" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+			" position. Coc only does snippet and additional edit on confirm.
+			" <Plug>(PearTreeExpand)
+			if exists('*complete_info')
+					inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u<Plug>(PearTreeExpand)"
+			else
+					inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u<Plug>(PearTreeExpand)"
+			endif
 
 			" Use `[g` and `]g` to navigate diagnostics
 			nmap <silent> [g <Plug>(coc-diagnostic-prev)
