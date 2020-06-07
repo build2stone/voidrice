@@ -75,5 +75,6 @@ alias \
 	tmux="tmux -f ${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf" \
 
 fv() { fzf | xargs -r -I % $EDITOR % ;}
-fd() { find $HOME/Documents/ | fzf | xargs -r -I % lf % ; }
-fx() { fzf | xargs -r -I % setsid -f xdg-open % >/dev/null 2>&1 ; }
+fd() { find $HOME/Documents/ | fzf | xargs -ro -I % lf % ; }
+fl() { fzf | xargs -ro -I % lf % ; }
+fx() { fzf | xargs -r -I % xdg-open % ; }
