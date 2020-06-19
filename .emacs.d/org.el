@@ -15,6 +15,8 @@
 ;; html-export
 (use-package htmlize
 			 :ensure t)
+(use-package ox-twbs
+			 :ensure t)
 
 ;; Set up Symbola as symbol font
 (setq org-latex-packages-alist '(
