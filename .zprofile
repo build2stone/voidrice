@@ -59,7 +59,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1	# Java doesn't understand tiling windows
 export AWT_TOOLKIT="MToolkit wmname LG3D"	#May have to install wmname
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel' # proper font AA in swing apps
 
-eval `dircolors ${XDG_CONFIG_HOME:-$HOME/.config}/dircolors`
+eval `dircolors ${XDG_CONFIG_HOME:-$HOME/.config}/.dircolors`
 
 # This is the list for lf icons:
 export LF_ICONS="\
