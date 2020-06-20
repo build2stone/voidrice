@@ -51,10 +51,11 @@
 (add-to-list 'org-latex-packages-alist
 			 '("AUTO" "polyglossia" t ("xelatex" "lualatex")))
 
-; ;; Hijack language key definitions to use ziffer (germany-appropriate maths punctuation) when document language is german
 (with-eval-after-load "ox-latex"
+;; Hijack language key definitions to use ziffer (germany-appropriate maths punctuation) when document language is german
   (add-to-list 'org-latex-polyglossia-language-alist
 		(list "de" "german}\n\\usepackage{ziffer" "german"))
+;; Add tufte-book latex class
   (add-to-list 'org-latex-classes
                '("tufte-book" "\\documentclass[nobib, a4paper]{tufte-book}"
 				 ; ("\\part{%s}" . "\\part{%s}")
