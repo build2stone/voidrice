@@ -12,25 +12,11 @@
 						 org-list-indent-offset 1)
 			 )
 
-;; html-export
+;; html
 (use-package htmlize
 			 :ensure t)
 (use-package ox-twbs
 			 :ensure t)
-
-;; Set up Symbola as symbol font
-(setq org-latex-packages-alist '(
-"
-\\usepackage{fontspec}
-\\setmainfont{Latin Modern Roman}
-\\newfontfamily{\\defaultfont}{Latin Modern Roman}
-\\newfontfamily{\\symbolfont}{Symbola}
-\\usepackage[Latin,Mathematics,NumberForms,Punctuation,Symbols]{ucharclasses}
-\\setTransitionsForSymbols{\\symbolfont}{\\defaultfont}
-\\setTransitionsFor{NumberForms}{\\symbolfont}{\\defaultfont}
-\\setTransitionsForMathematics{\\symbolfont}{\\defaultfont}
-\\setTransitionTo{Punctuation}{\\defaultfont}
-\\setTransitionTo{Latin}{\\defaultfont}"))
 
 ;; Better tables
 (add-to-list 'org-latex-packages-alist

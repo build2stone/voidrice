@@ -42,10 +42,9 @@
   (add-to-list 'company-backends 'company-math-symbols-unicode)
   (add-to-list 'company-backends 'company-math-symbols-latex))
 
-;; Use appropriate math completion in org latex snippets
-(with-eval-after-load 'org
-  (add-to-list 'company-math-disallow-unicode-symbols-in-faces 'org-latex-and-related)
-  (add-to-list 'company-math-allow-latex-symbols-in-faces 'org-latex-and-related))
+;; Use latex in org-mode
+(add-hook 'org-mode-hook
+  (lambda () (set (make-local-variable 'company-math-allow-unicode-symbols-in-faces) nil)))
 
 ;; Use posframe for compat with variable pitch text
 (use-package company-posframe
@@ -55,11 +54,6 @@
   (company-posframe-show-indicator nil)
   :init
   (company-posframe-mode 1))
-
-;; Adds a hook that's run on buffer switch
-;; Why do I have to install an extra package for this?
-(use-package switch-buffer-functions
-  :ensure t)
 
 ;; Customize company-preview font face
 (set-face-attribute 'company-preview-common nil :foreground "white" :background "#458588")
