@@ -32,12 +32,6 @@
 \\setTransitionTo{Punctuation}{\\defaultfont}
 \\setTransitionTo{Latin}{\\defaultfont}"))
 
-;; Paragraph formatting
-(add-to-list 'org-latex-packages-alist
-			 '("" "parskip"))
-;; Paper size, margins
-(add-to-list 'org-latex-packages-alist
-			 '("a4paper, margin=2cm, truedimen" "geometry"))
 ;; Better tables
 (add-to-list 'org-latex-packages-alist
 			 '("" "tabulary"))
@@ -58,9 +52,17 @@
 			 '("AUTO" "polyglossia" t ("xelatex" "lualatex")))
 
 ; ;; Hijack language key definitions to use ziffer (germany-appropriate maths punctuation) when document language is german
-(eval-after-load "ox-latex"
-  '(add-to-list 'org-latex-polyglossia-language-alist
-		(list "de" "german}\n\\usepackage{ziffer" "german")))
+(with-eval-after-load "ox-latex"
+  (add-to-list 'org-latex-polyglossia-language-alist
+		(list "de" "german}\n\\usepackage{ziffer" "german"))
+  (add-to-list 'org-latex-classes
+               '("tufte-book" "\\documentclass[nobib, a4paper]{tufte-book}"
+				 ; ("\\part{%s}" . "\\part{%s}")
+				 ("\\chapter{%s}" . "\\chapter{%s}")
+				 ("\\section{%s}" . "\\section*{%s}")
+				 ("\\subsection{%s}" . "\\subsection*{%s}")
+				 ))
+  )
 
 ;; Use xelatex
 (setq org-latex-compiler "xelatex"
