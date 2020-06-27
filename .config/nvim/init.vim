@@ -28,6 +28,11 @@ Plug 'soli/prolog-vim'
 Plug 'cespare/vim-toml'
 Plug 'jaxbot/semantic-highlight.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'hjson/vim-hjson'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'antoinemadec/coc-fzf'
+Plug 'liuchengxu/vim-which-key'
 call plug#end()
 
 set bg=dark
@@ -37,8 +42,8 @@ set mouse=a
 set clipboard+=unnamedplus
 
 " Text selected with mouse goes to primary selection
-set mouse=a
-vmap <LeftRelease> "*ygv
+    set mouse=a
+    vmap <LeftRelease> "*ygv
 
 " Some basics:
 	nnoremap c "_c
@@ -68,6 +73,13 @@ vmap <LeftRelease> "*ygv
 
 " airline
 	let g:airline_theme='dark'
+
+" fzf
+    let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+
+" highlightedyank
+	let g:highlightedyank_highlight_duration = 200
+
 " lf
 	let g:lf_map_keys = 0
 	map <leader>l :Lf<CR>
@@ -97,8 +109,9 @@ vmap <LeftRelease> "*ygv
 	imap <leader>i <esc>:call ToggleIPA()<CR>a
 	nm <leader>q :call ToggleProse()<CR>
 
-" highlightedyank
-	let g:highlightedyank_highlight_duration = 200
+" which-key
+    nnoremap <silent> <Space>	:<c-u>WhichKey	'<Space>'<CR>
+    nnoremap <silent> ,			:<c-u>WhichKey	','<CR>
 
 " semantic-highlight
 	nnoremap <Leader>h :SemanticHighlightToggle<cr>
@@ -141,11 +154,10 @@ vmap <LeftRelease> "*ygv
 
 			" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 			" position. Coc only does snippet and additional edit on confirm.
-			" <Plug>(PearTreeExpand)
 			if exists('*complete_info')
-					inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u<Plug>(PearTreeExpand)"
+					imap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u<Plug>(PearTreeExpand)"
 			else
-					inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u<Plug>(PearTreeExpand)"
+					imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u<Plug>(PearTreeExpand)"
 			endif
 
 			" Use `[g` and `]g` to navigate diagnostics
@@ -175,16 +187,25 @@ vmap <LeftRelease> "*ygv
 			" Symbol renaming.
 			nmap <leader>rn <Plug>(coc-rename)
 
-			" Formatting selected code.
-			xmap <leader>f  <Plug>(coc-format-selected)
-			nmap <leader>f  <Plug>(coc-format-selected)
-			xmap <leader>a  <Plug>(coc-codeaction-selected)
-			nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-			" Remap keys for applying codeAction to the current buffer.
-			nmap <leader>ac  <Plug>(coc-codeaction)
 			" Apply AutoFix to problem on the current line.
 			nmap <leader>qf  <Plug>(coc-fix-current)
+
+			" Formatting selected code.
+			xmap <silent> <leader>f  <Plug>(coc-format-selected)
+			nmap <silent> <leader>f  <Plug>(coc-format-selected)
+			xmap <silent> <leader>a  :'<,'>CocAction<CR>
+			nmap <silent> <leader>a  :'<,'>CocAction<CR>
+
+			nnoremap <silent> <space>a  :<C-u>CocFzfList actions<CR>
+			nnoremap <silent> <space>d  :<C-u>CocFzfList diagnostics<CR>
+			nnoremap <silent> <space>b  :<C-u>CocFzfList diagnostics --current-buf<CR>
+			nnoremap <silent> <space>c  :<C-u>CocFzfList commands<CR>
+			nnoremap <silent> <space>e  :<C-u>CocFzfList extensions<CR>
+			nnoremap <silent> <space>l  :<C-u>CocFzfList location<CR>
+			nnoremap <silent> <space>o  :<C-u>CocFzfList outline<CR>
+			nnoremap <silent> <space>s  :<C-u>CocFzfList symbols<CR>
+			nnoremap <silent> <space>S  :<C-u>CocFzfList services<CR>
+			nnoremap <silent> <space><tab>  :<C-u>CocFzfListResume<CR>
 
 			" Map function and class text objects
 			" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
