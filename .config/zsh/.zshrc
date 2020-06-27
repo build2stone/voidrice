@@ -20,11 +20,8 @@ setopt autocd autopushd pushdignoredups # Automatically cd into typed directory.
 stty stop undef		# Disable ctrl-s to freeze terminal.
 instant-zsh-pre "$PS1"
 
-# History in cache directory:
 HISTSIZE=10000
 SAVEHIST=10000
-HISTFILE="$XDG_CACHE_HOME/zsh/history"
-[ -e "$XDG_CACHE_HOME/zsh/" ] || mkdir "$XDG_CACHE_HOME/zsh/"
 
 # Load aliases and shortcuts if existent.
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc"
