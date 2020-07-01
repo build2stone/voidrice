@@ -38,6 +38,7 @@ zplugin light hlissner/zsh-autopair
 zplugin light zsh-vi-more/vi-motions
 zplugin light zsh-users/zsh-history-substring-search
 zplugin light zsh-users/zsh-syntax-highlighting
+zplugin light kutsan/zsh-system-clipboard
 
 # Set zsh-autosuggestions options
 export ZSH_AUTOSUGGEST_USE_ASYNC=t
@@ -120,8 +121,5 @@ bindkey "^[[H" beginning-of-line
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
-
-# Use xclip
-source $HOME/.local/zshscripts/xclip.zsh
 
 instant-zsh-post
