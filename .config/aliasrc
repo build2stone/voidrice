@@ -31,7 +31,6 @@ alias \
 	trem="transmission-remote" \
 	YT="youtube-viewer" \
 	sdn="sudo shutdown -h now" \
-	mkd="mkdir -pv" \
 	f="lf" \
 	e="$EDITOR" \
 	v="$EDITOR" \
@@ -78,3 +77,4 @@ fv() { fzf | xargs -r -I % $EDITOR % ;}
 fd() { find $HOME/Documents/ | fzf | xargs -ro -I % lf % ; }
 fl() { fzf | xargs -ro -I % lf % ; }
 fx() { fzf | xargs -r -I % xdg-open % ; }
+mkcd() { mkdir -pv $1 && cd $1 }
