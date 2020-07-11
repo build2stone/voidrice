@@ -37,6 +37,8 @@ call plug#end()
 
 set bg=dark
 set tabstop=4
+set shiftwidth=4
+" set softtabstop=2
 set go=a
 set mouse=a
 set clipboard+=unnamedplus
@@ -44,7 +46,8 @@ set clipboard+=unnamedplus
 " Text selected with mouse goes to primary selection
     set mouse=a
     vmap <LeftRelease> "*ygv
-
+" Un-highlight search terms with <Esc>
+	nmap <silent> <esc> :noh<cr>
 " Some basics:
 	nnoremap c "_c
 	set nocompatible
