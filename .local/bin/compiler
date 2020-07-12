@@ -42,6 +42,7 @@ case "$ext" in
 	mom) preconv "$file" | refer -PS -e | groff -mom -kept -T pdf > "$base".pdf ;;
 	ms) preconv "$file" | refer -PS -e | groff -me -ms -kept -T pdf > "$base".pdf ;;
 	py) python "$file" ;;
+	rkt) racket "$file" ;;
 	[rR]md) Rscript -e "rmarkdown::render('$file', quiet=TRUE)" ;;
 	rs) cargo build ;;
    sass) sassc -a "$file" "$base.css" ;;
