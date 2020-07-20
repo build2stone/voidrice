@@ -9,43 +9,42 @@ endif
 
 call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"'))
 Plug 'morhetz/gruvbox'
-Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+" Modes
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
-Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'jreybert/vimagit'
-Plug 'lukesmithxyz/vimling'
-Plug 'vimwiki/vimwiki'
-Plug 'bling/vim-airline'
-Plug 'tpope/vim-commentary'
+" lf
 Plug 'ptzz/lf.vim'
 Plug 'rbgrouleff/bclose.vim'
-Plug 'kovetskiy/sxhkd-vim'
-Plug 'ap/vim-css-color'
-Plug 'tmsvg/pear-tree'
-Plug 'machakann/vim-highlightedyank'
-Plug 'soli/prolog-vim'
-Plug 'cespare/vim-toml'
-Plug 'jaxbot/semantic-highlight.vim'
+" IDE
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'hjson/vim-hjson'
-Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'antoinemadec/coc-fzf'
 Plug 'liuchengxu/vim-which-key'
+" Functionality
+Plug 'tmsvg/pear-tree'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'lukesmithxyz/vimling'
+" Sugar
+Plug 'bling/vim-airline'
+Plug 'ap/vim-css-color'
+Plug 'machakann/vim-highlightedyank'
+" Syntax
+Plug 'daezak/crafttweaker-vim-highlighting'
+Plug 'soli/prolog-vim'
+Plug 'cespare/vim-toml'
 call plug#end()
 
 set bg=dark
 set tabstop=4
 set shiftwidth=4
-" set softtabstop=2
 set go=a
 set mouse=a
 set clipboard+=unnamedplus
 
 " Text selected with mouse goes to primary selection
     set mouse=a
-    vmap <LeftRelease> "*ygv
+	vmap <LeftRelease> "*ygv
 " Un-highlight search terms with <Esc>
 	nmap <silent> <esc> :noh<cr>
 " Some basics:
@@ -87,15 +86,6 @@ set clipboard+=unnamedplus
 	let g:lf_map_keys = 0
 	map <leader>l :Lf<CR>
 
-" Nerd tree
-	map <leader>n :NERDTreeToggle<CR>
-	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-    if has('nvim')
-        let NERDTreeBookmarksFile = stdpath('data') . '/NERDTreeBookmarks'
-    else
-        let NERDTreeBookmarksFile = '~/.vim' . '/NERDTreeBookmarks'
-    endif
-
 " pear-tree
 	let g:pear_tree_smart_openers = 1
 	let g:pear_tree_smart_closers = 1
@@ -115,9 +105,6 @@ set clipboard+=unnamedplus
 " which-key
     nnoremap <silent> <Space>	:<c-u>WhichKey	'<Space>'<CR>
     nnoremap <silent> ,			:<c-u>WhichKey	','<CR>
-
-" semantic-highlight
-	nnoremap <Leader>h :SemanticHighlightToggle<cr>
 
 " coc.nvim
     let g:coc_start_at_startup=0
