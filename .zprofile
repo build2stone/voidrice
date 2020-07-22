@@ -7,8 +7,6 @@
 
 # Adds `~/.local/bin` to $PATH
 export PATH="$PATH:$(du -L "$HOME/.local/bin/" | cut -f2 | paste -sd ':')"
-# Adds `~/bin` to $PATH
-export PATH=$PATH:$HOME/bin
 
 # Default programs:
 export EDITOR="nvim"
@@ -49,6 +47,9 @@ export WINEPREFIX="$XDG_DATA_HOME/wineprefixes/default"
 export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=\"$XDG_CONFIG_HOME/java\""
 
 eval `dircolors $XDG_CONFIG_HOME/.dircolors`
+
+# Add various locations to $PATH
+export PATH="$PATH:$HOME/bin:$HOME/.emacs.d/bin:$GOPATH/bin"
 
 # Other program settings:
 export DICS="/usr/share/stardict/dic/"
