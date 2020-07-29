@@ -8,6 +8,7 @@ set scrolloff 10
 set color256
 set icons
 set period 1
+set hiddenfiles ".*:*.aux:*.log:*.bbl:*.bcf:*.blg:*.run.xml"
 
 # Vars that depend on environmental variables
 $lf -remote "send $id set previewer ${XDG_CONFIG_HOME:-$HOME/.config}/lf/scope"
@@ -100,6 +101,8 @@ cmd bulkrename ${{
 	rm "$index" "$index_edit" "$index_move"
 }}
 
+cmd setbg "$1"
+
 # Bindings
 map <c-f> $lf -remote "send $id select '$(fzf)'"
 map J $lf -remote "send $id cd $(cut -d'	' -f2 ~/.config/directories | envsubst | fzf)"
@@ -124,9 +127,10 @@ map <c-o> $mimeopen --ask-default $f
 map A rename # at the very end
 map c push A<c-u> # new rename
 map I push A<c-a> # at the very beginning
-map i push A<a-b><a-b><a-f> # before extension
-map a push A<a-b> # after extension
-map b bulkrename
+map i push A<a-b><a-b><a-f> # before extention
+map a push A<a-b> # after extention
+map B bulkrename
+map b $setbg $f
 
 cmap <up> cmd-history-prev
 cmap <down> cmd-history-next
