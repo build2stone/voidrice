@@ -1,0 +1,54 @@
+#!/usr/bin/perl
+
+# Opens files.
+# If only 1 argument given, file will open in/over current window.
+# Otherwise new windows are opened for each file.
+# New windows can be forced by setting WINDOW=1
+
+use strict;
+use warnings;
+use 5.010;
+use File::Basename;
+no warnings 'experimental';
+
+my @prefix = ();
+my @editor = ($ENV{'EDITOR'} // "vi");
+my $audio_options = "--audio-display=no";
+
+if (scalar @ARGV > 1 or $ENV{'WINDOW'} // 0) {
+	@prefix = ("setsid", "-f");
+	@editor = ("st", "-e", @editor);
+	$audio_options = "--force-window=yes";
+}
+
+for my $file (@ARGV) {
+
+	my @command = @prefix;
+	my $skipmime = 1;
+
+	given (basename($file)) {
+		when (m[.*\.dig]) { push @command, "digital" }
+		when (m[.*\.org]) { push @command, "emacs" }
+		when (m[.*\.txt]) { push @command, @editor }
+		default { $skipmime = 0 }
+	}
+
+	if (!$skipmime) {
+		my $mimetype = `file --mime-type -b -L "$file"`;
+
+		given ($mimetype) {
+			when (m[.*opendocument.*|.*officedocument.*]) { push @command, "libreoffice"; }
+			when (m[image/vnd\.djvu|application/pdf|application/octet-stream|application/vnd.*|application/epub.*]) { push @command, "zathura"; }
+			when (m[text/.*|inode/x-empty]) { push @command, @editor; }
+			when (m[image/x-xcf|image/svg+xml]) { push @command, "gimp"; }
+			when (m[image/.*]) { push @command, "imageview"; }
+			when (m[audio/.*]) { push @command, ("mpv", $audio_options); }
+			when (m[video/.*]) { push @command, ("mpv", "--quiet"); }
+			default { push @command, "xdg-open" }
+		}
+	}
+
+	push @command, $file;
+
+	system(@command);
+}

@@ -13,27 +13,9 @@ set hiddenfiles ".*:*.aux:*.log:*.bbl:*.bcf:*.blg:*.run.xml"
 # Vars that depend on environmental variables
 $lf -remote "send $id set previewer ${XDG_CONFIG_HOME:-$HOME/.config}/lf/scope"
 
-# cmds/functions
-cmd open ${{
-    case $f in
-    *.dig) setsid digital $f >/dev/null 2>&1 &
-	exit;;
-	*.org) setsid startemacs $f >/dev/null 2>&1 &
-	exit;;
-    esac
-
-	case $(file --mime-type $f -b -L) in
-	*opendocument*|*officedocument*) setsid libreoffice $fx >/dev/null 2>&1 &;;
-	image/vnd.djvu|application/pdf|application/octet-stream) setsid -f zathura $fx >/dev/null 2>&1 ;;
-	text/*) $EDITOR $fx;;
-	image/x-xcf|image/svg+xml) setsid -f gimp $f >/dev/null 2>&1 ;;
-	image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\)\(_large\)*$" | sxiv -aio 2>/dev/null | lf-select ;;
-	audio/*) mpv --audio-display=no $f ;;
-	video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
-	application/pdf|application/vnd*|application/epub*) setsid -f zathura $fx >/dev/null 2>&1 ;;
-	*) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
-    esac
-}}
+cmd open $opener $fx
+cmd OPEN $WINDOW=1 opener $fx
+map L OPEN
 
 cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
 
