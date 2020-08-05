@@ -44,7 +44,7 @@ alias \
 	gua="git remote | xargs -L1 git push --all" \
 	trem="transmission-remote" \
 	x="sxiv -ft *" \
-	yt="youtube-dl --add-metadata -i -o '%(upload_date)s-%(title)s.%(ext)s'" \
+	yt="youtube-dl --add-metadata -i -o '%(title)s.%(ext)s'" \
 	yta="yt -x -f bestaudio/best" \
 	YT="youtube-viewer" \
    	odmnt="rclone --vfs-cache-mode writes mount onedrive: $HOME/odmnt &" \
