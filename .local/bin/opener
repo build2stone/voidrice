@@ -18,7 +18,7 @@ my $audio_options = "--audio-display=no";
 if (scalar @ARGV > 1 or $ENV{'WINDOW'} // 0) {
 	@prefix = ("setsid", "-f");
 	@editor = ("st", "-e", @editor);
-	$audio_options = "--force-window=yes";
+	$audio_options = "--player-operation-mode=pseudo-gui";
 }
 
 for my $file (@ARGV) {
