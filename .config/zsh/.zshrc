@@ -17,11 +17,12 @@ source "$HOME/.config/zinit/bin/zplugin.zsh"
 autoload -U colors && colors	# Load colors
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 setopt autocd autopushd pushdignoredups # Automatically cd into typed directory.
+setopt hist_ignore_all_dups hist_ignore_space # Don't record immediate duplicates or entries with leading space into history
 stty stop undef		# Disable ctrl-s to freeze terminal.
 instant-zsh-pre "$PS1"
 
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=100000
+SAVEHIST=100000
 
 # Load aliases and shortcuts if existent.
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc"
