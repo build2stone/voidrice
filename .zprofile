@@ -264,8 +264,15 @@ ex=:\
 
 [ ! -f $XDG_CONFIG_HOME/shortcutrc ] && shortcuts >/dev/null 2>&1 &
 
-# Start graphical server on tty1 if not already running.
-[ "$(tty)" = "/dev/tty1" ] && ! ps -e | grep -qw Xorg && exec startx
+if pacman -Qs libxft-bgra >/dev/null 2>&1; then
+	# Start graphical server on tty1 if not already running.
+	[ "$(tty)" = "/dev/tty1" ] && ! pidof Xorg >/dev/null 2>&1  && exec startx
+else
+	echo "\033[31mIMPORTANT\033[0m: Note that \033[32m\`libxft-bgra\`\033[0m must be installed for this build of dwm.
+Please run:
+	\033[32myay -S libxft-bgra-git\033[0m
+and replace \`libxft\`"
+fi
 
 # Switch escape and caps if tty and no passwd required:
 sudo -n loadkeys $XDG_DATA_HOME/larbs/ttymaps.kmap 2>/dev/null
