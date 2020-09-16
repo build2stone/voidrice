@@ -52,13 +52,28 @@
 				 ; ("\\part{%s}" . "\\part{%s}")
 				 ("\\chapter{%s}" . "\\chapter{%s}")
 				 ("\\section{%s}" . "\\section*{%s}")
+				 ("\\subsection{%s}" . "\\subsection*{%s}")))
+  (add-to-list 'org-latex-classes
+			   '("caesar_book" "\\documentclass[11pt]{caesar_book}"
+				 ("\\part{%s}" . "\\part*{%s}")
+				 ("\\chapter{%s}" . "\\chapter*{%s}")
+				 ("\\section{%s}" . "\\section*{%s}")
 				 ("\\subsection{%s}" . "\\subsection*{%s}")
-				 ))
-  )
+				 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
+  (add-to-list 'org-latex-classes
+			   '("kaobook" "\\documentclass[11pt]{kaobook}"
+				 ; ("\\part{%s}" . "\\part*{%s}")
+				 ("\\chapter{%s}" . "\\chapter*{%s}")
+				 ("\\section{%s}" . "\\section*{%s}")
+				 ("\\subsection{%s}" . "\\subsection*{%s}")
+				 ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
 
 ;; Use xelatex
 (setq org-latex-compiler "xelatex"
 	  org-latex-pdf-process (list "latexmk -shell-escape -f -pdfxe %f"))
+; ;; Use lualatex
+; (setq org-latex-compiler "lualatex"
+; 	  org-latex-pdf-process (list "latexmk -shell-escape -f -pdflua %f"))
 
 ;; Caption below
 (setq org-latex-caption-above nil)
