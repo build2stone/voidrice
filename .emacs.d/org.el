@@ -193,11 +193,9 @@
 	'(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
 	'(org-verbatim ((t (:inherit (shadow fixed-pitch)))))))
 
-(set-face-attribute 'org-document-title nil :height 2.0)
-(set-face-attribute 'org-level-1 nil :height 1.75)
-(set-face-attribute 'org-level-2 nil :height 1.5)
-(set-face-attribute 'org-level-3 nil :height 1.25)
-(set-face-attribute 'org-level-4 nil :height 1.1)
+(set-face-attribute 'org-document-title nil :height 1.5)
+(set-face-attribute 'org-level-1 nil :height 1.25)
+(set-face-attribute 'org-level-2 nil :height 1.125)
 
 ;; Enable variable text pitch
 (add-hook 'org-mode-hook 'variable-pitch-mode)
