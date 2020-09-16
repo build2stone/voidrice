@@ -104,7 +104,7 @@
 		       :description "dvi > svg" :message "you need to install the programs: xelatex and dvisvgm." :image-input-type "xdv" :image-output-type "svg" :image-size-adjust
 		       (1.7 . 1.5)
 		       :latex-compiler
-		       ("xelatex -no-pdf -interaction nonstopmode -output-directory %o %f")
+		       ("xelatex -no-pdf -shell-escape -interaction nonstopmode -output-directory %o %f")
 		       :image-converter
 		       ("dvisvgm %f -n -b min -c %S -o %O")))
 
