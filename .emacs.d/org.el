@@ -140,12 +140,10 @@
 (defun my-apply-scale ()
   (plist-put org-format-latex-options :scale (*
 											   (* (face-attribute 'default :height) 0.011)
-											   (/ (string-to-number (cond ((let ((x-resource-class "Xft"))
-																			 (x-get-resource "dpi" "")))
-																		  (t "96")))
-												  96)
-											   )
-			 ))
+											   (/ (string-to-number
+													(cond ((let ((x-resource-class "Xft")) (x-get-resource "dpi" "")))
+														  (t "96")))
+												  96))))
 
 (defun my-latex-preview-hook ()
   (my-apply-scale)
