@@ -7,7 +7,9 @@
 						 org-default-notes-file (concat org-directory "/notes.org")
 						 org-src-fontify-natively t
 						 org-src-tab-acts-natively t
-						 org-pretty-entities	t
+						 org-edit-src-content-indentation 0
+						 org-src-preserve-indentation t
+						 org-pretty-entities t
 						 org-highlight-latex-and-related '(latex script)
 						 org-list-indent-offset 1)
 			 )
