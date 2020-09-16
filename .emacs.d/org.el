@@ -26,6 +26,9 @@
 ;; Quotes
 (add-to-list 'org-latex-packages-alist
 			 '("" "csquotes"))
+(add-to-list 'org-latex-packages-alist
+			 '("" "minted"))
+(setq org-latex-listings 'minted)
 
 ;; Use \textquote{} when smartquotes are enabled
 (with-eval-after-load "ox"
