@@ -7,7 +7,9 @@
 						 org-default-notes-file (concat org-directory "/notes.org")
 						 org-src-fontify-natively t
 						 org-src-tab-acts-natively t
-						 org-pretty-entities	t
+						 org-edit-src-content-indentation 0
+						 org-src-preserve-indentation t
+						 org-pretty-entities t
 						 org-highlight-latex-and-related '(latex script)
 						 org-list-indent-offset 1)
 			 )
@@ -24,6 +26,9 @@
 ;; Quotes
 (add-to-list 'org-latex-packages-alist
 			 '("" "csquotes"))
+(add-to-list 'org-latex-packages-alist
+			 '("" "minted"))
+(setq org-latex-listings 'minted)
 
 ;; Use \textquote{} when smartquotes are enabled
 (with-eval-after-load "ox"
@@ -47,13 +52,28 @@
 				 ; ("\\part{%s}" . "\\part{%s}")
 				 ("\\chapter{%s}" . "\\chapter{%s}")
 				 ("\\section{%s}" . "\\section*{%s}")
+				 ("\\subsection{%s}" . "\\subsection*{%s}")))
+  (add-to-list 'org-latex-classes
+			   '("caesar_book" "\\documentclass[11pt]{caesar_book}"
+				 ("\\part{%s}" . "\\part*{%s}")
+				 ("\\chapter{%s}" . "\\chapter*{%s}")
+				 ("\\section{%s}" . "\\section*{%s}")
 				 ("\\subsection{%s}" . "\\subsection*{%s}")
-				 ))
-  )
+				 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
+  (add-to-list 'org-latex-classes
+			   '("kaobook" "\\documentclass[11pt]{kaobook}"
+				 ; ("\\part{%s}" . "\\part*{%s}")
+				 ("\\chapter{%s}" . "\\chapter*{%s}")
+				 ("\\section{%s}" . "\\section*{%s}")
+				 ("\\subsection{%s}" . "\\subsection*{%s}")
+				 ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
 
 ;; Use xelatex
 (setq org-latex-compiler "xelatex"
 	  org-latex-pdf-process (list "latexmk -shell-escape -f -pdfxe %f"))
+; ;; Use lualatex
+; (setq org-latex-compiler "lualatex"
+; 	  org-latex-pdf-process (list "latexmk -shell-escape -f -pdflua %f"))
 
 ;; Caption below
 (setq org-latex-caption-above nil)
@@ -84,7 +104,7 @@
 		       :description "dvi > svg" :message "you need to install the programs: xelatex and dvisvgm." :image-input-type "xdv" :image-output-type "svg" :image-size-adjust
 		       (1.7 . 1.5)
 		       :latex-compiler
-		       ("xelatex -no-pdf -interaction nonstopmode -output-directory %o %f")
+		       ("xelatex -no-pdf -shell-escape -interaction nonstopmode -output-directory %o %f")
 		       :image-converter
 		       ("dvisvgm %f -n -b min -c %S -o %O")))
 
@@ -120,12 +140,10 @@
 (defun my-apply-scale ()
   (plist-put org-format-latex-options :scale (*
 											   (* (face-attribute 'default :height) 0.011)
-											   (/ (string-to-number (cond ((let ((x-resource-class "Xft"))
-																			 (x-get-resource "dpi" "")))
-																		  (t "96")))
-												  96)
-											   )
-			 ))
+											   (/ (string-to-number
+													(cond ((let ((x-resource-class "Xft")) (x-get-resource "dpi" "")))
+														  (t "96")))
+												  96))))
 
 (defun my-latex-preview-hook ()
   (my-apply-scale)
@@ -175,11 +193,9 @@
 	'(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
 	'(org-verbatim ((t (:inherit (shadow fixed-pitch)))))))
 
-(set-face-attribute 'org-document-title nil :height 2.0)
-(set-face-attribute 'org-level-1 nil :height 1.75)
-(set-face-attribute 'org-level-2 nil :height 1.5)
-(set-face-attribute 'org-level-3 nil :height 1.25)
-(set-face-attribute 'org-level-4 nil :height 1.1)
+(set-face-attribute 'org-document-title nil :height 1.5)
+(set-face-attribute 'org-level-1 nil :height 1.25)
+(set-face-attribute 'org-level-2 nil :height 1.125)
 
 ;; Enable variable text pitch
 (add-hook 'org-mode-hook 'variable-pitch-mode)
