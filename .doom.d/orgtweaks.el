@@ -26,6 +26,11 @@
 (add-to-list 'org-latex-polyglossia-language-alist
              (list "de" "german}\n\\usepackage{ziffer" "german"))
 
+;; highlight code listings
+(add-to-list 'org-latex-packages-alist
+			 '("" "minted"))
+(setq org-latex-listings 'minted)
+
 ;; define additional latex classes
 (add-to-list 'org-latex-classes
              '("caesar_book" "\\documentclass[11pt]{caesar_book}"
