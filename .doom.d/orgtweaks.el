@@ -2,6 +2,7 @@
 (setq org-latex-compiler "xelatex"
       org-latex-pdf-process (list "latexmk -shell-escape -f -pdfxe %f"))
 
+(after! ox-latex
 ;; tables
 (add-to-list 'org-latex-packages-alist
              '("" "tabulary"))
@@ -59,7 +60,7 @@
                ("\\setchapterpreamble[u]{\\margintoc}\\chapter{%s}" . "\\setchapterpreamble[u]{\\margintoc}\\chapter*{%s}")
                ("\\section{%s}" . "\\section*{%s}")
                ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
 
 ;; svg latex previews
 (setq org-preview-latex-default-process 'dvisvgm)
