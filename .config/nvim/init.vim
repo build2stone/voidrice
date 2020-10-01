@@ -28,6 +28,7 @@ Plug 'lukesmithxyz/vimling'
 " Sugar
 Plug 'bling/vim-airline'
 Plug 'ap/vim-css-color'
+Plug 'luochen1990/rainbow'
 Plug 'machakann/vim-highlightedyank'
 " Syntax
 Plug 'daezak/crafttweaker-vim-highlighting'
@@ -95,7 +96,10 @@ set clipboard+=unnamedplus
 " prolog-vim
     autocmd BufNewFile,BufRead *.pl set filetype=prolog
 
-" vimling:
+" rainbow
+	let g:rainbow_active = 1
+
+" vimling
 	nm <leader>d :call ToggleDeadKeys()<CR>
 	imap <leader>d <esc>:call ToggleDeadKeys()<CR>a
 	nm <leader>i :call ToggleIPA()<CR>
