@@ -11,6 +11,9 @@
 ;; quotes
 (add-to-list 'org-latex-packages-alist
              '("" "csquotes"))
+;; maths punctuation
+(add-to-list 'org-latex-packages-alist
+             '("" "icomma"))
 
 ;; use \textquote{} when smartquotes are enabled
 (dolist (element org-export-smart-quotes-alist)
@@ -22,10 +25,6 @@
              '("AUTO" "babel" t ("pdflatex")))
 (add-to-list 'org-latex-packages-alist
              '("AUTO" "polyglossia" t ("xelatex" "lualatex")))
-
-;; use german maths punctuation when exporting german-language org documents
-(add-to-list 'org-latex-polyglossia-language-alist
-             (list "de" "german}\n\\usepackage{ziffer" "german"))
 
 ;; highlight code listings
 (add-to-list 'org-latex-packages-alist
