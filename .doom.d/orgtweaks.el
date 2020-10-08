@@ -1,8 +1,15 @@
 ;; use xelatex by default
 (setq org-latex-compiler "xelatex"
-      org-latex-pdf-process (list "latexmk -shell-escape -f -pdfxe %f"))
+      org-latex-pdf-process (list "latexmk -shell-escape -f -%latex %f"))
+
+(nconc org-latex-default-packages-alist '(("mathrm=sym" "unicode-math" t ("xelatex" "lualatex"))))
+(nconc org-latex-default-packages-alist '(("" "icomma" t)))
 
 (after! ox-latex
+
+(add-to-list 'org-latex-default-packages-alist
+			 '("" "fontspec" t ("xelatex" "lualatex")))
+
 ;; tables
 (add-to-list 'org-latex-packages-alist
              '("" "tabulary"))
@@ -11,9 +18,6 @@
 ;; quotes
 (add-to-list 'org-latex-packages-alist
              '("" "csquotes"))
-;; maths punctuation
-(add-to-list 'org-latex-packages-alist
-             '("" "icomma"))
 
 ;; use \textquote{} when smartquotes are enabled
 (dolist (element org-export-smart-quotes-alist)
@@ -28,7 +32,7 @@
 
 ;; highlight code listings
 (add-to-list 'org-latex-packages-alist
-             '("" "minted"))
+             '("" "minted" nil))
 (setq org-latex-listings 'minted)
 
 ;; define additional latex classes
@@ -69,7 +73,7 @@
                        :description "dvi > svg" :message "you need to install the programs: xelatex and dvisvgm." :image-input-type "xdv" :image-output-type "svg" :image-size-adjust
                        (1.7 . 1.5)
                        :latex-compiler
-                       ("xelatex -no-pdf -interaction nonstopmode -output-directory %o %f")
+                       ("xelatex -no-pdf -interaction nonstopmode -shell-escape -output-directory %o %f")
                        :image-converter
                        ("dvisvgm %f -n -b min -c %S -o %O")))
 (setq org-format-latex-header
