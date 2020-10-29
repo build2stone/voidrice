@@ -53,7 +53,8 @@ alias \
 	odoff="systemctl --user stop onedrive" \
 	tdq="printf \"Quick-add task: \"; read task && todoist q \"#Agenda \$task\"" \
 	tds="todoist --color show \$(todoist list | dmenu -l 20 | cut -d ' ' -f 1)" \
-	tdc="todoist --color close \$(todoist list | dmenu -l 20 | cut -d ' ' -f 1) &"
+	tdc="todoist --color close \$(todoist list | dmenu -l 20 | cut -d ' ' -f 1) &" \
+	tdqs="rlwrap addhw" \
 	xi="sudo xbps-install" \
 	xr="sudo xbps-remove -R" \
 	xq="xbps-query" \
