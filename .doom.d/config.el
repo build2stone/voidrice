@@ -1,7 +1,7 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 (setq doom-theme 'doom-gruvbox
-      doom-font (font-spec :family "Monospace" :size 28)
+      doom-font (font-spec :family "Monospace" :size 26)
       doom-variable-pitch-font (font-spec :family "Sans Serif" :weight 'light))
 
 (setq! org-directory "~/org/")
@@ -25,9 +25,6 @@
   (company-posframe-show-metadata nil)
   (company-posframe-show-indicator nil))
 
-(use-package! valign
-  :init (setq valign-fancy-bar t))
-
 (setq! +biblio-notes-path "~/Documents/arbeiten/notes/"
        +biblio-pdf-library-dir "~/Documents/arbeiten/pdf/"
        +biblio-default-bibliography-files (getenv "BIB")
@@ -42,11 +39,8 @@
   (load! "orgtweaks.el"))
 
 (add-hook! 'org-mode-hook
-           #'doom-disable-line-numbers-h
            #'variable-pitch-mode
            #'visual-line-mode
            #'org-toggle-pretty-entities
-           #'org-fragtog-mode
-           #'valign-mode
-           #'org-bullets-mode
+           #'doom-disable-line-numbers-h
            #'company-posframe-mode)

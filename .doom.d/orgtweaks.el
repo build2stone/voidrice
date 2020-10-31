@@ -6,64 +6,87 @@
 (nconc org-latex-default-packages-alist '(("" "icomma" t)))
 
 (after! ox-latex
+  (add-to-list 'org-latex-default-packages-alist
+               '("" "fontspec" t ("xelatex" "lualatex")))
 
-(add-to-list 'org-latex-default-packages-alist
-			 '("" "fontspec" t ("xelatex" "lualatex")))
+  ;; tables
+  (add-to-list 'org-latex-packages-alist
+               '("" "tabulary"))
+  (add-to-list 'org-latex-packages-alist
+               '("" "booktabs"))
+  ;; quotes
+  (add-to-list 'org-latex-packages-alist
+               '("" "csquotes"))
 
-;; tables
-(add-to-list 'org-latex-packages-alist
-             '("" "tabulary"))
-(add-to-list 'org-latex-packages-alist
-             '("" "booktabs"))
-;; quotes
-(add-to-list 'org-latex-packages-alist
-             '("" "csquotes"))
+  ;; use \textquote{} when smartquotes are enabled
+  (dolist (element org-export-smart-quotes-alist)
+    (setcdr (nth 1 element) (plist-put (cdr (nth 1 element)) :latex "\\textquote{"))
+    (setcdr (nth 2 element) (plist-put (cdr (nth 2 element)) :latex "}")))
 
-;; use \textquote{} when smartquotes are enabled
-(dolist (element org-export-smart-quotes-alist)
-  (setcdr (nth 1 element) (plist-put (cdr (nth 1 element)) :latex "\\textquote{"))
-  (setcdr (nth 2 element) (plist-put (cdr (nth 2 element)) :latex "}")))
+  ;; use #+LANGUAGE to set document language (de for german, fr for french etc)
+  (add-to-list 'org-latex-packages-alist
+               '("AUTO" "babel" t ("pdflatex")))
+  (add-to-list 'org-latex-packages-alist
+               '("AUTO" "polyglossia" t ("xelatex" "lualatex")))
 
-;; use #+LANGUAGE to set document language (de for german, fr for french etc)
-(add-to-list 'org-latex-packages-alist
-             '("AUTO" "babel" t ("pdflatex")))
-(add-to-list 'org-latex-packages-alist
-             '("AUTO" "polyglossia" t ("xelatex" "lualatex")))
+  ;; highlight code listings
+  (add-to-list 'org-latex-packages-alist
+               '("" "minted" nil))
+  (setq org-latex-listings 'minted)
 
-;; highlight code listings
-(add-to-list 'org-latex-packages-alist
-             '("" "minted" nil))
-(setq org-latex-listings 'minted)
+  ;; define additional latex classes
+  (add-to-list 'org-latex-classes
+               '("caesar_book" "\\documentclass[11pt]{caesar_book}"
+                 ;; ("\\part{%s}" . "\\part*{%s}")
+                 ("\\chapter{%s}" . "\\chapter*{%s}")
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
+  (add-to-list 'org-latex-classes
+               '("scrbook" "\\documentclass[11pt]{scrbook}"
+                 ;; ("\\part{%s}" . "\\part*{%s}")
+                 ("\\chapter{%s}" . "\\chapter*{%s}")
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
+  (add-to-list 'org-latex-classes
+               '("scrartcl" "\\documentclass[11pt]{scrartcl}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+  (add-to-list 'org-latex-classes
+               '("kaobook" "\\documentclass[11pt]{kaobook}"
+                 ;; ("\\part{%s}" . "\\part*{%s}")
+                 ("\\setchapterpreamble[u]{\\margintoc}\\chapter{%s}" . "\\setchapterpreamble[u]{\\margintoc}\\chapter*{%s}")
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
 
-;; define additional latex classes
-(add-to-list 'org-latex-classes
-             '("caesar_book" "\\documentclass[11pt]{caesar_book}"
-               ;; ("\\part{%s}" . "\\part*{%s}")
-               ("\\chapter{%s}" . "\\chapter*{%s}")
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
-(add-to-list 'org-latex-classes
-             '("scrbook" "\\documentclass[11pt]{scrbook}"
-               ;; ("\\part{%s}" . "\\part*{%s}")
-               ("\\chapter{%s}" . "\\chapter*{%s}")
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
-(add-to-list 'org-latex-classes
-             '("scrartcl" "\\documentclass[11pt]{scrartcl}"
-              ("\\section{%s}" . "\\section*{%s}")
-              ("\\subsection{%s}" . "\\subsection*{%s}")
-              ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-              ("\\paragraph{%s}" . "\\paragraph*{%s}")
-              ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-(add-to-list 'org-latex-classes
-             '("kaobook" "\\documentclass[11pt]{kaobook}"
-               ;; ("\\part{%s}" . "\\part*{%s}")
-               ("\\setchapterpreamble[u]{\\margintoc}\\chapter{%s}" . "\\setchapterpreamble[u]{\\margintoc}\\chapter*{%s}")
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
+;; org-roam
+(setq org-roam-capture-templates
+      '(("d" "default" plain #'org-roam-capture--get-point
+         :file-name "%<%Y%m%d%H%M%S>-${slug}"
+         :head "#+title: ${title}\n#+html_head: <link rel=\"stylesheet\" href=\"./css/min.css\">\n\n%?\n\n* Backlinks\n:PROPERTIES:\n:UNNUMBERED: t\n:END:\n#+begin_src elisp :results output raw :exports results\n(dolist (link (org-roam--get-backlinks (buffer-file-name)))\n  (princ (format \"[[file:%s][%s]] \" (car link) (org-roam--get-title-or-slug (car link)))))\n#+end_src"
+         :unnarrowed t)))
+
+(setq org-publish-project-alist
+      '(("roam-notes"
+         :base-directory "~/org/roam/"
+         :base-extension "org"
+         :publishing-directory "~/org/roam_html/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4             ; Just the default for this project.
+         :auto-preamble t)
+        ("roam-static"
+         :base-directory "~/org/roam"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|svg"
+         :publishing-directory "~/org/roam_html/"
+         :recursive t
+         :publishing-function org-publish-attachment)
+        ("org" :components ("roam-notes" "roam-static"))))
 
 ;; svg latex previews
 (setq org-preview-latex-default-process 'dvisvgm)
