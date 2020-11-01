@@ -2,7 +2,8 @@ bf	${XDG_CONFIG_HOME:-$HOME/.config}/files
 bd	${XDG_CONFIG_HOME:-$HOME/.config}/directories
 bw	${XDG_CONFIG_HOME:-$HOME/.config}/bookmarks
 cfa	${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc
-cfz	$ZDOTDIR/.zshrc
+cfz	${ZDOTDIR}/.zshrc
+cfzp	${ZDOTDIR}/plugins
 cfv	${XDG_CONFIG_HOME:-$HOME/.config}/nvim/init.vim
 cft	${XDG_CONFIG_HOME:-$HOME/.config}/tmux/.tmux.conf
 cfm	${XDG_CONFIG_HOME:-$HOME/.config}/mutt/muttrc

@@ -1,25 +1,14 @@
 # Adapted from Luke's config for the Zoomer Shell
 
-# zplugin module setup
-module_path+=( "/home/seggers/.config/zinit/bin/zmodules/Src" )
-zmodload zdharma/zplugin
-
-# This makes the prompt appear instantly (using instant-zsh-pre/post)
-source "$HOME/.local/zshscripts/instant-zsh.zsh"
-
-# zplugin setup
-declare -A ZINIT
-ZINIT[HOME_DIR]="$HOME/.config/zinit"
-ZINIT[ZCOMPDUMP_PATH]="$HOME/.cache/zcompdump"
-source "$HOME/.config/zinit/bin/zplugin.zsh"
+source "${ZDOTDIR}/instant-zsh.zsh"
 
 # Enable colors and change prompt:
 autoload -U colors && colors	# Load colors
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+instant-zsh-pre "$PS1"
 setopt autocd autopushd pushdignoredups # Automatically cd into typed directory.
 setopt hist_ignore_all_dups hist_ignore_space # Don't record immediate duplicates or entries with leading space into history
 stty stop undef		# Disable ctrl-s to freeze terminal.
-instant-zsh-pre "$PS1"
 
 HISTSIZE=100000
 SAVEHIST=100000
@@ -29,22 +18,13 @@ SAVEHIST=100000
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc"
 
-# Load pty.zsh for piping colored output
-# (Makes commands think stdout is a tty)
-source "$HOME/.local/zshscripts/pty.zsh"
-
-# Load plugins
-zplugin light zsh-users/zsh-autosuggestions
-zplugin light hlissner/zsh-autopair
-zplugin light zsh-vi-more/vi-motions
-zplugin light zsh-users/zsh-history-substring-search
-zplugin light zsh-users/zsh-syntax-highlighting
-zplugin light kutsan/zsh-system-clipboard
-
-# Set zsh-autosuggestions options
+# Plugins
 export ZSH_AUTOSUGGEST_USE_ASYNC=t
 export ZSH_AUTOSUGGEST_MANUAL_REBIND=t
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+
+source "${ZDOTDIR}/clipboard.zsh"
+source "${ZDOTDIR}/plugins.zsh"
 
 # Basic auto/tab complete:
 autoload -U compinit
@@ -89,7 +69,7 @@ echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # Use lf to switch directories and bind it to ctrl-o
-lfcd () {
+lfcd() {
     tmp="$(mktemp)"
     lfifo -last-dir-path="$tmp" "$@"
     if [ -f "$tmp" ]; then
@@ -113,7 +93,7 @@ bindkey -s '^a' 'bc -l\n'
 
 bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
 
-# Bind Insert, Delete, Home and End to the expected
+# Bind Insert, Delete, Home and End
 bindkey "^[[4h" vi-put-after
 bindkey '^[[P' delete-char
 bindkey "^[[4~" end-of-line

@@ -1,0 +1,6 @@
+# plugins
+zsh-users/zsh-autosuggestions
+hlissner/zsh-autopair
+zsh-vi-more/vi-motions
+zsh-users/zsh-history-substring-search
+zsh-users/zsh-syntax-highlighting
