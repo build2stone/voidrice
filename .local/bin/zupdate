@@ -1,7 +1,7 @@
 #!/bin/zsh
 
-antibody update
 antibody bundle < "${ZDOTDIR}/plugins" > "${ZDOTDIR}/plugins.zsh"
+antibody update
 echo "Compiled: "
 for file in $(find "${ZDOTDIR}" -type f | grep -P '.*(?<!\.zwc)$'); do
 	zcompile "$file"
