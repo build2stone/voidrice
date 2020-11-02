@@ -78,8 +78,11 @@
          :publishing-directory "~/org/roam_html/"
          :recursive t
          :publishing-function org-html-publish-to-html
-         :headline-levels 4             ; Just the default for this project.
-         :auto-preamble t)
+         :headline-levels 4
+         :auto-preamble t
+         :preparation-function (lambda (args)
+                                 (org-roam-db-build-cache)
+                                 (f-touch (concat org-roam-directory "index.org"))))
         ("roam-static"
          :base-directory "~/org/roam"
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|svg"
