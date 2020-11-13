@@ -73,6 +73,7 @@
 
 (setq org-roam-graph-extra-config '(("bgcolor" . "none")))
 (setf (car org-roam-graph-node-extra-config) '("shape" . "note"))
+(add-to-list 'org-roam-graph-node-extra-config '("fontname" . "sans"))
 
 (setq org-publish-project-alist
       '(("roam-notes"
