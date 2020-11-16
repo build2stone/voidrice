@@ -19,12 +19,6 @@
 ;; contains unicode, which crashes some versions of gradle
 (setenv "LF_ICONS" nil)
 
-;; company interface that works with variable-pitch-mode
-(use-package! company-posframe
-  :custom
-  (company-posframe-show-metadata nil)
-  (company-posframe-show-indicator nil))
-
 (setq! +biblio-notes-path "~/Documents/arbeiten/notes/"
        +biblio-pdf-library-dir "~/Documents/arbeiten/pdf/"
        +biblio-default-bibliography-files (getenv "BIB")
@@ -42,5 +36,4 @@
            #'variable-pitch-mode
            #'visual-line-mode
            #'org-toggle-pretty-entities
-           #'doom-disable-line-numbers-h
-           #'company-posframe-mode)
+           #'doom-disable-line-numbers-h)
