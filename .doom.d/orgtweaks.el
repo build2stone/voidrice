@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t; -*-
+
 ;; use xelatex by default
 (setq org-latex-compiler "xelatex"
       org-latex-pdf-process (list "latexmk -shell-escape -f -%latex %f"))
