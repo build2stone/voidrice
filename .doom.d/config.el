@@ -32,8 +32,8 @@
 (after! org
   (load! "orgtweaks.el"))
 
+(setq org-pretty-entities t)
 (add-hook! 'org-mode-hook
            #'variable-pitch-mode
            #'visual-line-mode
-           #'org-toggle-pretty-entities
            #'doom-disable-line-numbers-h)
