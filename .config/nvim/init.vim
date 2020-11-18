@@ -10,7 +10,6 @@ endif
 call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"'))
 Plug 'morhetz/gruvbox'
 " modes
-Plug 'preservim/nerdtree'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'jreybert/vimagit'
 " lf
@@ -25,6 +24,7 @@ Plug 'liuchengxu/vim-which-key'
 Plug 'tmsvg/pear-tree'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'vim-scripts/argtextobj.vim'
 Plug 'lukesmithxyz/vimling'
 " niceties
 Plug 'bling/vim-airline'
@@ -35,6 +35,7 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'daezak/crafttweaker-vim-highlighting'
 Plug 'soli/prolog-vim'
 Plug 'cespare/vim-toml'
+Plug 'hjson/vim-hjson'
 call plug#end()
 
 set bg=dark
