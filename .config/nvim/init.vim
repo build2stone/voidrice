@@ -9,7 +9,8 @@ endif
 
 call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"'))
 Plug 'morhetz/gruvbox'
-" Modes
+" modes
+Plug 'preservim/nerdtree'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'jreybert/vimagit'
 " lf
@@ -20,17 +21,17 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf.vim'
 Plug 'antoinemadec/coc-fzf'
 Plug 'liuchengxu/vim-which-key'
-" Functionality
+" editing
 Plug 'tmsvg/pear-tree'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'lukesmithxyz/vimling'
-" Sugar
+" niceties
 Plug 'bling/vim-airline'
 Plug 'ap/vim-css-color'
 Plug 'luochen1990/rainbow'
 Plug 'machakann/vim-highlightedyank'
-" Syntax
+" syntax-highlighting
 Plug 'daezak/crafttweaker-vim-highlighting'
 Plug 'soli/prolog-vim'
 Plug 'cespare/vim-toml'
@@ -233,7 +234,7 @@ set clipboard+=unnamedplus
 	nnoremap S :%s//g<Left><Left>
 
 " Compile document, be it groff/LaTeX/markdown/etc.
-	map <leader>c :w! \| !compiler <c-r>%<CR>
+	map <leader>c :w! \| !compiler "<c-r>%"<CR>
 
 " Open corresponding .pdf/.html or preview
 	map <leader>p :!opout <c-r>%<CR><CR>
@@ -263,11 +264,9 @@ set clipboard+=unnamedplus
 	autocmd BufWritepre * %s/\n\+\%$//e
 
 " When shortcut files are updated, renew bash and ranger configs with new material:
-	autocmd BufWritePost files,directories !shortcuts
+	autocmd BufWritePost bm-files,bm-dirs !shortcuts
 " Run xrdb whenever Xdefaults or Xresources are updated.
-	autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
-" Update binds when sxhkdrc is updated.
-	autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
+	autocmd BufWritePost *Xresources,*Xdefaults,*xresources,*xdefaults !xrdb %
 " Auto-compile zsh files
 	autocmd BufWritePost *.zsh !zcompile %
 
