@@ -73,6 +73,9 @@
          :head "#+title: ${title}\n#+html_head: <link rel=\"stylesheet\" href=\"./css/min.css\">\n#+html_head: <a href=\"index.html\"><div class=\"index\"></div></a>\n\n%?\n\n* Backlinks\n:PROPERTIES:\n:UNNUMBERED: t\n:END:\n#+begin_src elisp :results output raw :exports results\n(dolist (link (org-roam--get-backlinks (buffer-file-name)))\n  (princ (format \"[[file:%s][%s]] \" (car link) (org-roam--get-title-or-slug (car link)))))\n#+end_src"
          :unnarrowed t)))
 
+;; ignore index file in org-roam graph
+(setq org-roam-graph-exclude-matcher "index.org")
+;; node formatting
 (setq org-roam-graph-extra-config '(("bgcolor" . "none")))
 (setf (car org-roam-graph-node-extra-config) '("shape" . "note"))
 (add-to-list 'org-roam-graph-node-extra-config '("fontname" . "sans"))
