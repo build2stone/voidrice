@@ -51,10 +51,6 @@ alias \
 	odjnl="journalctl --user-unit onedrive -f" \
 	odstart="systemctl --user start onedrive" \
 	odoff="systemctl --user stop onedrive" \
-	tdq="printf \"Quick-add task: \"; read task && todoist q \"#Agenda \$task\"" \
-	tds="todoist --color show \$(todoist list | dmenu -l 20 | cut -d ' ' -f 1)" \
-	tdc="todoist --color close \$(todoist list | dmenu -l 20 | cut -d ' ' -f 1) &" \
-	tdqs="rlwrap addhw" \
 	xi="sudo xbps-install" \
 	xr="sudo xbps-remove -R" \
 	xq="xbps-query" \
@@ -77,5 +73,6 @@ fv() { fzf | xargs -r -I % $EDITOR % ;}
 fd() { find $HOME/Documents/ | fzf | xargs -ro -I % lf % ; }
 fl() { fzf | xargs -ro -I % lf % ; }
 fx() { fzf | xargs -r -I % xdg-open % ; }
-mkcd() { mkdir -pv $1 && cd $1 }
-vp() { which $@ | xargs -d "\n" nvim -p }
+mkcd() { mkdir -pv $1 && cd $1 ; }
+vp() { which "$@" | xargs -d "\n" nvim -p ; }
+cdp() { cd $(dirname $(which "$1")) ; }
