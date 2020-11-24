@@ -9,9 +9,12 @@ instant-zsh-pre "$PS1"
 setopt autocd autopushd pushdignoredups # Automatically cd into typed directory.
 setopt hist_ignore_all_dups hist_ignore_space # Don't record immediate duplicates or entries with leading space into history
 stty stop undef		# Disable ctrl-s to freeze terminal.
+setopt interactive_comments
 
-HISTSIZE=100000
-SAVEHIST=100000
+# History in cache directory:
+HISTSIZE=10000000
+SAVEHIST=10000000
+HISTFILE=~/.cache/zsh/history
 
 # Load aliases and shortcuts if existent.
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc"
