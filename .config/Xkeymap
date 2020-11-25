@@ -1,8 +1,8 @@
-keycode  24 = q Q q Q aacute Aacute aacute
-keycode  29 = y Y y Y uacute Uacute uacute
-keycode  30 = u U u U udiaeresis Udiaeresis udiaeresis
-keycode  32 = o O o O odiaeresis Odiaeresis odiaeresis
-keycode  33 = p P p P oacute Oacute oacute
-keycode  38 = a A a A adiaeresis Adiaeresis adiaeresis
+keycode 24 = q Q q Q aacute Aacute aacute
+keycode 29 = y Y y Y uacute Uacute uacute
+keycode 30 = u U u U udiaeresis Udiaeresis udiaeresis
+keycode 32 = o O o O odiaeresis Odiaeresis odiaeresis
+keycode 33 = p P p P oacute Oacute oacute
+keycode 38 = a A a A adiaeresis Adiaeresis adiaeresis
 
-keycode  41 = f F f F U25CA
+keycode 41 = f F f F U25CA
