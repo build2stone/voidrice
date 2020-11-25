@@ -53,16 +53,6 @@ handle_mime() {
     esac
 }
 
-# exifget() {
-#    (
-#    flock 200
-#    echo "${FILE_PATH}" >>$FILE_EXIF_IN
-#    echo -e '-execute\n' >>$FILE_EXIF_IN
-#    sed "/{ready}/{s/{ready}//; q}" <$FIFO_EXIF_OUT | tail -n +2
-#    ) 200>>"$FILE_EXIF_IN"
-# }
-
-
 MIMETYPE="$( file --dereference --brief --mime-type -- "${FILE_PATH}" )"
 handle_mime "${MIMETYPE}"
 exit 1
