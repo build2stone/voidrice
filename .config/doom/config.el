@@ -1,7 +1,7 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 (setq doom-theme 'doom-gruvbox
-      doom-font (font-spec :family "Monospace" :size 26)
+      doom-font (font-spec :family "Monospace")
       doom-variable-pitch-font (font-spec :family "Sans Serif" :weight 'light))
 
 (setq! org-directory "~/org/")
