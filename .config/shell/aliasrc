@@ -60,14 +60,13 @@ alias \
 alias \
 	calcurse="startcal" \
 
-# This alias requires zsh and .local/zshscripts/pty.zsh
-alias tdl="pty todoist --color list | less"
-
 alias \
 	magit="nvim -c MagitOnly" \
 	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc" \
 	weath="less -S ${XDG_DATA_HOME:-$HOME/.local/share}/weatherreport" \
 	tmux="tmux -f ${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf" \
+	btm="btm -g --color gruvbox --mem_as_value" \
+	htop="btm -b" \
 
 fv() { fzf | xargs -r -I % $EDITOR % ;}
 fd() { find $HOME/Documents/ | fzf | xargs -ro -I % lf % ; }
