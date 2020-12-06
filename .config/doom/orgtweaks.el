@@ -140,6 +140,7 @@
   '(org-block :family "mono")
   '(org-code :family "mono")
   '(org-document-info-keyword :family "mono")
+  '(org-formula :family "mono")
   '(org-indent :family "mono")
   '(org-meta-line :family "mono")
   '(org-property-value :family "mono")
