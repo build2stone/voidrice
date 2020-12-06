@@ -72,7 +72,7 @@
 (setq org-roam-capture-templates
       '(("d" "default" plain #'org-roam-capture--get-point
          :file-name "%<%Y%m%d%H%M%S>-${slug}"
-         :head "#+title: ${title}\n#+html_head: <link rel=\"stylesheet\" href=\"./css/min.css\">\n#+html_head: <a href=\"index.html\"><div class=\"index\"></div></a>\n\n%?\n\n* Backlinks\n:PROPERTIES:\n:UNNUMBERED: t\n:END:\n#+begin_src elisp :results output raw :exports results\n(dolist (link (org-roam--get-backlinks (buffer-file-name)))\n  (princ (format \"[[file:%s][%s]] \" (car link) (org-roam--get-title-or-slug (car link)))))\n#+end_src"
+         :head "#+title: ${title}\n#+html_head: <link rel=\"stylesheet\" href=\"./css/min.css\">\n#+html_head: <a href=\"index.html\"><div class=\"index\"></div></a>\n\n%?\n\n* Backlinks\n:PROPERTIES:\n:UNNUMBERED: t\n:END:\n#+begin_src elisp :results output raw :exports results\n(dolist (link (org-roam--get-backlinks (buffer-file-name)))\n  (princ (format \"[[file:%s][%s]] \" (car link) (org-roam-db--get-title (car link)))))\n#+end_src"
          :unnarrowed t)))
 
 ;; ignore index file in org-roam graph
