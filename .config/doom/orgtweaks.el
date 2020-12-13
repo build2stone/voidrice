@@ -1,6 +1,5 @@
 ;;; -*- lexical-binding: t; -*-
 
-;; use xelatex by default
 (setq org-latex-compiler "xelatex"
       org-latex-pdf-process (list "latexmk -shell-escape -f -%latex %f"))
 
@@ -11,14 +10,12 @@
   (add-to-list 'org-latex-default-packages-alist
                '("" "fontspec" t ("xelatex" "lualatex")))
 
-  ;; tables
   (add-to-list 'org-latex-packages-alist
                '("" "tabulary"))
   (add-to-list 'org-latex-packages-alist
                '("" "booktabs"))
   (setq org-latex-tables-booktabs t)
 
-  ;; quotes
   (add-to-list 'org-latex-packages-alist
                '("" "csquotes"))
 
@@ -39,13 +36,6 @@
   (setq org-latex-listings 'minted)
 
   ;; define additional latex classes
-  (add-to-list 'org-latex-classes
-               '("caesar_book" "\\documentclass[11pt]{caesar_book}"
-                 ;; ("\\part{%s}" . "\\part*{%s}")
-                 ("\\chapter{%s}" . "\\chapter*{%s}")
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
   (add-to-list 'org-latex-classes
                '("scrbook" "\\documentclass[11pt]{scrbook}"
                  ;; ("\\part{%s}" . "\\part*{%s}")
@@ -75,9 +65,8 @@
          :head "#+title: ${title}\n#+html_head: <link rel=\"stylesheet\" href=\"./css/min.css\">\n#+html_head: <a href=\"index.html\"><div class=\"index\"></div></a>\n\n%?\n\n* Backlinks\n:PROPERTIES:\n:UNNUMBERED: t\n:END:\n#+begin_src elisp :results output raw :exports results\n(dolist (link (org-roam--get-backlinks (buffer-file-name)))\n  (princ (format \"[[file:%s][%s]] \" (car link) (org-roam-db--get-title (car link)))))\n#+end_src"
          :unnarrowed t)))
 
-;; ignore index file in org-roam graph
+;; org-roam graph
 (setq org-roam-graph-exclude-matcher "index.org")
-;; node formatting
 (setq org-roam-graph-extra-config '(("bgcolor" . "none")))
 (setf (car org-roam-graph-node-extra-config) '("shape" . "note"))
 (add-to-list 'org-roam-graph-node-extra-config '("fontname" . "sans"))
@@ -89,8 +78,8 @@
          :publishing-directory "~/org/roam_html/"
          :recursive t
          :publishing-function org-html-publish-to-html
-		 :html-mathjax-options ((path "mathjax2/MathJax.js?config=TeX-AMS_HTML") (scale "100") (align "center") (font "TeX") (linebreaks "false") (autonumber "AMS") (indent "0em") (multlinewidth "85%") (tagindent ".8em") (tagside "right"))
-		 :html-self-link-headlines t
+         :html-mathjax-options ((path "mathjax2/MathJax.js?config=TeX-AMS_HTML") (scale "100") (align "center") (font "TeX") (linebreaks "false") (autonumber "AMS") (indent "0em") (multlinewidth "85%") (tagindent ".8em") (tagside "right"))
+         :html-self-link-headlines t
          :headline-levels 4
          :auto-preamble t
          :preparation-function (lambda (args)
