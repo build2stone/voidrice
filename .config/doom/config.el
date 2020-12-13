@@ -4,8 +4,6 @@
       doom-font (font-spec :family "Monospace")
       doom-variable-pitch-font (font-spec :family "Sans Serif" :weight 'light))
 
-(setq! org-directory "~/org/")
-
 (setq display-line-numbers-type 'relative
       scroll-margin 7
       scroll-conservatively 10000
@@ -19,18 +17,12 @@
 ;; contains unicode, which crashes some versions of gradle
 (setenv "LF_ICONS" nil)
 
-(setq! +biblio-notes-path "~/Documents/arbeiten/notes/"
-       +biblio-pdf-library-dir "~/Documents/arbeiten/pdf/"
-       +biblio-default-bibliography-files (getenv "BIB")
-       org-ref-default-citation-link "autocite")
-
-(map! (:when (featurep! :lang org)
-       (:map org-mode-map
-        :localleader
-        :desc "Insert citation" "l C" #'org-ref-helm-insert-cite-link)))
+(setq! org-directory "~/org/")
 
 (after! org
-  (load! "orgtweaks.el"))
+  (load! "org-general.el")
+  (load! "org-latex.el")
+  (load! "org-links.el"))
 
 (setq org-pretty-entities t)
 (add-hook! 'org-mode-hook
