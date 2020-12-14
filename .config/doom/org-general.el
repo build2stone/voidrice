@@ -53,6 +53,7 @@
   '(org-meta-line :family "mono")
   '(org-property-value :family "mono")
   '(org-special-keyword :family "mono")
+  '(org-superstar-header-bullet :family "mono")
   '(org-table :family "mono")
   '(org-tag :family "mono")
   '(org-verbatim :family "mono"))
