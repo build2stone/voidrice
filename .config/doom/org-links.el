@@ -56,5 +56,7 @@ title."
   (interactive)
   (org-map-entries (lambda () (zz/org-custom-id-get-create (point)))))
 
-(add-hook 'org-mode-hook
-          (lambda () (add-hook 'before-save-hook 'eos/org-add-ids-to-headlines-in-file nil t)))
+(add-hook 'org-export-before-processing-hook
+          (lambda (backend)
+            (when (eq backend 'html)
+              (eos/org-add-ids-to-headlines-in-file))))
