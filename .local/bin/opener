@@ -40,7 +40,8 @@ for my $file (@ARGV) {
 			when (m[.*opendocument.*|.*officedocument.*]) { push @command, "libreoffice"; }
 			when (m[image/vnd\.djvu|application/pdf|application/octet-stream|application/vnd.*|application/epub.*]) { push @command, "zathura"; }
 			when (m[text/.*|inode/x-empty]) { push @command, @editor; }
-			when (m[image/x-xcf|image/svg+xml]) { push @command, "gimp"; }
+			when (m[image/x-xcf]) { push @command, "gimp"; }
+			when (m[image/svg\+xml]) { push @command, "surf"; }
 			when (m[image/.*]) { push @command, "imageview"; }
 			when (m[audio/.*]) { push @command, ("mpv", $audio_options); }
 			when (m[video/.*]) { push @command, ("mpv", "--quiet"); }

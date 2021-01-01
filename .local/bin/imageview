@@ -1,3 +1,3 @@
 #!/bin/sh
 
-rotdir "$1" | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ppm\)\(_large\)*$" | sxiv -aio -s f | lf-select
+rotdir "$1" | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ppm\|ico\)\(_large\)*$" | sxiv -aio -s f | lf-select
