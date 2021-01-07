@@ -1,8 +1,8 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 (setq doom-theme 'doom-gruvbox
-      doom-font (font-spec :family "Monospace")
-      doom-variable-pitch-font (font-spec :family "Sans Serif" :weight 'light))
+      doom-font (font-spec :family "mono")
+      doom-variable-pitch-font (font-spec :family "sans" :weight 'light))
 
 (setq display-line-numbers-type 'relative
       scroll-margin 7
