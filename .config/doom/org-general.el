@@ -30,6 +30,7 @@
          :html-mathjax-options ((path "mathjax2/MathJax.js?config=TeX-AMS_HTML") (scale "100") (align "center") (font "TeX") (linebreaks "false") (autonumber "AMS") (indent "0em") (multlinewidth "85%") (tagindent ".8em") (tagside "right"))
          :html-self-link-headlines t
          :headline-levels 4
+         :section-numbers 2
          :auto-preamble t
          :preparation-function (lambda (args)
                                  (org-roam-db-build-cache)
