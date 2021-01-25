@@ -1,7 +1,6 @@
 #!/bin/bash
 
 set -C -f -u
-#IFS=$'\n'
 IFS="$(printf '%b_' '\n')"; IFS="${IFS%_}"
 
 # ANSI color codes are supported.
@@ -16,43 +15,71 @@ IFS="$(printf '%b_' '\n')"; IFS="${IFS%_}"
 # 1    | no preview | Display no preview at all
 # 2    | plain text | Display the plain content of the file
 
-# Script arguments
-FILE_PATH="${1}"         # Full path of the highlighted file
-HEIGHT="${2}"
+file="${1}"
+mimetype="$(file -Lb --mime-type -- "${file}")"
+width="${2}"
+height="${3}"
+shift
 
-#FILE_EXTENSION="${FILE_PATH##*.}"
-#FILE_EXTENSION_LOWER=$(echo ${FILE_EXTENSION} | tr '[:upper:]' '[:lower:]')
-
-# Settings
-HIGHLIGHT_SIZE_MAX=262143  # 256KiB
-HIGHLIGHT_TABWIDTH=8
-HIGHLIGHT_STYLE='pablo'
-
-handle_mime() {
-    local mimetype="${1}"
-    case "${mimetype}" in
-	text/html) w3m -dump "${FILE_PATH}" ;;
-	text/troff) man ./ "${FILE_PATH}" | col -b ;;
-	text/* | */xml | */json | */json5)
-            if [ "$( stat --printf='%s' -- "${FILE_PATH}" )" -gt "${HIGHLIGHT_SIZE_MAX}" ]; then
-                exit 2
-            fi
-            if [ "$( tput colors )" -ge 256 ]; then
-                local highlight_format='xterm256'
-            else
-                local highlight_format='ansi'
-            fi
-            highlight --replace-tabs="${HIGHLIGHT_TABWIDTH}" --out-format="${highlight_format}" \
-                --style="${HIGHLIGHT_STYLE}" --force -- "${FILE_PATH}" ;;
-	application/zip) atool --list -- "${FILE_PATH}" ;;
-    image/*) chafa --fill=block --symbols=block -c 256 -s 80x"${HEIGHT}" "${FILE_PATH}" || exit 1;;
-    video/* | audio/*|application/octet-stream) mediainfo "${FILE_PATH}" || exit 1;;
-    */pdf) pdftotext -l 10 -nopgbrk -layout -q -- "${FILE_PATH}" - ;;
-    *opendocument.text) odt2txt "${FILE_PATH}" ;;
-    *wordprocessingml*) docx2txt <"${FILE_PATH}";;
-    esac
+draw() {
+	~/.config/lf/draw_img.sh "$@"
+	exit 1
 }
 
-MIMETYPE="$( file --dereference --brief --mime-type -- "${FILE_PATH}" )"
-handle_mime "${MIMETYPE}"
-exit 1
+hash() {
+	printf '%s/.cache/lf/%s' "$HOME" \
+		"$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' -- "$(readlink -f "$1")" | sha256sum | awk '{print $1}')"
+}
+
+cache() {
+	if [ -f "$1" ]; then
+		draw "$@"
+	fi
+}
+
+# Image preview if available
+if [ -n "${FIFO_UEBERZUG:-}" ]; then
+	case "${mimetype}" in
+		image/*)
+			cache="$(hash "$file").jpg"
+			cache "$cache" "$@"
+			convert -- "$file" -auto-orient "$cache"
+			draw "$cache" "$@"
+			;;
+		video/*)
+			cache="$(hash "$file").jpg"
+			cache "$cache" "$@"
+			ffmpegthumbnailer -i "$file" -o "$cache" -s 0
+			draw "$cache" "$@"
+			;;
+	esac
+fi
+
+# Settings
+highlight_size_max=262143  # 256KiB
+highlight_tabwidth=8
+highlight_style='pablo'
+if [ "$( tput colors )" -ge 256 ]; then
+	highlight_format='xterm256'
+else
+	highlight_format='ansi'
+fi
+
+case "${mimetype}" in
+	text/html|text/xml) w3m -dump "${file}" ;;
+	text/troff) man ./ "${file}" | col -b ;;
+	text/* | */xml | */json | */json5)
+		if [ "$( stat --printf='%s' -- "${file}" )" -gt "${highlight_size_max}" ]; then
+			exit 2
+		fi
+		highlight --replace-tabs="${highlight_tabwidth}" --out-format="${highlight_format}" --style="${highlight_style}" --force -- "${file}" ;;
+	application/zip) atool --list -- "${file}" ;;
+	application/epub+zip) epub2txt -- "${file}" ;;
+	image/*) chafa --fill=block --symbols=block -c 256 -s 80x"${height}" "${file}" || exit 1;;
+	video/* | audio/*|application/octet-stream) mediainfo "${file}" || exit 1;;
+	*/pdf) pdftotext -l 10 -nopgbrk -layout -q -- "${file}" - ;;
+	*opendocument.text) odt2txt "${file}" ;;
+	*wordprocessingml*) docx2txt <"${file}";;
+esac
+
+exit 0

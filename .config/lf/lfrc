@@ -11,6 +11,7 @@ set hiddenfiles ".*:*.aux:*.log:*.bbl:*.bcf:*.blg:*.run.xml"
 
 # Vars that depend on environmental variables
 $lf -remote "send $id set previewer ${XDG_CONFIG_HOME:-$HOME/.config}/lf/scope"
+$lf -remote "send $id set cleaner ${XDG_CONFIG_HOME:-$HOME/.config}/lf/clear_img.sh"
 
 cmd open $opener $fx
 cmd OPEN $WINDOW=1 opener $fx
