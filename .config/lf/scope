@@ -65,6 +65,8 @@ else
 	highlight_format='ansi'
 fi
 
+export MANWIDTH="${width}"
+
 case "${mimetype}" in
 	text/html|text/xml) w3m -dump "${file}" ;;
 	text/troff) man ./ "${file}" | col -b ;;
@@ -73,13 +75,13 @@ case "${mimetype}" in
 			exit 2
 		fi
 		highlight --replace-tabs="${highlight_tabwidth}" --out-format="${highlight_format}" --style="${highlight_style}" --force -- "${file}" ;;
-	application/zip) atool --list -- "${file}" ;;
-	application/epub+zip) epub2txt -- "${file}" ;;
-	image/*) chafa --fill=block --symbols=block -c 256 -s 80x"${height}" "${file}" || exit 1;;
+	application/zip | application/gzip) atool --list -- "${file}" ;;
+	application/epub+zip) epub2txt -w "${width}" -- "${file}" ;;
+	image/*) chafa --fill=block --symbols=block -c 256 -s "${width}"x"${height}" "${file}" || exit 1;;
 	video/* | audio/*|application/octet-stream) mediainfo "${file}" || exit 1;;
 	*/pdf) pdftotext -l 10 -nopgbrk -layout -q -- "${file}" - ;;
-	*opendocument.text) odt2txt "${file}" ;;
-	*wordprocessingml*) docx2txt <"${file}";;
+	*opendocument.text) odt2txt --width="${width}" "${file}" ;;
+	*wordprocessingml*) docx2txt <"${file}" | fold -w "${width}";;
 esac
 
 exit 0
