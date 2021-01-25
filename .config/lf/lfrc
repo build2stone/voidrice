@@ -101,7 +101,7 @@ map x $$f
 map X !$f
 map <c-s> $sxiv -fta *
 map U !du -Dsh $f
-map <c-v> $$HOME/.config/lf/scope $f -1 -1 | less +k
+map <c-v> $$HOME/.config/lf/scope $f | less +k
 map o &mimeopen $f
 map O $mimeopen --ask $f
 map <c-o> $mimeopen --ask-default $f

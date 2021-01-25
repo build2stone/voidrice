@@ -17,8 +17,8 @@ IFS="$(printf '%b_' '\n')"; IFS="${IFS%_}"
 
 file="${1}"
 mimetype="$(file -Lb --mime-type -- "${file}")"
-width="${2}"
-height="${3}"
+width="${2:-$(tput cols)}"
+height="${3:-$(tput lines)}"
 shift
 
 draw() {
