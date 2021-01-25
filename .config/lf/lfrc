@@ -75,7 +75,7 @@ cmd bulkrename ${{
 
 	# Move files if number of lines unchanged
 	if [ "$(wc -l <"$index")" -eq "$(wc -l <"$index_move")" ]; then
-		paste -d "\n" "$index" "$index_move" | xargs -d "\n" -n 2 mv -Tn
+		paste -d "\n" "$index" "$index_move" | xargs -d "\n" -n 2 mv -Tn --
 	else
 		echo "Number of lines must stay the same"
 	fi
