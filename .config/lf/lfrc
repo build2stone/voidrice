@@ -117,8 +117,6 @@ map b $setbg $f
 cmap <up> cmd-history-prev
 cmap <down> cmd-history-next
 map <esc> clear
-map <m-down> down
-map <m-up> up
-map <m-left> updir
-map <m-right> open
+map <c-e> down
+map <c-y> up
 map V push :!nvim<space>
