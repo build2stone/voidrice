@@ -14,7 +14,7 @@ Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'jreybert/vimagit'
 " lf
 Plug 'ptzz/lf.vim'
-Plug 'rbgrouleff/bclose.vim'
+Plug 'voldikss/vim-floaterm'
 " IDE
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf.vim'
