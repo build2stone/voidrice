@@ -43,7 +43,7 @@ if [ -n "${FIFO_UEBERZUG:-}" ]; then
 		image/*)
 			cache="$(hash "$file").jpg"
 			cache "$cache" "$@"
-			convert -- "$file" -auto-orient "$cache"
+			convert -- "${file}[0]" -auto-orient "$cache"
 			draw "$cache" "$@"
 			;;
 		video/*)
