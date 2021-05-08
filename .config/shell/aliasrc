@@ -41,6 +41,7 @@ alias \
 	YT="youtube-viewer" \
 	sdn="sudo shutdown -h now" \
 	f="lf" \
+	lf="lf-img"\
 	e="$EDITOR" \
 	v="$EDITOR" \
 	p="sudo pacman" \
@@ -73,6 +74,7 @@ alias \
 	magit="nvim -c MagitOnly" \
 	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" \
 	btm="btm -g --color gruvbox --mem_as_value" \
+	pdfo="pdfsizeopt --use-multivalent=YES"
 
 fv() { fzf | xargs -r -I % $EDITOR % ;}
 fd() { find $HOME/Documents/ | fzf | xargs -ro -I % lf % ; }
@@ -81,3 +83,5 @@ fx() { fzf | xargs -r -I % xdg-open % ; }
 mkcd() { mkdir -pv $1 && cd $1 ; }
 vp() { which "$@" | xargs -d "\n" nvim -p ; }
 cdp() { cd $(dirname $(which "$1")) ; }
+
+dic() { sdcv -n "$1" | w3m -T text/html ; }
