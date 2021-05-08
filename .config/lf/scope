@@ -52,6 +52,15 @@ if [ -n "${FIFO_UEBERZUG:-}" ]; then
 			ffmpegthumbnailer -i "$file" -o "$cache" -s 0
 			draw "$cache" "$@"
 			;;
+		application/zip)
+			if [ ${file##*.} = "cbz" ]; then
+				cache="$(hash "$file").jpg"
+				cache "$cache" "$@"
+				unzip -p "${file}" "$(zipinfo -1 "${file}" | sed 1q)" \
+					| convert -- - -auto-orient "$cache"
+				draw "$cache" "$@"
+			fi
+			;;
 	esac
 fi
 
