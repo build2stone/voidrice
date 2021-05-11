@@ -4,6 +4,7 @@ source "${ZDOTDIR}/instant-zsh.zsh"
 
 # Enable colors and change prompt:
 autoload -U colors && colors	# Load colors
+echo -ne '\e[5 q' # Use beam shape cursor on startup.
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 instant-zsh-pre "$PS1"
 setopt autocd autopushd pushdignoredups # Automatically cd into typed directory.
@@ -63,7 +64,6 @@ zle-line-init() {
     echo -ne "\e[5 q"
 }
 zle -N zle-line-init
-echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # Use lf to switch directories and bind it to ctrl-o
