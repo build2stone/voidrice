@@ -23,7 +23,9 @@ alias \
 	ffmpeg="ffmpeg -hide_banner" \
 	less="less +k" \
 	du="du -h" \
-	df="df -h -x tmpfs"
+	df="df -h -x tmpfs" \
+	ect="ect --mt-file -progressive" \
+	pdfo="pdfsizeopt --use-multivalent=YES" \
 
 # Colorize commands when possible.
 alias \
@@ -31,7 +33,6 @@ alias \
 	grep="grep --color=auto" \
 	diff="diff --color=auto" \
 	ccat="highlight --style=pablo --out-format=ansi --force" \
-	td="todoist --color"
 
 # These common commands are just too long! Abbreviate them.
 alias \
@@ -64,17 +65,12 @@ alias \
 	xi="sudo xbps-install" \
 	xr="sudo xbps-remove -R" \
 	xq="xbps-query" \
-	z="zathura"
-
-# Start certain programs with wrapper scripts
-alias \
-	calcurse="startcal" \
+	z="zathura" \
 
 alias \
 	magit="nvim -c MagitOnly" \
 	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" \
 	btm="btm -g --color gruvbox --mem_as_value" \
-	pdfo="pdfsizeopt --use-multivalent=YES"
 
 fv() { fzf | xargs -r -I % $EDITOR % ;}
 fd() { find $HOME/Documents/ | fzf | xargs -ro -I % lf % ; }
