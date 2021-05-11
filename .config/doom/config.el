@@ -30,3 +30,5 @@
            #'variable-pitch-mode
            #'visual-line-mode
            #'doom-disable-line-numbers-h)
+
+(run-hooks 'doom-first-input-hook)
