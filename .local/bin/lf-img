@@ -18,7 +18,7 @@ if [ -n "$DISPLAY" ]; then
     mkdir -p "$HOME/.cache/lf"
   fi
 
-  lf "$@" 3>&-
+  exec env FIFO_UEBERZUG=$FIFO_UEBERZUG lf "$@"
 else
   exec lf "$@"
 fi
