@@ -9,6 +9,7 @@ PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magent
 instant-zsh-pre "$PS1"
 setopt autocd autopushd pushdignoredups # Automatically cd into typed directory.
 setopt hist_ignore_all_dups hist_ignore_space # Don't record immediate duplicates or entries with leading space into history
+setopt inc_append_history # Record history immediately
 stty stop undef		# Disable ctrl-s to freeze terminal.
 setopt interactive_comments
 
