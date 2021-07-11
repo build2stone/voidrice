@@ -23,9 +23,10 @@ alias \
 	ffmpeg="ffmpeg -hide_banner" \
 	less="less +k" \
 	du="du -h" \
-	df="df -h -x tmpfs" \
+	df="df -h -x tmpfs -x devtmpfs" \
 	ect="ect --mt-file -progressive" \
 	pdfo="pdfsizeopt --use-multivalent=YES" \
+	lsblk="lsblk -o NAME,FSTYPE,PARTLABEL,SIZE,FSUSED,MOUNTPOINT" \
 
 # Colorize commands when possible.
 alias \
