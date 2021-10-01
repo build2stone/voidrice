@@ -36,6 +36,7 @@ Plug 'daezak/crafttweaker-vim-highlighting'
 Plug 'soli/prolog-vim'
 Plug 'cespare/vim-toml'
 Plug 'hjson/vim-hjson'
+Plug 'lnl7/vim-nix'
 call plug#end()
 
 set title
