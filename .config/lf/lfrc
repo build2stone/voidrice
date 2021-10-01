@@ -41,7 +41,7 @@ cmd moveto ${{
 	clear; tput cup $(($(tput lines)/3)); tput bold
 	set -f
 	clear; echo "Move to where?"
-	dest="$(cut -d'	' -f2- ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|' )" &&
+	dest="$(sed -e 's/#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')" &&
 	for x in $fx; do
 		eval mv -iv \"$x\" \"$dest\"
 	done &&
@@ -52,7 +52,7 @@ cmd copyto ${{
 	clear; tput cup $(($(tput lines)/3)); tput bold
 	set -f
 	clear; echo "Copy to where?"
-	dest="$(cut -d'	' -f2- ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|' )" &&
+	dest="$(sed -e 's/#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')" &&
 	for x in $fx; do
 		eval cp -ivr \"$x\" \"$dest\"
 	done &&
@@ -96,7 +96,7 @@ cmd setbg "$1"
 
 # Bindings
 map <c-f> $lf -remote "send $id select '$(fzf)'"
-map J $lf -remote "send $id cd $(cut -d'	' -f2 ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | envsubst | fzf)"
+map J $lf -remote "send $id cd $(sed -e 's/#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | envsubst | fzf)"
 map gh
 map g top
 map D delete
@@ -131,6 +131,8 @@ map <esc> clear
 map <c-e> down
 map <c-y> up
 map V push :!nvim<space>
+
+map W $setsid -f $TERMINAL >/dev/null 2>&1
 
 # Source Bookmarks
 source "~/.config/lf/shortcutrc"

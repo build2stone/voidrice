@@ -27,7 +27,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-scripts/argtextobj.vim'
 Plug 'lukesmithxyz/vimling'
 " niceties
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
 Plug 'ap/vim-css-color'
 Plug 'luochen1990/rainbow'
 Plug 'machakann/vim-highlightedyank'
