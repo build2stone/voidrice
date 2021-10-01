@@ -103,6 +103,8 @@ case "${mimetype}" in
 		highlight --replace-tabs="${highlight_tabwidth}" --out-format="${highlight_format}" --style="${highlight_style}" --force -- "${file}" ;;
 	application/zip | application/gzip) atool --list -- "${file}" ;;
 	application/epub+zip) epub2txt -w "${width}" -- "${file}" ;;
+	application/x-7z-compressed) 7z l "${file}" ;;
+	application/zstd) zstd -l "${file}" ;;
 	image/*) chafa --fill=block --symbols=block -c 256 -s "${width}"x"${height}" "${file}" || exit 1;;
 	video/* | audio/*|application/octet-stream) mediainfo "${file}" || exit 1;;
 	*/pdf) pdftotext -l 10 -nopgbrk -layout -q -- "${file}" - ;;
