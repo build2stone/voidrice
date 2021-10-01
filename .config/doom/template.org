@@ -1,0 +1,12 @@
+#+html_head: <link rel=\"stylesheet\" href=\"./css/min.css\">
+#+html_head: <a href=\"index.html\"><div class=\"index\"></div></a>
+
+%?
+
+* Backlinks
+:PROPERTIES:
+:UNNUMBERED: t
+:END:
+#+begin_src elisp :results value html :exports results
+(my-synchronous-org-roam-graph-svg (org-roam-node-at-point) 1)
+#+end_src

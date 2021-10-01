@@ -1,5 +1,8 @@
 ;;; -*- lexical-binding: t; -*-
 
+(after! ob-ditaa
+  (setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0.11.jar"))
+
 ;; org-ref setup
 (setq! +biblio-notes-path "~/Documents/arbeiten/notes/"
        +biblio-pdf-library-dir "~/Documents/arbeiten/pdf/"
@@ -8,16 +11,50 @@
 
 ;; org-roam
 (setq org-roam-capture-templates
-      '(("d" "default" plain #'org-roam-capture--get-point
-         :file-name "%<%Y%m%d%H%M%S>-${slug}"
-         :head "#+title: ${title}\n#+html_head: <link rel=\"stylesheet\" href=\"./css/min.css\">\n#+html_head: <a href=\"index.html\"><div class=\"index\"></div></a>\n\n%?\n\n* Backlinks\n:PROPERTIES:\n:UNNUMBERED: t\n:END:\n#+begin_src elisp :results output raw :exports results\n(dolist (link (org-roam--get-backlinks (buffer-file-name)))\n  (princ (format \"[[file:%s][%s]] \" (car link) (org-roam-db--get-title (car link)))))\n#+end_src"
+      '(("d" "default" plain "%[~/.config/doom/template.org]"
+         :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
          :unnarrowed t)))
 
+
 ;; org-roam graph
-(setq org-roam-graph-exclude-matcher "index.org")
-(setq org-roam-graph-extra-config '(("bgcolor" . "none")))
-(setf (car org-roam-graph-node-extra-config) '("shape" . "note"))
-(add-to-list 'org-roam-graph-node-extra-config '("fontname" . "sans"))
+(setq org-roam-graph-extra-config '(("bgcolor" . "none")
+                                    ("overlap" . "false")
+                                    ("outputorder" . "edgesfirst")
+                                    ("splines" . "true")
+                                    ("sep" . "\"+5\"")))
+(setq org-roam-graph-executable "neato")
+
+(defun my-synchronous-org-roam-graph-svg (NODE DISTANCE)
+  "Returns an svg-format graph of the surroundings of NODE, up to DISTANCE (DISTANCE 0 graphs everything)
+Replaces org-protocol links with relative links to exported html files."
+  (require 'org-roam-graph)
+  (require 'svg)
+  (let* ((org-roam-graph-link-hidden-types '("file" "http" "https"))
+         (graph (org-roam-graph--dot (org-roam-graph--connected-component
+                                      (org-roam-node-id NODE) DISTANCE)))
+         (temp-dot (make-temp-file "graph." nil ".dot" graph)))
+
+    (with-temp-buffer
+      (insert (shell-command-to-string (concat org-roam-graph-executable " " temp-dot " " "-Tsvg")))
+
+      (let
+          ((svggraph (libxml-parse-xml-region (point-min) (point-max))))
+
+        (dolist (tag (dom-by-tag svggraph 'a))
+          (dom-set-attribute tag 'href
+                             (url-hexify-string (concat
+                                                 (file-name-base
+                                                  (org-roam-node-file
+                                                   (org-roam-node-from-id
+                                                    (substring (url-unhex-string (dom-attr tag 'href)) 30))))
+                                                 ".html"))))
+
+        (let ((svgtag (dom-by-tag svggraph 'svg)))
+          (dom-set-attribute svgtag 'width "100%")
+          (dom-set-attribute svgtag 'height "auto")
+          (with-temp-buffer
+            (svg-print (car svgtag))
+            (buffer-string)))))))
 
 ;; org-publish roam project
 (setq org-publish-project-alist
@@ -33,7 +70,7 @@
          :section-numbers 2
          :auto-preamble t
          :preparation-function (lambda (args)
-                                 (org-roam-db-build-cache)
+                                 (org-roam-db-sync)
                                  (f-touch (concat org-roam-directory "index.org"))))
         ("roam-static"
          :base-directory "~/org/roam"

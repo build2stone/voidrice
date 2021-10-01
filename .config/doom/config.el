@@ -2,7 +2,10 @@
 
 (setq doom-theme 'doom-gruvbox
       doom-font (font-spec :family "mono")
-      doom-variable-pitch-font (font-spec :family "sans" :weight 'light))
+      ;; doom-variable-pitch-font (font-spec :family "Fira Sans" :weight 'light)
+      )
+
+(set-face-attribute 'variable-pitch nil :weight 'light)
 
 (setq display-line-numbers-type 'relative
       scroll-margin 7
@@ -18,6 +21,21 @@
 (setenv "LF_ICONS" nil)
 
 (setq! org-directory "~/org/")
+
+(use-package! websocket
+    :after org-roam)
+
+(use-package! org-roam-ui
+    :after org-roam
+    :hook (after-init . org-roam-ui-mode)
+    :config
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start t))
+
+(use-package ox-epub
+  :after ox)
 
 (after! org
   (load! "org-general.el")
