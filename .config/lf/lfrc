@@ -103,7 +103,8 @@ map <enter> shell
 map x $$f
 map X !$f
 map <c-s> $sxiv -fta *
-map U %du -Dsh $f
+map U %dua $f
+map <c-u> $dua interactive
 map <c-v> $$HOME/.config/lf/scope $f | less +k
 map o &mimeopen $f
 map O $mimeopen --ask $f
