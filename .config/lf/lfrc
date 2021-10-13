@@ -19,15 +19,6 @@ map L OPEN
 
 cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
 
-cmd extract ${{
-	clear; tput cup $(($(tput lines)/3)); tput bold
-	set -f
-	printf "%s\n\t" "$fx"
-	printf "extract?[y/N]"
-	read ans
-	[ $ans = "y" ] && ext $fx
-}}
-
 cmd delete ${{
 	clear; tput cup $(($(tput lines)/3)); tput bold
 	set -f
@@ -100,7 +91,7 @@ map J $lf -remote "send $id cd $(sed -e 's/#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${
 map gh
 map g top
 map D delete
-map E extract
+map E $unar $f
 map C copyto
 map M moveto
 map t push %touch<space>
