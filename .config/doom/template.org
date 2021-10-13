@@ -1,5 +1,5 @@
-#+html_head: <link rel=\"stylesheet\" href=\"./css/min.css\">
-#+html_head: <a href=\"index.html\"><div class=\"index\"></div></a>
+#+html_head: <link rel="stylesheet" href="./css/min.css">
+#+html_head: <a href="index.html"><div class="index"></div></a>
 
 %?
 

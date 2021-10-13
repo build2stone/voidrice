@@ -1,0 +1,21 @@
+#+html_head: <link rel="stylesheet" href="./css/min.css">
+#+html_head: <a href="index.html"><div class="index"></div></a>
+#+latex_class: scrartcl
+#+latex_class_options: [parskip=half]
+#+latex_header: \usepackage[margin=2cm]{geometry}
+#+latex_header: \setmainfont{Source Serif Pro} \setmonofont{Fira Mono} \setmathfont{Fira Math} \setkomafont{disposition}{\normalfont\bfseries}
+#+latex_header: \hypersetup{frenchlinks=true}
+
+%?
+
+* Backlinks
+:PROPERTIES:
+:UNNUMBERED: t
+:END:
+#+begin_src elisp :results value html :exports (if (boundp 'org-export-current-backend) (if (eq org-export-current-backend 'html) "results" "none") "results")
+(my-synchronous-org-roam-graph-svg (org-roam-node-at-point) 1)
+#+end_src
+
+#+begin_src elisp :results value file :file (concat "images/" (file-name-nondirectory (buffer-file-name)) ".pdf") :exports (if (boundp 'org-export-current-backend) (if (eq org-export-current-backend 'latex) "results" "none") "results")
+(my-synchronous-org-roam-graph-pdf (org-roam-node-at-point) 1)
+#+end_src

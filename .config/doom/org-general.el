@@ -13,6 +13,9 @@
 (setq org-roam-capture-templates
       '(("d" "default" plain "%[~/.config/doom/template.org]"
          :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+         :unnarrowed t)
+        ("l" "default+latex" plain "%[~/.config/doom/template-latex.org]"
+         :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
          :unnarrowed t)))
 
 
@@ -53,8 +56,18 @@ Replaces org-protocol links with relative links to exported html files."
           (dom-set-attribute svgtag 'width "100%")
           (dom-set-attribute svgtag 'height "auto")
           (with-temp-buffer
-            (svg-print (car svgtag))
+            (xml-print svgtag)
             (buffer-string)))))))
+
+(defun my-synchronous-org-roam-graph-pdf (NODE DISTANCE)
+  "Returns a pdf-format graph of the surroundings of NODE, up to DISTANCE (DISTANCE 0 graphs everything)
+TODO: convert links similarly to svg version"
+  (require 'org-roam-graph)
+  (let* ((org-roam-graph-link-hidden-types '("file" "http" "https"))
+         (graph (org-roam-graph--dot (org-roam-graph--connected-component
+                                      (org-roam-node-id NODE) DISTANCE)))
+         (temp-dot (make-temp-file "graph." nil ".dot" graph)))
+    (shell-command-to-string (concat org-roam-graph-executable " " temp-dot " " "-Tpdf"))))
 
 ;; org-publish roam project
 (setq org-publish-project-alist
