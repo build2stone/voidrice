@@ -27,10 +27,10 @@ for my $file (@ARGV) {
 	my $skipmime = 1;
 
 	given (basename($file)) {
-		when (m[.*\.dig]) { push @command, "digital" }
-		when (m[.*\.org]) { push @command, "emacs" }
-		when (m[.*\.txt]) { push @command, @editor }
-		when (m[.*\.mp3]) { push @command, ("mpv", $audio_options); }
+		when (m[.*\.dig$]) { push @command, "digital" }
+		when (m[.*\.org$]) { push @command, "emacs" }
+		when (m[.*\.txt$]) { push @command, @editor }
+		when (m[.*\.mp3$]) { push @command, ("mpv", $audio_options); }
 		default { $skipmime = 0 }
 	}
 
