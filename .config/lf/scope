@@ -56,14 +56,14 @@ if [ -n "${FIFO_UEBERZUG:-}" ]; then
 			if [ ${file##*.} = "cbz" ]; then
 				cache="$(hash "$file").jpg"
 				cache "$cache" "$@"
-				unzip -p "${file}" "$(zipinfo -1 "${file}" | sed -E 's/(\*|\?|\[|\])/\\\1/g;q')" \
+				unzip -P "" -p "${file}" "$(zipinfo -1 "${file}" | sed -E 's/(\*|\?|\[|\])/\\\1/g;q')" \
 					| convert -- - -auto-orient "$cache"
 				draw "$cache" "$@"
 			else
 				if [ ${file##*.} = "kra" ]; then
 				cache="$(hash "$file").jpg"
 				cache "$cache" "$@"
-				unzip -p "${file}" "mergedimage.png" | convert -- - "$cache"
+				unzip -P "" -p "${file}" "mergedimage.png" | convert -- - "$cache"
 				draw "$cache" "$@"
 				fi
 			fi
