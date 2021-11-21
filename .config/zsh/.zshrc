@@ -40,6 +40,7 @@ zstyle ':completion:*' group-name ''
 zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# Include hidden files.
+setopt numeric_glob_sort
 
 # vi mode
 bindkey -v
