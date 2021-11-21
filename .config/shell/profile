@@ -85,6 +85,10 @@ export XMODIFIERS="@im=fcitx"
 export GTK_IM_MODULE="fcitx"
 export QT_IM_MODULE="fcitx"
 
+# Scale gtk-apps while retaining text size
+export GDK_SCALE=2
+export GDK_DPI_SCALE=0.5
+
 # This is the list for lf icons:
 export LF_ICONS="\
 di=:\
