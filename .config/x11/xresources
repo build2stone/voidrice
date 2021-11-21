@@ -1,6 +1,8 @@
 !! Transparency (0-1):
 /* *.alpha: 0.8 */
 
+Xft.dpi: 192
+
 !! Set a default font and font size as below:
 /* *.font: monospace:size=10 */
 
