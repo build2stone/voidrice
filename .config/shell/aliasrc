@@ -27,6 +27,9 @@ alias \
 	ect="ect --mt-file -progressive" \
 	leanify="leanify --keep-exif -p" \
 	lsblk="lsblk -o NAME,FSTYPE,PARTLABEL,FSUSED,SIZE,MOUNTPOINT" \
+	parallel="parallel --bar" \
+	duperemove="duperemove --hashfile=${XDG_CACHE_HOME:-$HOME/.cache}/duperemove-hashfile -h" \
+	jdupes="jdupes -M" \
 
 # Colorize commands when possible.
 alias \
