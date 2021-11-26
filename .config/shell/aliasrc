@@ -24,12 +24,13 @@ alias \
 	less="less +k" \
 	du="du -h" \
 	df="df -h -x tmpfs -x devtmpfs" \
-	ect="ect --mt-file -progressive" \
+	ect="ect --mt-file --mt-deflate -progressive" \
 	leanify="leanify --keep-exif -p" \
 	lsblk="lsblk -o NAME,FSTYPE,PARTLABEL,FSUSED,SIZE,MOUNTPOINT" \
 	parallel="parallel --bar" \
 	duperemove="duperemove --hashfile=${XDG_CACHE_HOME:-$HOME/.cache}/duperemove-hashfile -h" \
 	jdupes="jdupes -M" \
+	zstd="zstd -T0" \
 
 # Colorize commands when possible.
 alias \
