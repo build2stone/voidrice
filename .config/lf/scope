@@ -96,11 +96,12 @@ export MANWIDTH="${width}"
 case "${mimetype}" in
 	text/html|text/xml) w3m -dump "${file}" ;;
 	text/troff) man ./ "${file}" | col -b ;;
+	application/json) jq -C . "${file}" && exit ;&
 	text/* | */xml | */json | */json5)
 		if [ "$( stat --printf='%s' -- "${file}" )" -gt "${highlight_size_max}" ]; then
 			exit 2
 		fi
-		highlight --replace-tabs="${highlight_tabwidth}" --out-format="${highlight_format}" --style="${highlight_style}" --force -- "${file}" ;;
+		highlight --replace-tabs="${highlight_tabwidth}" --out-format="${highlight_format}" --style="${highlight_style}" --force -- "${file}" ;;&
 	application/zip | application/gzip) atool --list -- "${file}" ;;
 	application/epub+zip) epub2txt -w "${width}" -- "${file}" ;;
 	application/x-7z-compressed) 7z l "${file}" ;;
