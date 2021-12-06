@@ -106,6 +106,7 @@ case "${mimetype}" in
 	application/epub+zip) epub2txt -w "${width}" -- "${file}" ;;
 	application/x-7z-compressed) 7z l "${file}" ;;
 	application/zstd) zstd -l "${file}" ;;
+	application/x-tar) tar tvf "${file}" ;;
 	image/*) chafa --fill=block --symbols=block -c 256 -s "${width}"x"${height}" "${file}" || exit 1;;
 	video/* | audio/*|application/octet-stream) mediainfo "${file}" || exit 1;;
 	*/pdf) pdftotext -l 10 -nopgbrk -layout -q -- "${file}" - ;;
