@@ -7,9 +7,14 @@
 
 use strict;
 use warnings;
-use 5.010;
-use File::Basename;
+use feature "switch";
+
 no warnings 'experimental';
+
+use File::Basename;
+use File::Spec;
+
+open STDERR, '>', File::Spec->devnull();
 
 my @prefix = ();
 my @editor = ($ENV{'EDITOR'} // "vi");
