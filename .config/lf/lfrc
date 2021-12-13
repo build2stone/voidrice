@@ -58,7 +58,7 @@ cmd bulkrename ${{
 	# If files selected use those, else grab all in current directory
 	if [ -n "${fs}" ]; then
 		echo "$fs" > "$index"
-		echo "$fs" | xargs -d "\n" -n 1 basename > "$index_edit"
+		echo "$fs" | xargs -d "\n" basename -a > "$index_edit"
 	else
 		ls | tee "$index" "$index_edit" >/dev/null
 	fi
@@ -68,14 +68,17 @@ cmd bulkrename ${{
 	$EDITOR -c "source $HOME/.config/lf/withdisplay.vim" -O "$index_edit" "$index"
 
 	if [ -n "${fs}" ]; then
-		xargs -a "$index" -d "\n" -I %f -n 1 dirname '%f' | paste -d "/" - "$index_edit" > "$index_move"
+		xargs -a "$index" -d "\n" dirname | paste -d "/" - "$index_edit" > "$index_move"
 	else
 		cat "$index_edit" > "$index_move"
 	fi
 
 	# Move files if number of lines unchanged
 	if [ "$(wc -l <"$index")" -eq "$(wc -l <"$index_move")" ]; then
-		paste -d "\n" "$index" "$index_move" | xargs -d "\n" -n 2 mv -Tn --
+		# Create target dirs if necessary
+		xargs -a "$index_move" -d "\n" dirname | sort -u | xargs -d "\n" mkdir -p
+		# Move the files
+		paste -d "\n" "$index" "$index_move" | xargs -P 0 -d "\n" -n 2 mv -Tn --
 	else
 		echo "Number of lines must stay the same"
 	fi
