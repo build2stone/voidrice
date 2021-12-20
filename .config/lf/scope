@@ -69,8 +69,8 @@ if [ -n "${FIFO_UEBERZUG:-}" ]; then
 			fi
 			;;
 		application/pdf)
-			# Only image-preview pdfs containing no text
-			if [ -z "$(pdftotext "$file" - | tr -d "[:space:]")" ]; then
+			# Only image-preview pdfs containing no text within the first 5 pages
+			if [ -z "$(pdftotext -l 5 "$file" - | tr -d "[:space:]")" ]; then
 				cache="$(hash "$file").jpg"
 				cache "$cache" "$@"
 				resx=`expr $(cat /sys/class/graphics/fb0/virtual_size | cut -d',' -f1) / 2`
