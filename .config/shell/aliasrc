@@ -78,7 +78,6 @@ alias \
 	btm="btm -g --color gruvbox --mem_as_value" \
 
 fv() { fzf | xargs -r -I % $EDITOR % ;}
-fd() { find $HOME/Documents/ | fzf | xargs -ro -I % lf % ; }
 fl() { fzf | xargs -ro -I % lf % ; }
 fx() { fzf | xargs -r -I % xdg-open % ; }
 mkcd() { mkdir -pv $1 && cd $1 ; }
