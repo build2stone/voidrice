@@ -18,7 +18,7 @@ IFS="$(printf '%b_' '\n')"; IFS="${IFS%_}"
 file="${1}"
 mimetype="$(file -Lb --mime-type -- "${file}")"
 width="${2:-$(stty size | cut -d" " -f2)}"
-height="${3:-`expr $(stty size | cut -d" " -f1) - 1`}"
+height="${3:-$(( $(stty size | cut -d" " -f1) - 1 ))}"
 shift
 
 draw() {
@@ -39,46 +39,44 @@ cache() {
 
 # Image preview if available
 if [ -n "${FIFO_UEBERZUG:-}" ]; then
+	cache="$(hash "$file").jpg"
+
+	# Use cache if available
+	cache "$cache" "$@"
+
+	# Else create and draw cache
+	preview=true
 	case "${mimetype}" in
 		image/*)
-			cache="$(hash "$file").jpg"
-			cache "$cache" "$@"
 			convert -- "${file}[0]" -auto-orient "$cache"
-			draw "$cache" "$@"
 			;;
 		video/*)
-			cache="$(hash "$file").jpg"
-			cache "$cache" "$@"
 			ffmpegthumbnailer -i "$file" -o "$cache" -s 0
-			draw "$cache" "$@"
 			;;
 		application/zip)
-			if [ ${file##*.} = "cbz" ]; then
-				cache="$(hash "$file").jpg"
-				cache "$cache" "$@"
+			if [ "${file##*.}" = "cbz" ]; then
 				unzip -P "" -p "${file}" "$(zipinfo -1 "${file}" | sed -E 's/(\*|\?|\[|\])/\\\1/g;q')" \
 					| convert -- - -auto-orient "$cache"
-				draw "$cache" "$@"
 			else
-				if [ ${file##*.} = "kra" ]; then
-				cache="$(hash "$file").jpg"
-				cache "$cache" "$@"
+				if [ "${file##*.}" = "kra" ]; then
 				unzip -P "" -p "${file}" "mergedimage.png" | convert -- - "$cache"
-				draw "$cache" "$@"
 				fi
 			fi
 			;;
 		application/pdf)
 			# Only image-preview pdfs containing no text within the first 5 pages
 			if [ -z "$(pdftotext -l 5 "$file" - | tr -d "[:space:]")" ]; then
-				cache="$(hash "$file").jpg"
-				cache "$cache" "$@"
-				resx=`expr $(cat /sys/class/graphics/fb0/virtual_size | cut -d',' -f1) / 2`
+				resx=$(( $(cut -d',' -f1 </sys/class/graphics/fb0/virtual_size) / 2))
 				pdftoppm -singlefile -jpeg -jpegopt quality=95 -scale-to-x $resx -scale-to-y -1 "$file" > "$cache"
-				draw "$cache" "$@"
 			fi
 			;;
+		*)
+			preview=false
 	esac
+
+	if $preview; then
+		draw "$cache" "$@"
+	fi
 fi
 
 # Settings
