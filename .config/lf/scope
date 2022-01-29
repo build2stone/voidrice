@@ -54,20 +54,24 @@ if [ -n "${FIFO_UEBERZUG:-}" ]; then
 			ffmpegthumbnailer -i "$file" -o "$cache" -s 0
 			;;
 		application/zip)
-			if [ "${file##*.}" = "cbz" ]; then
-				unzip -P "" -p "${file}" "$(zipinfo -1 "${file}" | sed -E 's/(\*|\?|\[|\])/\\\1/g;q')" \
-					| convert -- - -auto-orient "$cache"
-			else
-				if [ "${file##*.}" = "kra" ]; then
-				unzip -P "" -p "${file}" "mergedimage.png" | convert -- - "$cache"
-				fi
-			fi
+			case "${file##*.}" in
+				cbz)
+					funzip -"" "${file}" | convert -- - -auto-orient "$cache"
+					;;
+				kra)
+					unzip -P "" -p "${file}" "mergedimage.png" | convert -- - "$cache"
+					;;
+				*)
+					preview=false
+			esac
 			;;
 		application/pdf)
 			# Only image-preview pdfs containing no text within the first 5 pages
 			if [ -z "$(pdftotext -l 5 "$file" - | tr -d "[:space:]")" ]; then
 				resx=$(( $(cut -d',' -f1 </sys/class/graphics/fb0/virtual_size) / 2))
 				pdftoppm -singlefile -jpeg -jpegopt quality=95 -scale-to-x $resx -scale-to-y -1 "$file" > "$cache"
+			else
+				preview=false
 			fi
 			;;
 		*)
