@@ -3,6 +3,8 @@
 (after! ob-ditaa
   (setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0.11.jar"))
 
+;; org-agenda
+(add-to-list 'org-agenda-files "~/org/roam/")
 
 ;; org-roam
 (setq org-roam-capture-templates
