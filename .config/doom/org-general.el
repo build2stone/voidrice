@@ -3,11 +3,6 @@
 (after! ob-ditaa
   (setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0.11.jar"))
 
-;; org-ref setup
-(setq! +biblio-notes-path "~/Documents/arbeiten/notes/"
-       +biblio-pdf-library-dir "~/Documents/arbeiten/pdf/"
-       +biblio-default-bibliography-files (getenv "BIB")
-       org-ref-default-citation-link "autocite")
 
 ;; org-roam
 (setq org-roam-capture-templates
