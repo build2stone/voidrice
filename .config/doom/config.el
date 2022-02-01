@@ -34,6 +34,9 @@
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t))
 
+(use-package org-timeline
+  :hook (org-agenda-finalize . org-timeline-insert-timeline))
+
 (use-package ox-epub
   :after ox)
 
