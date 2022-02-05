@@ -48,7 +48,7 @@ if [ -n "${FIFO_UEBERZUG:-}" ]; then
 	preview=true
 	case "${mimetype}" in
 		image/*)
-			convert -- "${file}[0]" -auto-orient "$cache"
+			convert -- "${file}[0]" -auto-orient -background white -flatten "$cache"
 			;;
 		video/*)
 			ffmpegthumbnailer -i "$file" -o "$cache" -s 0
@@ -56,10 +56,10 @@ if [ -n "${FIFO_UEBERZUG:-}" ]; then
 		application/zip)
 			case "${file##*.}" in
 				cbz)
-					funzip -"" "${file}" | convert -- - -auto-orient "$cache"
+					funzip -"" "${file}" | convert -- - -auto-orient -background white -flatten "$cache"
 					;;
 				kra)
-					unzip -P "" -p "${file}" "mergedimage.png" | convert -- - "$cache"
+					unzip -P "" -p "${file}" "mergedimage.png" | convert -- - -auto-orient -background white -flatten "$cache"
 					;;
 				*)
 					preview=false
