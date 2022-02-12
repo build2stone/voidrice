@@ -25,7 +25,7 @@ cmd delete ${{
 	printf "%s\n\t" "$fx"
 	printf "delete?[y/N]"
 	read ans
-	[ $ans = "y" ] && trash-put -- $fx || rm -rf -- $fx
+	[ $ans = "y" ] && ( trash-put -- $fx || rm -rf -- $fx )
 }}
 
 cmd moveto ${{
