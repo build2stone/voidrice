@@ -37,40 +37,22 @@ alias \
 	ls="ls -hN --color=auto --group-directories-first" \
 	grep="grep --color=auto" \
 	diff="diff --color=auto" \
-	ccat="highlight --style=pablo --out-format=ansi --force" \
 
 # These common commands are just too long! Abbreviate them.
 alias \
 	ka="killall" \
-	g="git" \
 	trem="transmission-remote" \
-	YT="youtube-viewer" \
-	sdn="shutdown -h now" \
 	f="lf" \
 	lf="lf-img"\
-	e="$EDITOR" \
 	v="$EDITOR" \
-	p="sudo pacman" \
 	upc="sudo pacman -Syu; pkill -RTMIN+8 i3blocks" \
 	lsp="pacman -Qett --color=always | less" \
 	lsps="expac -H M \"%m %n\" | sort -nr | less" \
 	cpc="removeorphans" \
-	SS="sudo systemctl" \
-	g="git" \
-	gua="git remote | xargs -L1 git push --all" \
 	trem="transmission-remote" \
 	x="sxiv -ft *" \
 	yt="yt-dlp --add-metadata -i -o '%(title)s.%(ext)s'" \
 	yta="yt -x -f bestaudio/best" \
-	YT="youtube-viewer" \
-   	odmnt="rclone --vfs-cache-mode writes mount onedrive: $HOME/odmnt &" \
-	odjnl="journalctl --user-unit onedrive -f" \
-	odstart="systemctl --user start onedrive" \
-	odoff="systemctl --user stop onedrive" \
-	xi="sudo xbps-install" \
-	xr="sudo xbps-remove -R" \
-	xq="xbps-query" \
-	z="zathura" \
 
 alias \
 	magit="nvim -c MagitOnly" \
