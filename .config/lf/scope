@@ -1,12 +1,7 @@
 #!/bin/bash
 
-set -C -f -u
-IFS="$(printf '%b_' '\n')"; IFS="${IFS%_}"
-
-# ANSI color codes are supported.
-# STDIN is disabled, so interactive scripts won't work properly
-
-# This script is considered a configuration file and must be updated manually.
+set -C -f
+# IFS="$(printf '%b_' '\n')"; IFS="${IFS%_}"
 
 # Meanings of exit codes:
 # code | meaning    | action of ranger
@@ -21,67 +16,69 @@ width="${2:-$(stty size | cut -d" " -f2)}"
 height="${3:-$(( $(stty size | cut -d" " -f1) - 1 ))}"
 shift
 
-draw() {
-	~/.config/lf/draw_img.sh "$@"
-	exit 1
-}
-
-hash() {
-	printf '%s/.cache/lf/%s' "$HOME" \
-		"$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' -- "$(readlink -f "$1")" | sha256sum | awk '{print $1}')"
-}
-
-cache() {
-	if [ -f "$1" ]; then
-		draw "$@"
-	fi
-}
-
-# Image preview if available
-if [ -n "${FIFO_UEBERZUG:-}" ]; then
+# Can we display images?
+imgpreview=false
+if [ -n "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ] && [ -n "${FIFO_UEBERZUG:-}" ] && command -V ueberzug >/dev/null 2>&1; then
+	# Then register functions
+	hash() {
+		printf '%s/.cache/lf/%s' "$HOME" \
+			"$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' -- "$(readlink -f "$1")" | sha256sum | awk '{print $1}')"
+	}
+	# Compute hashes
 	cache="$(hash "$file").jpg"
+	args=($1 $2 $3 $4)
+	draw() {
+		if [ -f "$cache" ]; then
+			~/.config/lf/draw_img.sh "$cache" "${args[0]}" "${args[1]}" "${args[2]}" "${args[3]}"
+			exit 1
+		fi
+	}
+	# And try to draw caches
+	draw
 
-	# Use cache if available
-	cache "$cache" "$@"
-
-	# Else create and draw cache
-	preview=true
-	case "${mimetype}" in
-		image/*)
-			convert -- "${file}[0]" -auto-orient -background white -flatten "$cache"
-			;;
-		video/*)
-			ffmpegthumbnailer -i "$file" -o "$cache" -s 0
-			;;
-		application/zip)
-			case "${file##*.}" in
-				cbz)
-					funzip -"" "${file}" | convert -- - -auto-orient -background white -flatten "$cache"
-					;;
-				kra)
-					unzip -P "" -p "${file}" "mergedimage.png" | convert -- - -auto-orient -background white -flatten "$cache"
-					;;
-				*)
-					preview=false
-			esac
-			;;
-		application/pdf)
-			# Only image-preview pdfs containing no text within the first 5 pages
-			if [ -z "$(pdftotext -l 5 "$file" - | tr -d "[:space:]")" ]; then
-				resx=$(( $(cut -d',' -f1 </sys/class/graphics/fb0/virtual_size) / 2))
-				pdftoppm -singlefile -jpeg -jpegopt quality=95 -scale-to-x $resx -scale-to-y -1 "$file" > "$cache"
-			else
-				preview=false
-			fi
-			;;
-		*)
-			preview=false
-	esac
-
-	if $preview; then
-		draw "$cache" "$@"
-	fi
+	# Also let the rest of the script know
+	imgpreview=true
 fi
+
+
+view_image() {
+	if $imgpreview; then
+		convert -- "${file}[0]" -auto-orient -background white -flatten "$cache"
+		draw
+	else
+		chafa --fill=block --symbols=block -c 256 -s "${width}"x"${height}" "${file}"
+	fi
+}
+
+view_video() {
+	if $imgpreview; then
+		ffmpegthumbnailer -i "$file" -o "$cache" -s 0
+		draw
+	fi
+}
+
+view_zip() {
+	if $imgpreview; then
+		case "${file##*.}" in
+			cbz)
+				funzip -"" "${file}" | convert -- - -auto-orient -background white -flatten "$cache"
+				;;
+			kra)
+				unzip -P "" -p "${file}" "mergedimage.png" | convert -- - -auto-orient -background white -flatten "$cache"
+				;;
+		esac
+		draw
+	fi
+}
+view_pdf() {
+	# Only image-preview pdfs containing no text within the first 5 pages
+	if $imgpreview && [ -z "$(pdftotext -l 5 "$file" - | tr -d "[:space:]")" ]; then
+		resx=$(( $(cut -d',' -f1 </sys/class/graphics/fb0/virtual_size) / 2))
+		pdftoppm -singlefile -jpeg -jpegopt quality=95 -scale-to-x $resx -scale-to-y -1 "$file" > "$cache"
+	else
+		pdftotext -l 10 -nopgbrk -layout -q -- "${file}" -
+	fi
+}
 
 # Settings
 highlight_size_max=262143  # 256KiB
@@ -96,24 +93,27 @@ fi
 export MANWIDTH="${width}"
 
 case "${mimetype}" in
-	text/html|text/xml) w3m -dump "${file}" ;;
+	text/html) lynx -display_charset=utf-8 -dump "${FILE_PATH}"  ;;
 	text/troff) man ./ "${file}" | col -b ;;
-	application/json) jq -C . "${file}" && exit ;&
-	text/* | */xml | */json | */json5)
+	*/json) jq -C . "${file}" && exit ;&
+	text/* | */xml)
 		if [ "$( stat --printf='%s' -- "${file}" )" -gt "${highlight_size_max}" ]; then
 			exit 2
 		fi
 		highlight --replace-tabs="${highlight_tabwidth}" --out-format="${highlight_format}" --style="${highlight_style}" --force -- "${file}" ;;&
+	application/zip) view_zip "$@" ;;
 	application/zip | application/gzip) atool --list -- "${file}" ;;
 	application/epub+zip) epub2txt -w "${width}" -- "${file}" ;;
 	application/x-7z-compressed) 7z l "${file}" ;;
 	application/zstd) zstd -l "${file}" ;;
 	application/x-tar) tar tvf "${file}" ;;
-	image/*) chafa --fill=block --symbols=block -c 256 -s "${width}"x"${height}" "${file}" || exit 1;;
+	image/*) view_image ;;
+	video/*) view_video ;;
 	video/* | audio/*|application/octet-stream) mediainfo "${file}" || exit 1;;
-	*/pdf) pdftotext -l 10 -nopgbrk -layout -q -- "${file}" - ;;
-	*opendocument.text) odt2txt --width="${width}" "${file}" ;;
+	*/pdf) view_pdf ;;
+	*opendocument*) odt2txt --width="${width}" "${file}" ;;
 	*wordprocessingml*) docx2txt <"${file}" | fold -w "${width}";;
+	application/pgp-encrypted) gpg -d -- "${file}" ;;
 esac
 
-exit 0
+exit 1

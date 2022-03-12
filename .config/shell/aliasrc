@@ -41,7 +41,6 @@ alias \
 	ka="killall" \
 	trem="transmission-remote" \
 	f="lf" \
-	lf="lf-img"\
 	v="$EDITOR" \
 	upc="sudo pacman -Syu; pkill -RTMIN+8 i3blocks" \
 	lsp="pacman -Qett --color=always | less" \
@@ -53,6 +52,7 @@ alias \
 	yta="yt -x -f bestaudio/best" \
 
 alias \
+	lf="lfub" \
 	magit="nvim -c MagitOnly" \
 	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" \
 	btm="btm -g --color gruvbox --mem_as_value" \

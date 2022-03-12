@@ -1,7 +1,4 @@
-# Luke's lf settings
-
 # Basic vars
-set shell bash
 set shellopts '-eu'
 set ifs "\n"
 set scrolloff 10
@@ -116,8 +113,8 @@ map <c-o> $mimeopen --ask-default $f
 map A rename # at the very end
 map c push A<c-u> # new rename
 map I push A<c-a> # at the very beginning
-map i push A<a-b><a-b><a-f> # before extension
-map a push A<a-b> # after extension
+map i push A<a-b><a-b><a-f> # before extention
+map a push A<a-b> # after extention
 map B bulkrename
 map b $setbg $f
 
@@ -129,6 +126,8 @@ map <c-y> up
 map V push :!nvim<space>
 
 map W $setsid -f $TERMINAL >/dev/null 2>&1
+
+map Y $printf "%s" "$fx" | xclip -selection clipboard
 
 # Source Bookmarks
 source "~/.config/lf/shortcutrc"
