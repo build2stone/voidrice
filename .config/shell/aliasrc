@@ -26,7 +26,7 @@ alias \
 	leanify="leanify --keep-exif -p" \
 	lsblk="lsblk -o NAME,FSTYPE,PARTLABEL,FSUSED,SIZE,MOUNTPOINT" \
 	parallel="parallel --bar" \
-	duperemove="duperemove --hashfile=${XDG_CACHE_HOME:-$HOME/.cache}/duperemove-hashfile -h" \
+	duperemove="sudo duperemove --hashfile=${XDG_CACHE_HOME:-$HOME/.cache}/duperemove-hashfile -hrdq" \
 	jdupes="jdupes -M" \
 	zstd="zstd -T0" \
 
@@ -35,6 +35,9 @@ alias \
 	ls="ls -hN --color=auto --group-directories-first" \
 	grep="grep --color=auto" \
 	diff="diff --color=auto" \
+
+# Use exa for ls if present
+[ -x "$(command -v exa)" ] && alias ls="exa -hg --group-directories-first"
 
 # These common commands are just too long! Abbreviate them.
 alias \
@@ -65,3 +68,5 @@ vp() { which "$@" | xargs -d "\n" nvim -p ; }
 cdp() { cd $(dirname $(which "$1")) ; }
 
 dic() { sdcv -n "$1" | w3m -T text/html ; }
+
+fmnt() { mount -o uid=$(id -u),gid=$(id -g) "$@" }
