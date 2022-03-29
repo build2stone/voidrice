@@ -28,6 +28,8 @@ alias \
 	parallel="parallel --bar" \
 	duperemove="sudo duperemove --hashfile=${XDG_CACHE_HOME:-$HOME/.cache}/duperemove-hashfile -hrdq" \
 	jdupes="jdupes -M" \
+	yt="yt-dlp --embed-metadata -i" \
+	yta="yt -x -f bestaudio/best" \
 	zstd="zstd -T0" \
 
 # Colorize commands when possible.
@@ -35,6 +37,7 @@ alias \
 	ls="ls -hN --color=auto --group-directories-first" \
 	grep="grep --color=auto" \
 	diff="diff --color=auto" \
+	ip="ip -color=auto"
 
 # Use exa for ls if present
 [ -x "$(command -v exa)" ] && alias ls="exa -hg --group-directories-first"
@@ -51,8 +54,6 @@ alias \
 	cpc="removeorphans" \
 	trem="transmission-remote" \
 	x="sxiv -ft *" \
-	yt="yt-dlp --add-metadata -i -o '%(title)s.%(ext)s'" \
-	yta="yt -x -f bestaudio/best" \
 
 alias \
 	lf="lfub" \

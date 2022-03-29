@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/sh
+
+# File preview handler for lf.
 
 set -C -f
 # IFS="$(printf '%b_' '\n')"; IFS="${IFS%_}"
