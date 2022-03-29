@@ -75,6 +75,7 @@ view_pdf() {
   if $imgpreview && [ -z "$(pdftotext -l 5 "$file" - | tr -d "[:space:]")" ]; then
     resx=$(( $(cut -d',' -f1 </sys/class/graphics/fb0/virtual_size) / 2))
     pdftoppm -singlefile -jpeg -jpegopt quality=95 -scale-to-x $resx -scale-to-y -1 "$file" > "$cache"
+    draw
   else
     pdftotext -l 10 -nopgbrk -layout -q -- "${file}" -
   fi
