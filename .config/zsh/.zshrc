@@ -8,15 +8,18 @@ echo -ne '\e[5 q' # Use beam shape cursor on startup.
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 instant-zsh-pre "$PS1"
 setopt autocd autopushd pushdignoredups # Automatically cd into typed directory.
-setopt hist_ignore_all_dups hist_ignore_space # Don't record immediate duplicates or entries with leading space into history
-setopt inc_append_history # Record history immediately
 stty stop undef		# Disable ctrl-s to freeze terminal.
 setopt interactive_comments
 
-# History in cache directory:
-HISTSIZE=10000000
-SAVEHIST=10000000
+# History
+HISTSIZE=1000000
+SAVEHIST=1000000
 HISTFILE=~/.cache/zsh/history
+setopt inc_append_history # Record history immediately
+setopt hist_ignore_dups # Skip immediate duplicates
+setopt hist_reduce_blanks # Remove unnecessary blanks
+setopt hist_ignore_space  # Skip entries with leading space
+setopt hist_fcntl_lock # Use fcntl to lock HISTFILE
 
 # Load aliases and shortcuts if existent.
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc"
