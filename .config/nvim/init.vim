@@ -49,7 +49,7 @@ set mouse=a
 set clipboard+=unnamedplus
 set noshowmode
 set noruler
-set laststatus=0
+set laststatus=2
 set noshowcmd
 
 " Text selected with mouse goes to primary selection
