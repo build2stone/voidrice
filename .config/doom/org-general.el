@@ -29,13 +29,12 @@
 Replaces org-protocol links with relative links to exported html files."
   (require 'org-roam-graph)
   (require 'svg)
-  (let* ((org-roam-graph-link-hidden-types '("file" "http" "https"))
-         (graph (org-roam-graph--dot (org-roam-graph--connected-component
-                                      (org-roam-node-id NODE) DISTANCE)))
-         (temp-dot (make-temp-file "graph." nil ".dot" graph)))
+  (let* ((org-roam-graph-link-hidden-types '("file" "http" "https")))
 
     (with-temp-buffer
-      (insert (shell-command-to-string (concat org-roam-graph-executable " " temp-dot " " "-Tsvg")))
+      (insert (org-roam-graph--dot (org-roam-graph--connected-component
+                                      (org-roam-node-id NODE) DISTANCE)))
+      (call-process-region (point-min) (point-max) org-roam-graph-executable t '(t nil) nil "-Tsvg")
 
       (let
           ((svggraph (libxml-parse-xml-region (point-min) (point-max))))
@@ -60,11 +59,12 @@ Replaces org-protocol links with relative links to exported html files."
   "Returns a pdf-format graph of the surroundings of NODE, up to DISTANCE (DISTANCE 0 graphs everything)
 TODO: convert links similarly to svg version"
   (require 'org-roam-graph)
-  (let* ((org-roam-graph-link-hidden-types '("file" "http" "https"))
-         (graph (org-roam-graph--dot (org-roam-graph--connected-component
-                                      (org-roam-node-id NODE) DISTANCE)))
-         (temp-dot (make-temp-file "graph." nil ".dot" graph)))
-    (shell-command-to-string (concat org-roam-graph-executable " " temp-dot " " "-Tpdf"))))
+  (let* ((org-roam-graph-link-hidden-types '("file" "http" "https")))
+    (with-temp-buffer
+      (insert (org-roam-graph--dot (org-roam-graph--connected-component
+                                    (org-roam-node-id NODE) DISTANCE)))
+      (call-process-region (point-min) (point-max) org-roam-graph-executable t '(t nil) nil "-Tpdf")
+      (buffer-string))))
 
 ;; org-publish roam project
 (setq org-publish-project-alist
