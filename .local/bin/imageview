@@ -1,3 +1,8 @@
 #!/bin/sh
 
-rotdir "$1" | file -N --mime-type -f - | sed -n 's/: image\/.*$//p' | sxiv -aio -s f | lf-select
+rotdir "$1" | xargs -d "\n" file -N --mime-type | sed -n 's/: image\/.*$//p' | sxiv -aio -s f |\
+	while read -r file; do
+			[ -z "$file" ] && continue
+			lf -remote "send $id select \"$(realpath $file)\""
+			lf -remote "send $id toggle"
+		done
