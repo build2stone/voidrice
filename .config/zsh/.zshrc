@@ -12,8 +12,8 @@ stty stop undef		# Disable ctrl-s to freeze terminal.
 setopt interactive_comments
 
 # History
-HISTSIZE=1000000
-SAVEHIST=1000000
+HISTSIZE=1000000000
+SAVEHIST=1000000000
 HISTFILE=~/.cache/zsh/history
 setopt inc_append_history # Record history immediately
 setopt hist_ignore_dups # Skip immediate duplicates
