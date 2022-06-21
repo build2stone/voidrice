@@ -14,7 +14,7 @@ setopt interactive_comments
 # History
 HISTSIZE=1000000000
 SAVEHIST=1000000000
-HISTFILE=~/.cache/zsh/history
+HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history"
 setopt inc_append_history # Record history immediately
 setopt hist_ignore_dups # Skip immediate duplicates
 setopt hist_reduce_blanks # Remove unnecessary blanks
@@ -72,16 +72,16 @@ zle -N zle-line-init
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # Use lf to switch directories and bind it to ctrl-o
-lfcd() {
-    tmp="$(mktemp)"
-    lfifo -last-dir-path="$tmp" "$@"
+lfcd () {
+    tmp="$(mktemp -uq)"
+    trap 'rm -f $tmp >/dev/null 2>&1' HUP INT QUIT TERM PWR EXIT
+    lf -last-dir-path="$tmp" "$@"
     if [ -f "$tmp" ]; then
         dir="$(cat "$tmp")"
-        rm -f "$tmp" >/dev/null
         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
     fi
 }
-bindkey -s '^o' 'lfcd\n'
+bindkey -s '^o' '^ulfcd\n'
 
 # Accept autosuggestion with alt-tab
 bindkey '\e\t' autosuggest-accept
@@ -92,9 +92,9 @@ bindkey '^[[1;2B' history-substring-search-down
 bindkey -M vicmd 'K' history-substring-search-up
 bindkey -M vicmd 'J' history-substring-search-down
 
-bindkey -s '^a' 'bc -lq\n'
+bindkey -s '^a' '^ubc -lq\n'
 
-bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
+bindkey -s '^f' '^ucd "$(dirname "$(fzf)")"\n'
 
 # Bind Insert, Delete, Home and End
 bindkey "^[[4h" vi-put-after
@@ -105,5 +105,8 @@ bindkey "^[[H" beginning-of-line
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
+bindkey -M vicmd '^[[P' vi-delete-char
+bindkey -M vicmd '^e' edit-command-line
+bindkey -M visual '^[[P' vi-delete
 
 instant-zsh-post

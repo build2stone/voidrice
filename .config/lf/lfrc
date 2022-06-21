@@ -86,7 +86,7 @@ cmd bulkrename ${{
 cmd setbg "$1"
 
 # Bindings
-map <c-f> $lf -remote "send $id select '$(fzf)'"
+map <c-f> $lf -remote "send $id select \"$(fzf)\""
 map J $lf -remote "send $id cd $(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' -e 's/^/echo /' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | sh | fzf)"
 map gh
 map g top
@@ -113,8 +113,8 @@ map <c-o> $mimeopen --ask-default $f
 map A rename # at the very end
 map c push A<c-u> # new rename
 map I push A<c-a> # at the very beginning
-map i push A<a-b><a-b><a-f> # before extention
-map a push A<a-b> # after extention
+map i push A<a-b><a-b><a-f> # before extension
+map a push A<a-b> # after extension
 map B bulkrename
 map b $setbg $f
 

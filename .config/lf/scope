@@ -96,7 +96,7 @@ fi
 export MANWIDTH="${width}"
 
 case "${mimetype}" in
-  text/html) lynx -display_charset=utf-8 -dump "${FILE_PATH}"  ;;
+  text/html) lynx -width="${width}" -display_charset=utf-8 -dump "${file}" ;;
   text/troff) man ./ "${file}" | col -b ;;
   */json) jq -C . "${file}" && exit ;&
   text/* | */xml)
