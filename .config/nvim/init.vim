@@ -11,31 +11,22 @@ call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"
 " theme
 Plug 'morhetz/gruvbox'
 " modes
-Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'jreybert/vimagit'
-" lf
-Plug 'ptzz/lf.vim'
-Plug 'voldikss/vim-floaterm'
-" IDE
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'junegunn/fzf.vim'
-Plug 'antoinemadec/coc-fzf'
-Plug 'liuchengxu/vim-which-key'
-Plug 'nvim-treesitter/nvim-treesitter'
 " editing
 Plug 'tmsvg/pear-tree'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/argtextobj.vim'
 " niceties
-Plug 'nvim-lualine/lualine.nvim'
 Plug 'ap/vim-css-color'
+Plug 'liuchengxu/vim-which-key'
 Plug 'luochen1990/rainbow'
 Plug 'machakann/vim-highlightedyank'
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'tpope/vim-sleuth'
 " syntax-highlighting
-Plug 'daezak/crafttweaker-vim-highlighting'
 Plug 'cespare/vim-toml'
+Plug 'daezak/crafttweaker-vim-highlighting'
 Plug 'hjson/vim-hjson'
 Plug 'lnl7/vim-nix'
 call plug#end()
@@ -61,9 +52,7 @@ nmap <silent> <esc> :noh<cr>
 nnoremap c "_c
 set nocompatible
 filetype plugin on
-syntax on
 colorscheme gruvbox
-set encoding=utf-8
 set number relativenumber
 " Enable 24-bit color
 set termguicolors
@@ -78,18 +67,8 @@ map <leader>o :setlocal spell! spelllang=en_us<CR>
 " Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
 set splitbelow splitright
 
-" fzf
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
-
-" Goyo
-map <leader>f :Goyo \| set linebreak<CR>
-
 " highlightedyank
 let g:highlightedyank_highlight_duration = 200
-
-" lf
-let g:lf_map_keys = 0
-map <leader>l :Lf<CR>
 
 " lualine
 lua << END
@@ -114,109 +93,6 @@ let g:rainbow_active = 1
 " which-key
 nnoremap <silent> <Space> :<c-u>WhichKey '<Space>'<CR>
 nnoremap <silent> , :<c-u>WhichKey ','<CR>
-
-" coc.nvim
-let g:coc_start_at_startup=0
-map <leader>e :call CocSetup() \| :CocStart<CR>
-
-function! CocSetup()
-    " Old versions of gradle just straight up crash when there is unicode in the environment
-    unlet $LF_ICONS
-
-    " TextEdit might fail if hidden is not set.
-    set hidden
-    " Some servers have issues with backup files, see #649.
-    set nobackup
-    set nowritebackup
-    " Give more space for displaying messages.
-    set cmdheight=2
-    " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-    " delays and poor user experience.
-    set updatetime=300
-    " Don't pass messages to |ins-completion-menu|.
-    set shortmess+=c
-
-    " Use tab for trigger completion with characters ahead and navigate.
-    inoremap <silent><expr> <TAB>
-		\ pumvisible() ? "\<C-n>" :
-		\ <SID>check_back_space() ? "\<TAB>" :
-		\ coc#refresh()
-    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-    function! s:check_back_space() abort
-	let col = col('.') - 1
-	return !col || getline('.')[col - 1]  =~# '\s'
-    endfunction
-
-    " Use <c-space> to trigger completion.
-    inoremap <silent><expr> <c-space> coc#refresh()
-
-    " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-    " position. Coc only does snippet and additional edit on confirm.
-    if exists('*complete_info')
-	imap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u<Plug>(PearTreeExpand)"
-    else
-	imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u<Plug>(PearTreeExpand)"
-    endif
-
-    " Use `[g` and `]g` to navigate diagnostics
-    nmap <silent> [g <Plug>(coc-diagnostic-prev)
-    nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-    " GoTo code navigation.
-    nmap <silent> gd <Plug>(coc-definition)
-    nmap <silent> gy <Plug>(coc-type-definition)
-    nmap <silent> gi <Plug>(coc-implementation)
-    nmap <silent> gr <Plug>(coc-references)
-
-    " Use K to show documentation in preview window.
-    nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-    function! s:show_documentation()
-	if (index(['vim','help'], &filetype) >= 0)
-	    execute 'h '.expand('<cword>')
-	else
-	    call CocAction('doHover')
-	endif
-    endfunction
-
-    " Highlight the symbol and its references when holding the cursor.
-    autocmd CursorHold * silent call CocActionAsync('highlight')
-
-    " Symbol renaming.
-    nmap <leader>rn <Plug>(coc-rename)
-
-    " Apply AutoFix to problem on the current line.
-    nmap <leader>qf  <Plug>(coc-fix-current)
-
-    " Formatting selected code.
-    xmap <silent> <leader>f  <Plug>(coc-format-selected)
-    nmap <silent> <leader>f  <Plug>(coc-format-selected)
-    xmap <silent> <leader>a  :'<,'>CocAction<CR>
-    nmap <silent> <leader>a  :'<,'>CocAction<CR>
-
-    nnoremap <silent> <space>a  :<C-u>CocFzfList actions<CR>
-    nnoremap <silent> <space>d  :<C-u>CocFzfList diagnostics<CR>
-    nnoremap <silent> <space>b  :<C-u>CocFzfList diagnostics --current-buf<CR>
-    nnoremap <silent> <space>c  :<C-u>CocFzfList commands<CR>
-    nnoremap <silent> <space>e  :<C-u>CocFzfList extensions<CR>
-    nnoremap <silent> <space>l  :<C-u>CocFzfList location<CR>
-    nnoremap <silent> <space>o  :<C-u>CocFzfList outline<CR>
-    nnoremap <silent> <space>s  :<C-u>CocFzfList symbols<CR>
-    nnoremap <silent> <space>S  :<C-u>CocFzfList services<CR>
-    nnoremap <silent> <space><tab>  :<C-u>CocFzfListResume<CR>
-
-    " Map function and class text objects
-    " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-    xmap if <Plug>(coc-funcobj-i)
-    omap if <Plug>(coc-funcobj-i)
-    xmap af <Plug>(coc-funcobj-a)
-    omap af <Plug>(coc-funcobj-a)
-    xmap ic <Plug>(coc-classobj-i)
-    omap ic <Plug>(coc-classobj-i)
-    xmap ac <Plug>(coc-classobj-a)
-    omap ac <Plug>(coc-classobj-a)
-endfunction
 
 " Shortcutting split navigation, saving a keypress:
 map <C-h> <C-w>h
@@ -243,21 +119,11 @@ map <leader>p :!opout <c-r>%<CR><CR>
 autocmd VimLeave *.tex !texclear %
 
 " Ensure files are read as what I want:
-let g:vimwiki_ext2syntax = {'.Rmd': 'markdown', '.rmd': 'markdown','.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
-map <leader>v :VimwikiIndex<CR>
-let g:vimwiki_list = [{'path': '~/.local/share/nvim/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
-autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
 autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man set filetype=groff
 autocmd BufRead,BufNewFile *.tex set filetype=tex
 
 " Save file as sudo on files that require root permission
 cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
-
-" Enable Goyo by default for mutt writing
-autocmd BufRead,BufNewFile /tmp/neomutt* let g:goyo_width=80
-autocmd BufRead,BufNewFile /tmp/neomutt* :Goyo | set bg=dark
-autocmd BufRead,BufNewFile /tmp/neomutt* map ZZ :Goyo\|x!<CR>
-autocmd BufRead,BufNewFile /tmp/neomutt* map ZQ :Goyo\|q!<CR>
 
 " Automatically deletes all trailing whitespace and newlines at end of file on save. & reset cursor position
 autocmd BufWritePre * let currPos = getpos(".")
@@ -281,24 +147,6 @@ if &diff
     highlight! link DiffText MatchParen
 endif
 
-" Function for toggling the bottom statusbar:
-let s:hidden_all = 0
-function! ToggleHiddenAll()
-    if s:hidden_all  == 0
-	let s:hidden_all = 1
-	set noshowmode
-	set noruler
-	set laststatus=0
-	set noshowcmd
-    else
-	let s:hidden_all = 0
-	set showmode
-	set ruler
-	set laststatus=2
-	set showcmd
-    endif
-endfunction
-nnoremap <leader>h :call ToggleHiddenAll()<CR>
 " Load command shortcuts generated from bm-dirs and bm-files via shortcuts script.
 " Here leader is ";".
 " So ":vs ;cfz" will expand into ":vs /home/<user>/.config/zsh/.zshrc"
