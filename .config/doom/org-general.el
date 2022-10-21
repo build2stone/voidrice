@@ -93,7 +93,7 @@ TODO: convert links similarly to svg version"
         ("org" :components ("roam-notes" "roam-static"))))
 
 (setq org-time-stamp-custom-formats '("%-e. %b %Y (%a)" . "%-e. %b %Y (%a) %H:%M"))
-(add-hook 'org-export-before-processing-hook (lambda (backend) (setq-local org-display-custom-times t)))
+(add-hook 'org-export-before-processing-functions (lambda (_backend) (setq-local org-display-custom-times t)))
 
 ;; fontification
 (setq org-highlight-latex-and-related '(latex script))

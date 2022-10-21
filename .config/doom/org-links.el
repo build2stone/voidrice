@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
-(map! (:when (featurep! :lang org)
+(map! (:when (modulep! :lang org)
        (:map org-mode-map
         :localleader
         :desc "Insert citation" "l C" #'org-ref-helm-insert-cite-link
