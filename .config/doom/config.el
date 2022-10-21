@@ -13,6 +13,8 @@
       scroll-preserve-screen-position 1
       jit-lock-defer-time 0)
 
+(add-hook 'window-setup-hook #'toggle-frame-maximized)
+
 (map!
  :n "j" 'evil-next-visual-line
  :n "k" 'evil-previous-visual-line)
