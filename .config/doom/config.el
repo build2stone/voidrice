@@ -22,8 +22,6 @@
 ;; contains unicode, which crashes some versions of gradle
 (setenv "LF_ICONS" nil)
 
-(setq! org-directory "~/org/")
-
 (use-package! websocket
   :after org-roam)
 

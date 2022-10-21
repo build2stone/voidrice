@@ -3,8 +3,10 @@
 (after! ob-ditaa
   (setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0.11.jar"))
 
+(setq! org-directory (file-truename "~/Documents/org"))
+
 ;; org-agenda
-(add-to-list 'org-agenda-files "~/org/roam/")
+(add-to-list 'org-agenda-files (concat org-directory "/roam/"))
 
 ;; org-roam
 (setq org-roam-capture-templates
@@ -68,10 +70,10 @@ TODO: convert links similarly to svg version"
 
 ;; org-publish roam project
 (setq org-publish-project-alist
-      '(("roam-notes"
-         :base-directory "~/org/roam/"
+      `(("roam-notes"
+         :base-directory ,(concat org-directory "/roam/")
          :base-extension "org"
-         :publishing-directory "~/org/roam_html/"
+         :publishing-directory ,(concat org-directory "/roam_html/")
          :recursive t
          :publishing-function org-html-publish-to-html
          :html-mathjax-options ((path "mathjax2/MathJax.js?config=TeX-AMS_HTML") (scale "100") (align "center") (font "TeX") (linebreaks "false") (autonumber "AMS") (indent "0em") (multlinewidth "85%") (tagindent ".8em") (tagside "right"))
@@ -83,9 +85,9 @@ TODO: convert links similarly to svg version"
                                  (org-roam-db-sync)
                                  (f-touch (concat org-roam-directory "index.org"))))
         ("roam-static"
-         :base-directory "~/org/roam"
+         :base-directory ,(concat org-directory "/roam/")
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|svg"
-         :publishing-directory "~/org/roam_html/"
+         :publishing-directory ,(concat org-directory "/roam_html/")
          :recursive t
          :publishing-function org-publish-attachment)
         ("org" :components ("roam-notes" "roam-static"))))
