@@ -40,6 +40,8 @@
 (use-package ox-epub
   :after ox)
 
+(setq! org-directory (file-truename "~/Documents/org"))
+
 (after! org
   (load! "org-general.el")
   (load! "org-latex.el")

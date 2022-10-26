@@ -3,8 +3,6 @@
 (after! ob-ditaa
   (setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0.11.jar"))
 
-(setq! org-directory (file-truename "~/Documents/org"))
-
 ;; org-agenda
 (add-to-list 'org-agenda-files (concat org-directory "/roam/"))
 
