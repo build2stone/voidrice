@@ -1,7 +1,10 @@
 ;;; -*- lexical-binding: t; -*-
 
 (after! ob-ditaa
-  (setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0.11.jar"))
+  (setq org-ditaa-jar-path (executable-find "ditaa")
+        org-ditaa-jar-option ""
+        org-babel-ditaa-java-cmd ""))
+
 
 ;; org-agenda
 (add-to-list 'org-agenda-files (concat org-directory "/roam/"))
