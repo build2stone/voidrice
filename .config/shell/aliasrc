@@ -15,7 +15,7 @@ se() { cd ~/.local/bin; $EDITOR $(fzf) ;}
 
 # Verbosity and settings that you pretty much just always are going to want.
 alias \
-	cp="cp -iv" \
+	cp="cp -iv --reflink=auto" \
 	mv="mv -iv" \
 	rm="rm -vI" \
 	bc="bc -ql" \
