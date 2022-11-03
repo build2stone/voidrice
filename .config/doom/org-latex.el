@@ -33,7 +33,6 @@
   ;; highlight code listings
   (add-to-list 'org-latex-packages-alist
                '("" "minted" nil))
-  (setq org-latex-listings 'minted)
 
   ;; define additional latex classes
   (add-to-list 'org-latex-classes
