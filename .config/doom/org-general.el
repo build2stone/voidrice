@@ -69,6 +69,14 @@ TODO: convert links similarly to svg version"
       (call-process-region (point-min) (point-max) org-roam-graph-executable t '(t nil) nil "-Tpdf")
       (buffer-string))))
 
+(setq org-html-mathjax-template "
+<link rel=stylesheet href=katex/katex.min.css>
+<script defer src=katex/katex.min.js></script>
+<script defer src=katex/contrib/mhchem.min.js></script>
+<script defer src=katex/contrib/copy-tex.min.js></script>
+<script defer src=katex/contrib/auto-render.min.js
+    onload=\"renderMathInElement(document.body);\"></script>")
+
 ;; org-publish roam project
 (setq org-publish-project-alist
       `(("roam-notes"
@@ -77,7 +85,6 @@ TODO: convert links similarly to svg version"
          :publishing-directory ,(concat org-directory "/roam_html/")
          :recursive t
          :publishing-function org-html-publish-to-html
-         :html-mathjax-options ((path "mathjax2/MathJax.js?config=TeX-AMS_HTML") (scale "100") (align "center") (font "TeX") (linebreaks "false") (autonumber "AMS") (indent "0em") (multlinewidth "85%") (tagindent ".8em") (tagside "right"))
          :html-self-link-headlines t
          :headline-levels 4
          :section-numbers 2
