@@ -10,14 +10,12 @@
   (add-to-list 'org-latex-default-packages-alist
                '("" "fontspec" t ("xelatex" "lualatex")))
 
-  (add-to-list 'org-latex-packages-alist
-               '("" "tabulary"))
-  (add-to-list 'org-latex-packages-alist
-               '("" "booktabs"))
+  (dolist (package '(("" "tabulary")
+                     ("" "booktabs")
+                     ("" "csquotes")
+                     ("" "mhchem")))
+    (add-to-list 'org-latex-packages-alist package))
   (setq org-latex-tables-booktabs t)
-
-  (add-to-list 'org-latex-packages-alist
-               '("" "csquotes"))
 
   ;; use \textquote{} when smartquotes are enabled
   (dolist (element org-export-smart-quotes-alist)
@@ -68,11 +66,22 @@
                        ("xelatex -no-pdf -interaction nonstopmode -shell-escape -output-directory %o %f")
                        :image-converter
                        ("dvisvgm %f -n -b min -c %S -o %O")))
+; (add-to-list 'org-preview-latex-process-alist
+;              '(katex :programs
+;                        ("katex")
+;                        :description "latex > mathml" :message "you need to install katex." :image-input-type "txt" :image-output-type "html"
+;                        :latex-compiler
+;                        ("cp %f %O")
+;                        :image-converter
+;                        ("katex -d -F mathml -i %f -o %O")))
 (setq org-format-latex-header
       (concat "\\documentclass[dvisvgm]{article}\n"
               (mapconcat 'identity
                          (cdr (split-string org-format-latex-header "\n"))
                          "\n")))
+
+; (setq org-html-with-latex 'html)
+; (setq org-latex-to-html-convert-command "echo '%i' | katex -d -t -F mathml")
 
 ;; scale latex previews according to local text scale and dpi
 (defun my-apply-scale (BEG END)
