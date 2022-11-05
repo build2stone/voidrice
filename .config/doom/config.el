@@ -19,9 +19,6 @@
  :n "j" 'evil-next-visual-line
  :n "k" 'evil-previous-visual-line)
 
-;; contains unicode, which crashes some versions of gradle
-(setenv "LF_ICONS" nil)
-
 (use-package! websocket
   :after org-roam)
 
