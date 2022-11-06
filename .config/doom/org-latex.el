@@ -10,27 +10,27 @@
   (add-to-list 'org-latex-default-packages-alist
                '("" "fontspec" t ("xelatex" "lualatex")))
 
-  (dolist (package '(("" "tabulary")
+  (dolist (package '(;; better tables
+                     ("" "tabulary")
                      ("" "booktabs")
+                     ;; better quotes
                      ("" "csquotes")
-                     ("" "mhchem")))
+                     ;; chemistry
+                     ("version=4" "mhchem")
+                     ;; support #+LANGUAGE (de for german, fr for french etc)
+                     ("AUTO" "babel" t ("pdflatex"))
+                     ("AUTO" "polyglossia" t ("xelatex" "lualatex"))))
     (add-to-list 'org-latex-packages-alist package))
+
+  ;; use booktabs by default
   (setq org-latex-tables-booktabs t)
+  ;; fancy code block syntax highlighting
+  (setq org-latex-src-block-backend 'engraved)
 
   ;; use \textquote{} when smartquotes are enabled
   (dolist (element org-export-smart-quotes-alist)
     (setcdr (nth 1 element) (plist-put (cdr (nth 1 element)) :latex "\\textquote{"))
     (setcdr (nth 2 element) (plist-put (cdr (nth 2 element)) :latex "}")))
-
-  ;; use #+LANGUAGE to set document language (de for german, fr for french etc)
-  (add-to-list 'org-latex-packages-alist
-               '("AUTO" "babel" t ("pdflatex")))
-  (add-to-list 'org-latex-packages-alist
-               '("AUTO" "polyglossia" t ("xelatex" "lualatex")))
-
-  ;; highlight code listings
-  (add-to-list 'org-latex-packages-alist
-               '("" "minted" nil))
 
   ;; define additional latex classes
   (add-to-list 'org-latex-classes

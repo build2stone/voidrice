@@ -32,7 +32,11 @@
         org-roam-ui-open-on-start t))
 
 (use-package org-timeline
+  :after org-mode
   :hook (org-agenda-finalize . org-timeline-insert-timeline))
+
+(use-package! engrave-faces
+  :after ox)
 
 (use-package ox-epub
   :after ox)
