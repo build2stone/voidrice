@@ -35,6 +35,8 @@
   :hook (org-agenda-finalize . org-timeline-insert-timeline))
 
 (use-package! org-modern
+  :config
+  (setq org-modern-table nil)
   :hook
   (org-mode . org-modern-mode)
   (org-agenda-finalize . org-modern-agenda))
