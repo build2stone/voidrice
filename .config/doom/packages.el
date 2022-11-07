@@ -16,6 +16,7 @@
 (package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
 (package! org-timeline)
 (package! engrave-faces)
+(package! org-modern)
 
 (package! ox-epub)
 

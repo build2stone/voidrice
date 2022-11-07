@@ -34,6 +34,11 @@
 (use-package! org-timeline
   :hook (org-agenda-finalize . org-timeline-insert-timeline))
 
+(use-package! org-modern
+  :hook
+  (org-mode . org-modern-mode)
+  (org-agenda-finalize . org-modern-agenda))
+
 (use-package! engrave-faces
   :after ox)
 
