@@ -104,7 +104,7 @@ TODO: convert links similarly to svg version"
 (add-hook 'org-export-before-processing-functions (lambda (_backend) (setq-local org-display-custom-times t)))
 
 ;; fontification
-(setq org-highlight-latex-and-related '(latex script))
+(setq org-highlight-latex-and-related '(latex entities))
 (custom-theme-set-faces! nil
   '(org-block :family "mono")
   '(org-code :family "mono")
