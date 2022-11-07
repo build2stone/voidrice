@@ -1,15 +1,15 @@
 ;;; -*- lexical-binding: t; -*-
 
+;; make org find ditaa
 (after! ob-ditaa
   (setq org-ditaa-jar-path (executable-find "ditaa")
         org-ditaa-jar-option ""
         org-babel-ditaa-java-cmd ""))
 
-
-;; org-agenda
+;; add org-roam files to agenda
 (add-to-list 'org-agenda-files (concat org-directory "/roam/"))
 
-;; org-roam
+;; org-roam templates!
 (setq org-roam-capture-templates
       '(("d" "default" plain "%[~/.config/doom/template.org]"
          :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
@@ -18,8 +18,7 @@
          :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
          :unnarrowed t)))
 
-
-;; org-roam graph
+;; make org-roam graphs prettier
 (setq org-roam-graph-extra-config '(("bgcolor" . "none")
                                     ("overlap" . "false")
                                     ("outputorder" . "edgesfirst")
@@ -69,6 +68,7 @@ TODO: convert links similarly to svg version"
       (call-process-region (point-min) (point-max) org-roam-graph-executable t '(t nil) nil "-Tpdf")
       (buffer-string))))
 
+;; use katex instead of mathjax
 (setq org-html-mathjax-template "
 <link rel=stylesheet href=katex/katex.min.css>
 <script defer src=katex/katex.min.js></script>
