@@ -25,7 +25,8 @@
   ;; use booktabs by default
   (setq org-latex-tables-booktabs t)
   ;; fancy code block syntax highlighting
-  (setq org-latex-src-block-backend 'engraved)
+  (setq org-latex-src-block-backend 'engraved
+        org-latex-engraved-theme t)
 
   ;; use \textquote{} when smartquotes are enabled
   (dolist (element org-export-smart-quotes-alist)
