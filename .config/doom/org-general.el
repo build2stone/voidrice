@@ -103,6 +103,8 @@ TODO: convert links similarly to svg version"
 (setq org-time-stamp-custom-formats '("%-e. %b %Y (%a)" . "%-e. %b %Y (%a) %H:%M"))
 (add-hook 'org-export-before-processing-functions (lambda (_backend) (setq-local org-display-custom-times t)))
 
+(setq org-agenda-buffer-name "Org Agenda")
+
 ;; fontification
 (setq org-highlight-latex-and-related '(latex entities))
 (custom-theme-set-faces! nil
