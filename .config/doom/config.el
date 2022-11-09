@@ -22,9 +22,9 @@
 (use-package corfu
   :config
   (setq corfu-doc-delay 0.1
-        corfu-doc-transition 'hide)
+        corfu-doc-transition 'hide
+        corfu-preview-current 'insert)
   :bind (:map corfu-map
-         ("SPC" . corfu-insert-separator)
          ("TAB" . corfu-next)
          ([tab] . corfu-next)
          ("S-TAB" . corfu-previous)
