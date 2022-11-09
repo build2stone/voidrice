@@ -22,8 +22,9 @@
        ;; (company +childframe)           ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       ivy               ; a search engine for love and life
+       ;; ivy               ; a search engine for love and life
        corfu
+       (selectrum_gagbo +orderless)
 
        :ui
        ;;deft              ; notational velocity for Emacs

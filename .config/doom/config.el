@@ -33,6 +33,9 @@
   :config
   (setq dabbrev-ignored-buffer-regexps '("^.*\\.pdf$")))
 
+(use-package selectrum
+  :bind (:map selectrum-minibuffer-map ("C-j" . next-line)))
+
 (use-package! websocket
   :after org-roam)
 
