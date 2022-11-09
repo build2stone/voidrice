@@ -19,6 +19,20 @@
  :n "j" 'evil-next-visual-line
  :n "k" 'evil-previous-visual-line)
 
+(use-package corfu
+  :config
+  (setq corfu-doc-delay 0.1
+        corfu-doc-transition 'hide)
+  :bind (:map corfu-map
+         ("SPC" . corfu-insert-separator)
+         ("TAB" . corfu-next)
+         ([tab] . corfu-next)
+         ("S-TAB" . corfu-previous)
+         ([backtab] . corfu-previous)))
+(use-package cape
+  :config
+  (setq dabbrev-ignored-buffer-regexps '("^.*\\.pdf$")))
+
 (use-package! websocket
   :after org-roam)
 
