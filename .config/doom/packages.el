@@ -18,6 +18,8 @@
 (package! engrave-faces)
 (package! org-modern)
 
+(package! tempel)
+
 (package! ox-epub)
 
 ;; To install a package directly from a remote git repo, you must specify a

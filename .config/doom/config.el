@@ -23,15 +23,42 @@
   :config
   (setq corfu-doc-delay 0.1
         corfu-doc-transition 'hide
-        corfu-preview-current 'insert)
+        corfu-preview-current 'insert
+        corfu-on-exact-match 'insert)
+  ;; for some reason, this only works when shadowing the function...
+  (defun corfu-next (&optional n)
+    "Go forward N candidates."
+    (interactive "p")
+    (if tempel--active
+        (tempel-next 1)
+      (let ((index (+ corfu--index (or n 1))))
+        (corfu--goto
+         (cond
+          ((not corfu-cycle) index)
+          ((= corfu--total 0) -1)
+          ((< corfu--preselect 0) (1- (mod (1+ index) (1+ corfu--total))))
+          (t (mod index corfu--total)))))))
   :bind (:map corfu-map
          ("TAB" . corfu-next)
          ([tab] . corfu-next)
          ("S-TAB" . corfu-previous)
          ([backtab] . corfu-previous)))
 (use-package cape
-  :config
+  :init
   (setq dabbrev-ignored-buffer-regexps '("^.*\\.pdf$")))
+
+(use-package tempel
+  :bind (([tab] . tempel-next)
+         ([backtab] . tempel-previous))
+  :init
+  (setq tempel-path "~/.config/doom/templates"
+        tempel-trigger-prefix ",")
+  (defun tempel-setup-capf ()
+    (setq-local completion-at-point-functions
+                (cons #'tempel-complete
+                      completion-at-point-functions)))
+  (add-hook 'prog-mode-hook 'tempel-setup-capf)
+  (add-hook 'text-mode-hook 'tempel-setup-capf))
 
 (use-package selectrum
   :bind (:map selectrum-minibuffer-map ("C-j" . next-line)))
