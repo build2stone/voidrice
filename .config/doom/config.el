@@ -39,13 +39,11 @@
           ((< corfu--preselect 0) (1- (mod (1+ index) (1+ corfu--total))))
           (t (mod index corfu--total)))))))
   :bind (:map corfu-map
-         ("TAB" . corfu-next)
-         ([tab] . corfu-next)
-         ("S-TAB" . corfu-previous)
-         ([backtab] . corfu-previous)))
+              ([tab] . corfu-next)
+              ([backtab] . corfu-previous)))
 (use-package cape
   :init
-  (setq dabbrev-ignored-buffer-regexps '("^.*\\.pdf$")))
+  (setq dabbrev-ignored-buffer-regexps '("^.*\\.(pdf|png|jpeg|jpg)$")))
 
 (use-package tempel
   :bind (:map tempel-map
@@ -54,12 +52,22 @@
   :init
   (setq tempel-path "~/.config/doom/templates"
         tempel-trigger-prefix ",")
+  ;; Use tempel as capf
   (defun tempel-setup-capf ()
     (setq-local completion-at-point-functions
                 (cons #'tempel-complete
                       completion-at-point-functions)))
   (add-hook 'prog-mode-hook 'tempel-setup-capf)
-  (add-hook 'text-mode-hook 'tempel-setup-capf))
+  (add-hook 'text-mode-hook 'tempel-setup-capf)
+  :config
+  ;; tempel helper functions
+  (defun tempel-org-latex-maybe-wrap (elt)
+    (when (eq (car-safe elt) 'maybe-wrap-latex)
+      (let ((template (cdr elt)))
+        (if (org-inside-LaTeX-fragment-p)
+            `(l ,@template)
+          `(l "$" ,@template "$")))))
+  (add-to-list 'tempel-user-elements #'tempel-org-latex-maybe-wrap))
 
 (use-package selectrum
   :bind (:map selectrum-minibuffer-map ("C-j" . next-line)))
