@@ -1,0 +1,23 @@
+;; ~/.config/emacs/templates
+
+fundamental-mode
+(hello "world" nil)
+
+fundamental-mode
+(a "#+begin_aside" n> r> n> "#+end_aside")
+(q "#+begin_quote" n> r> n> "#+end_quote")
+(e "#+begin_example" n> r> n> "#+end_example")
+(ce "#+begin_center" n> r> n> "#+end_center")
+(cm "#+begin_comment" n> r> n> "#+end_comment")
+(v "#+begin_verse" n> r> n> "#+end_verse")
+(bo "#+begin_" (s env) n> r> n> "#+end_" (s env))
+(src "#+begin_src " p n> r> n> "#+end_src")
+(inl "src_" p "{" p "}" q )
+(ce (maybe-wrap-latex "\\ce{" p "}") q)
+(m "\\[" n> r> n> "\\]")
+(bl "\\begin{" (s env) "}" n> r> n> "\\end{" (s env) "}")
+
+;; Local Variables:
+;; mode: lisp-data
+;; outline-regexp: "[a-z]"
+;; End:
