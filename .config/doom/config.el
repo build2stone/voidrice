@@ -23,13 +23,12 @@
   :config
   (setq corfu-doc-delay 0.1
         corfu-doc-transition 'hide
-        corfu-preview-current 'insert
-        corfu-on-exact-match 'insert)
+        corfu-preview-current 'insert)
   ;; for some reason, this only works when shadowing the function...
   (defun corfu-next (&optional n)
     "Go forward N candidates."
     (interactive "p")
-    (if (not (bound-and-true-p tempel--active))
+    (if (bound-and-true-p tempel--active)
         (tempel-next 1)
       (let ((index (+ corfu--index (or n 1))))
         (corfu--goto
@@ -46,10 +45,10 @@
   (setq dabbrev-ignored-buffer-regexps '("^.*\\.(pdf|png|jpeg|jpg)$")))
 
 (defun expand-or-space ()
-    (interactive)
-    (let ((completion-at-point-functions (list 'tempel-expand)))
-      (unless (completion-at-point)
-        (insert-char ?\s))))
+  (interactive)
+  (let ((completion-at-point-functions (list 'tempel-expand)))
+    (unless (completion-at-point)
+      (insert-char ?\s))))
 (map! :i "SPC" 'expand-or-space)
 
 (use-package tempel
@@ -59,14 +58,6 @@
   :init
   (setq tempel-path "~/.config/doom/templates"
         tempel-trigger-prefix ",")
-  ;; Use tempel as capf
-  ;; (defun tempel-setup-capf ()
-  ;;   (setq-local completion-at-point-functions
-  ;;               (cons #'tempel-complete
-  ;;                     completion-at-point-functions)))
-  ;; (add-hook 'prog-mode-hook 'tempel-setup-capf)
-  ;; (add-hook 'text-mode-hook 'tempel-setup-capf)
-  ;; (global-tempel-abbrev-mode)
   :config
   ;; tempel helper functions
   (defun tempel-org-latex-maybe-wrap (elt)
