@@ -108,7 +108,8 @@
   (load! "org-links.el"))
 
 (setq org-pretty-entities t
-      org-startup-folded 'showall)
+      org-startup-folded 'showall
+      org-pretty-entities-include-sub-superscripts nil)
 (add-hook! 'org-mode-hook
            #'variable-pitch-mode
            #'visual-line-mode
