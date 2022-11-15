@@ -42,7 +42,7 @@
               ([backtab] . corfu-previous)))
 (use-package cape
   :init
-  (setq dabbrev-ignored-buffer-regexps '("^.*\\.(pdf|png|jpeg|jpg)$")))
+  (setq dabbrev-ignored-buffer-regexps '("^.*\\.\\(pdf|png|jpeg|jpg)$"\\)))
 
 (defun expand-or-space ()
   (interactive)
