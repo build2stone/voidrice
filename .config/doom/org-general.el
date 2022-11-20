@@ -1,5 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
+
 ;; make org find ditaa
 (after! ob-ditaa
   (setq org-ditaa-jar-path (executable-find "ditaa")
@@ -120,3 +121,30 @@ TODO: convert links similarly to svg version"
   '(org-table :family "mono")
   '(org-tag :family "mono")
   '(org-verbatim :family "mono"))
+
+;; custom links
+
+;; exports SMILES-format molecule definition as svg
+(org-link-set-parameters "mol" :export #'mol-export)
+(defun mol-export (link description format _)
+  (pcase format
+    (`html
+     (shell-command-to-string
+      ;; -xb none : no background
+      ;; -xx : omit XML declaration
+      ;; -xe : embed molecule as CML
+      (format "obabel -:\"%s\" -osvg -xb none -xx -xe 2>/dev/null" link)))))
+
+;; same as mol, but in aside
+(org-link-set-parameters "smol" :export #'smol-export)
+(defun smol-export (link description format _)
+  (pcase format
+    (`html
+     (format "<span class=\"aside\">%s</span>"
+             (shell-command-to-string
+              ;; -xb none : no background
+              ;; -xx : omit XML declaration
+              ;; -xe : embed molecule as CML
+              ;; -xt : thicker lines
+              ;; --px : image size
+              (format "obabel -:\"%s\" -osvg -xb none -xx -xe -xt --px 100 2>/dev/null" link))))))
