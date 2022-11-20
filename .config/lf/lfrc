@@ -106,8 +106,8 @@ map <c-s> $sxiv -fta *
 map U %dua $f
 map <c-u> $dua interactive
 map <c-v> $$HOME/.config/lf/scope $f | less +k
-map o &mimeopen $f
-map O $mimeopen --ask $f
+map o &mimeopen "$f"
+map O $mimeopen --ask "$f"
 map <c-o> $mimeopen --ask-default $f
 
 map A rename # at the very end
