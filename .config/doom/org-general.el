@@ -130,7 +130,7 @@ TODO: convert links similarly to svg version"
 (org-link-set-parameters "mol" :export #'mol-export)
 (defun mol-export (link description format _)
   (pcase format
-    (`html
+    ((or `html `md)
      (shell-command-to-string
       ;; -xb none : no background
       ;; -xx : omit XML declaration
@@ -141,7 +141,7 @@ TODO: convert links similarly to svg version"
 (org-link-set-parameters "smol" :export #'smol-export)
 (defun smol-export (link description format _)
   (pcase format
-    (`html
+    ((or `html `md)
      (format "<span class=\"aside\">%s</span>"
              (shell-command-to-string
               ;; -xb none : no background
