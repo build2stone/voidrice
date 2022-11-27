@@ -119,4 +119,4 @@ case "${mimetype}" in
   application/pgp-encrypted) gpg -d -- "${file}" ;;
 esac
 
-exit 1
+exit 0
