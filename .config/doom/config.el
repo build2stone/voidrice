@@ -21,8 +21,7 @@
 
 (use-package corfu
   :config
-  (setq corfu-doc-delay 0.1
-        corfu-doc-transition 'hide
+  (setq corfu-popupinfo-delay 0.1
         corfu-preview-current 'insert)
   ;; for some reason, this only works when shadowing the function...
   (defun corfu-next (&optional n)
