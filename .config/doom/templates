@@ -17,6 +17,8 @@ fundamental-mode
 (m "\\[" n> r> n> "\\]")
 (bl "\\begin{" (s env) "}" n> r> n> "\\end{" (s env) "}")
 (t "(\\to " p ")" q)
+(css "#+attr_html: :style " r)
+(bg "#+attr_html: :style background-color: " r)
 
 ;; Local Variables:
 ;; mode: lisp-data
