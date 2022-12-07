@@ -34,7 +34,7 @@
 Replaces org-protocol links with relative links to exported html files."
   (require 'org-roam-graph)
   (require 'svg)
-  (let* ((org-roam-graph-link-hidden-types '("attachment" "file" "http" "https" "pdf")))
+  (let* ((org-roam-graph-link-hidden-types '("attachment" "file" "http" "https" "pdf" "mol" "smol")))
 
     (with-temp-buffer
       (insert (org-roam-graph--dot (org-roam-graph--connected-component
@@ -64,7 +64,7 @@ Replaces org-protocol links with relative links to exported html files."
   "Returns a pdf-format graph of the surroundings of NODE, up to DISTANCE (DISTANCE 0 graphs everything)
 TODO: convert links similarly to svg version"
   (require 'org-roam-graph)
-  (let* ((org-roam-graph-link-hidden-types '("attachment" "file" "http" "https" "pdf")))
+  (let* ((org-roam-graph-link-hidden-types '("attachment" "file" "http" "https" "pdf" "mol" "smol")))
     (with-temp-buffer
       (insert (org-roam-graph--dot (org-roam-graph--connected-component
                                     (org-roam-node-id NODE) DISTANCE)))
