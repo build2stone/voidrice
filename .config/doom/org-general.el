@@ -34,10 +34,17 @@
 Replaces org-protocol links with relative links to exported html files."
   (require 'org-roam-graph)
   (require 'svg)
-  (let ((org-roam-graph-link-hidden-types '("attachment" "file" "http" "https" "pdf" "mol" "smol"))
+  (let* ((org-roam-graph-link-hidden-types '("attachment" "file" "http" "https" "pdf" "mol" "smol"))
+         (current-file (buffer-file-name))
          (org-roam-graph-link-builder
           (lambda (node)
-            (concat (file-name-base (org-roam-node-file node)) ".html"))))
+            (let ((node (org-roam-populate node)) ;; fetch node level from database
+                  (exported-file (when (not (string= current-file (org-roam-node-file node)))
+                                   (concat (file-name-base (org-roam-node-file node)) ".html"))))
+              (if (= 0 (org-roam-node-level node))
+                  exported-file
+                ;; handle links to headings
+                (concat exported-file "#" (zz/make-id-for-title (org-roam-node-title node))))))))
 
     (with-temp-buffer
       (insert (org-roam-graph--dot (org-roam-graph--connected-component
