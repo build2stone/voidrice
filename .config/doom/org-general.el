@@ -34,31 +34,24 @@
 Replaces org-protocol links with relative links to exported html files."
   (require 'org-roam-graph)
   (require 'svg)
-  (let* ((org-roam-graph-link-hidden-types '("attachment" "file" "http" "https" "pdf" "mol" "smol")))
+  (let ((org-roam-graph-link-hidden-types '("attachment" "file" "http" "https" "pdf" "mol" "smol"))
+         (org-roam-graph-link-builder
+          (lambda (node)
+            (concat (file-name-base (org-roam-node-file node)) ".html"))))
 
     (with-temp-buffer
       (insert (org-roam-graph--dot (org-roam-graph--connected-component
-                                      (org-roam-node-id NODE) DISTANCE)))
-      (call-process-region (point-min) (point-max) org-roam-graph-executable t '(t nil) nil "-Tsvg")
+                                    (org-roam-node-id NODE) DISTANCE)))
+      (call-process-region nil nil org-roam-graph-executable t '(t nil) nil "-Tsvg")
 
-      (let
-          ((svggraph (libxml-parse-xml-region (point-min) (point-max))))
-
-        (dolist (tag (dom-by-tag svggraph 'a))
-          (dom-set-attribute tag 'href
-                             (url-hexify-string (concat
-                                                 (file-name-base
-                                                  (org-roam-node-file
-                                                   (org-roam-node-from-id
-                                                    (substring (url-unhex-string (dom-attr tag 'href)) 30))))
-                                                 ".html"))))
-
-        (let ((svgtag (dom-by-tag svggraph 'svg)))
-          (dom-set-attribute svgtag 'width "100%")
-          (dom-set-attribute svgtag 'height "auto")
-          (with-temp-buffer
-            (xml-print svgtag)
-            (buffer-string)))))))
+      (let*
+          ((svggraph (libxml-parse-xml-region (point-min) (point-max)))
+           (svgtag (dom-by-tag svggraph 'svg)))
+        (dom-set-attribute svgtag 'width "100%")
+        (dom-set-attribute svgtag 'height "auto")
+        (with-temp-buffer
+          (xml-print svgtag)
+          (buffer-string))))))
 
 (defun my-synchronous-org-roam-graph-pdf (NODE DISTANCE)
   "Returns a pdf-format graph of the surroundings of NODE, up to DISTANCE (DISTANCE 0 graphs everything)
