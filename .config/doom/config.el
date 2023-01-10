@@ -105,6 +105,9 @@
   (load! "org-latex.el")
   (load! "org-links.el"))
 
+(setq! citar-bibliography '("~/Documents/bib.bib")
+       citar-library-paths '("~/Documents/papers/"))
+
 (setq org-pretty-entities t
       org-startup-folded 'showall
       org-pretty-entities-include-sub-superscripts nil)
