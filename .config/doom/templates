@@ -12,7 +12,7 @@ fundamental-mode
 (v "#+begin_verse" n> r> n> "#+end_verse")
 (bo "#+begin_" (s env) n> r> n> "#+end_" (s env))
 (src "#+begin_src " p n> r> n> "#+end_src")
-(inl "src_" p "{" p "}" q )
+(inl "src_" p "[:exports code]{" p "}" q )
 (ce (maybe-wrap-latex "\\ce{" p "}") q)
 (m "\\[" n> r> n> "\\]")
 (bl "\\begin{" (s env) "}" n> r> n> "\\end{" (s env) "}")
