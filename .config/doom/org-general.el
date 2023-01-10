@@ -140,11 +140,10 @@ TODO: convert links similarly to svg version"
 (defun smol-export (link description format _)
   (pcase format
     ((or `html `md)
-     (format "<span class=\"aside\">%s</span>"
-             (shell-command-to-string
-              ;; -xb none : no background
-              ;; -xx : omit XML declaration
-              ;; -xe : embed molecule as CML
-              ;; -xt : thicker lines
-              ;; --px : image size
-              (format "obabel -:\"%s\" -osvg -xb none -xx -xe -xt --px 100 2>/dev/null" link))))))
+     (shell-command-to-string
+      ;; -xb none : no background
+      ;; -xx : omit XML declaration
+      ;; -xe : embed molecule as CML
+      ;; -xt : thicker lines
+      ;; --px : image size
+      (format "obabel -:\"%s\" -osvg -xb none -xx -xe -xt --px 100 2>/dev/null" link)))))
