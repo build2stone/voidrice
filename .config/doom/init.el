@@ -25,7 +25,7 @@
        ;; ivy               ; a search engine for love and life
        (corfu +orderless +icons)
        ;; (selectrum_gagbo +orderless)
-       (vertico +icons)
+       (vertico +icons +childframe)
 
        :ui
        ;;deft              ; notational velocity for Emacs
