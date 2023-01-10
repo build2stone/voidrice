@@ -5,9 +5,7 @@
 (after! ob-ditaa
   (setq org-ditaa-jar-path (executable-find "ditaa")
         org-ditaa-jar-option ""
-        org-babel-ditaa-java-cmd ""
-        org-babel-default-header-args '((:results . "file")
-                                        (:exports . "results"))))
+        org-babel-ditaa-java-cmd ""))
 
 ;; add org-roam files to agenda
 (add-to-list 'org-agenda-files (concat org-directory "/roam/"))
