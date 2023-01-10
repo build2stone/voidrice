@@ -24,7 +24,8 @@
        ;;ido               ; the other *other* search engine...
        ;; ivy               ; a search engine for love and life
        (corfu +orderless +icons)
-       (selectrum_gagbo +orderless)
+       ;; (selectrum_gagbo +orderless)
+       (vertico +icons)
 
        :ui
        ;;deft              ; notational velocity for Emacs
