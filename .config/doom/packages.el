@@ -18,7 +18,7 @@
 (package! engrave-faces)
 (package! org-modern)
 
-(package! tempel)
+(package! tempel :pin "eafb06e9d2be347f22b356388a8fa05b3cf24599")
 
 (package! ox-epub)
 
