@@ -51,9 +51,8 @@
 (map! :i "SPC" 'expand-or-space)
 
 (use-package tempel
-  :bind (:map tempel-map
-              ([tab] . tempel-next)
-              ([backtab] . tempel-previous))
+  :bind (([tab] . tempel-next)
+         ([backtab] . tempel-previous))
   :init
   (setq tempel-path "~/.config/doom/templates"
         tempel-trigger-prefix ",")
@@ -66,9 +65,6 @@
             `(l ,@template)
           `(l "$" ,@template "$")))))
   (add-to-list 'tempel-user-elements #'tempel-org-latex-maybe-wrap))
-
-(use-package selectrum
-  :bind (:map selectrum-minibuffer-map ("C-j" . next-line)))
 
 (use-package! websocket
   :after org-roam)
