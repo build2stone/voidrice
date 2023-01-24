@@ -52,8 +52,9 @@
 (map! :i "SPC" 'expand-or-space)
 
 (use-package tempel
-  :bind (([tab] . tempel-next)
-         ([backtab] . tempel-previous))
+  :bind (:map tempel-map
+              ([tab] . tempel-next)
+              ([backtab] . tempel-previous))
   :init
   (setq tempel-path "~/.config/doom/templates"
         tempel-trigger-prefix ",")
