@@ -6,3 +6,9 @@ keycode 33 = p P p P oacute Oacute oacute
 keycode 38 = a A a A adiaeresis Adiaeresis adiaeresis
 
 keycode 41 = f F f F U25CA
+
+keycode 224 = Hyper_R
+
+remove  mod4 = Super_R
+keycode  134 = Hyper_R
+add     mod3 = Hyper_R
