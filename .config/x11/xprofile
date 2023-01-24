@@ -6,13 +6,14 @@
 xrandr --dpi 192		# Set DPI. User may want to use a larger number for larger screens.
 setbg &			# set the background with the `setbg` script
 xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources & xrdbpid=$!	# Uncomment to use Xresources colors/settings on startup
-remaps &		# run the remaps script, switching caps/esc and more; check it for more info
 
-autostart="mpd xcompmgr dunst unclutter pipewire fcitx5"
+autostart="xcompmgr dunst unclutter fcitx5 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 
 for program in $autostart; do
 	pidof -s "$program" || "$program" &
 done >/dev/null 2>&1
+
+remaps &		# run the remaps script, switching caps/esc and more; check it for more info
 
 # Ensure that xrdb has finished running before moving on to start the WM/DE.
 [ -n "$xrdbpid" ] && wait "$xrdbpid"
