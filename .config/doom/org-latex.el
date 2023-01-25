@@ -77,9 +77,7 @@
 ;                        ("katex -d -F mathml -i %f -o %O")))
 (setq org-format-latex-header
       (concat "\\documentclass[dvisvgm]{article}\n"
-              (mapconcat 'identity
-                         (cdr (split-string org-format-latex-header "\n"))
-                         "\n")))
+              (string-join (cdr (s-lines org-format-latex-header)) "\n")))
 
 ; (setq org-html-with-latex 'html)
 ; (setq org-latex-to-html-convert-command "echo '%i' | katex -d -t -F mathml")
