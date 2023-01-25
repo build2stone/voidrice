@@ -1,6 +1,5 @@
 ;;; -*- lexical-binding: t; -*-
 
-
 ;; make org find ditaa
 (after! ob-ditaa
   (setq org-ditaa-jar-path (executable-find "ditaa")
@@ -66,7 +65,7 @@ TODO: convert links similarly to svg version"
     (with-temp-buffer
       (insert (org-roam-graph--dot (org-roam-graph--connected-component
                                     (org-roam-node-id NODE) DISTANCE)))
-      (call-process-region (point-min) (point-max) org-roam-graph-executable t '(t nil) nil "-Tpdf")
+      (call-process-region nil nil org-roam-graph-executable t '(t nil) nil "-Tpdf")
       (buffer-string))))
 
 ;; use katex instead of mathjax
