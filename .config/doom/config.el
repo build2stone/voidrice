@@ -101,7 +101,8 @@
 (after! org
   (load! "org-general.el")
   (load! "org-latex.el")
-  (load! "org-links.el"))
+  (load! "org-links.el")
+  (load! "org-roam-publish.el"))
 
 (setq! citar-bibliography '("~/Documents/bib.bib")
        citar-library-paths '("~/Documents/papers/"))
