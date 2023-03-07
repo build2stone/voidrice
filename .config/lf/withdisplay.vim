@@ -18,29 +18,20 @@ function! s:QuitIfOnlyWindow()
 endfunction
 
 wincmd w
-setlocal buftype=nofile
 setlocal bufhidden=hide
 setlocal noswapfile
 setlocal nobuflisted
-setlocal cursorbind
-setlocal scrollbind
-setlocal nocursorline
+set cursorbind scrollbind
 
 " Setup a hook in auxiliary local window to do not leave it alone, when it's
 " useless
-augroup VifmRenameAutoCmds
-	autocmd! * <buffer>
-	autocmd BufEnter <buffer> call s:QuitIfOnlyWindow()
-augroup END
+autocmd BufEnter <buffer> call s:QuitIfOnlyWindow()
 
 windo e ++enc=utf-8
 
 " Go back to the original window and ensure it will remain synchronized with
 " the auxiliary one
 wincmd w
-setlocal cursorbind
-setlocal scrollbind
+set cursorbind scrollbind
 
 set noro
-
-" vim: set tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab cinoptions-=(0 :
