@@ -46,7 +46,6 @@
   "Returns an svg-format graph of the surroundings of NODE, up to DISTANCE (DISTANCE 0 graphs everything)
 Replaces org-protocol links with relative links to exported html files."
   (require 'org-roam-graph)
-  (require 'svg)
   (let* ((org-roam-graph-link-hidden-types '("attachment" "file" "http" "https" "pdf" "mol" "smol"))
          (current-file (buffer-file-name))
          (org-roam-graph-link-builder
