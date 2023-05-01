@@ -115,4 +115,20 @@
            #'visual-line-mode
            #'doom-disable-line-numbers-h)
 
+(use-package! typst-mode)
+(add-hook! 'typst-mode-hook #'lsp)
+(after! lsp-mode
+  ;; (define-derived-mode typst-mode prog-mode "typst"
+  ;;   "Major mode for typst files.")
+  ;; (add-to-list 'lsp-language-id-configuration '(typst--markup-mode . "typst"))
+  (add-to-list 'lsp-language-id-configuration '("\\.typ$" . "typst"))
+  (lsp-register-client (make-lsp-client
+                        :new-connection (lsp-stdio-connection "typst-lsp")
+                        :activation-fn (lsp-activate-on "typst")
+                        :server-id 'typst-lsp)))
+(custom-theme-set-faces! nil
+  '(org-verbatim :family "mono")
+  '(typst-mode-markup-slash-face :foreground "#fabd2f")
+  '(typst-mode-markup-label-reference-face :foreground "#fabd2f"))
+
 (run-hooks 'doom-first-input-hook)
