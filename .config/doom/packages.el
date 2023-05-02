@@ -19,6 +19,8 @@
 (package! org-modern)
 
 (package! tempel :pin "eafb06e9d2be347f22b356388a8fa05b3cf24599")
+(package! typst-mode
+  :recipe (:host github :repo "Ziqi-Yang/typst-mode.el"))
 
 (package! ox-epub)
 
