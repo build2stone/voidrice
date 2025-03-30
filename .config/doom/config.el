@@ -2,6 +2,7 @@
 
 (setq doom-theme 'doom-gruvbox
       doom-font (font-spec :family "mono")
+      doom-symbol-font (font-spec :family "IPAPMincho")
       ;; doom-variable-pitch-font (font-spec :family "Fira Sans" :weight 'light)
       )
 
