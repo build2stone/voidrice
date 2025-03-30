@@ -38,7 +38,7 @@
       ;; -xb none : no background
       ;; -xx : omit XML declaration
       ;; -xe : embed molecule as CML
-      (format "obabel -:\"%s\" -osvg -xb none -xx -xe 2>/dev/null" link)))))
+      (format "obabel -:\"%s\" -osvg -xb none -xx -xe -xC 2>/dev/null" link)))))
 
 ;; a smaller mol
 (org-link-set-parameters "smol" :export #'smol-export)
@@ -51,4 +51,4 @@
       ;; -xe : embed molecule as CML
       ;; -xt : thicker lines
       ;; --px : image size
-      (format "obabel -:\"%s\" -osvg -xb none -xx -xe -xt --px 100 2>/dev/null" link)))))
+      (format "obabel -:\"%s\" -osvg -xb none -xx -xe -xt --px 100 -xC 2>/dev/null" link)))))

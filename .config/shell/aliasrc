@@ -33,6 +33,7 @@ alias \
 	yt="yt-dlp --embed-metadata -i" \
 	yta="yt -x -f bestaudio/best" \
 	zstd="zstd -T0" \
+	nix="nix --extra-experimental-features \"nix-command flakes\""\
 
 # Colorize commands when possible.
 alias \
@@ -61,7 +62,7 @@ alias \
 	lf="lfub" \
 	magit="nvim -c MagitOnly" \
 	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" \
-	btm="btm -g --color gruvbox --mem_as_value" \
+	btm="btm -g --theme gruvbox --process_memory_as_value" \
 
 fv() { fzf | xargs -r -I % $EDITOR % ;}
 fl() { fzf | xargs -ro -I % lf % ; }

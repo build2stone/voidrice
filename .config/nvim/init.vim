@@ -30,6 +30,7 @@ Plug 'tpope/vim-sleuth'
 " syntax-highlighting
 Plug 'cespare/vim-toml'
 Plug 'daezak/crafttweaker-vim-highlighting'
+Plug 'kaarmu/typst.vim'
 Plug 'hjson/vim-hjson'
 Plug 'lnl7/vim-nix'
 call plug#end()
@@ -38,7 +39,6 @@ set title
 set bg=dark
 set tabstop=4
 set shiftwidth=4
-set go=a
 set mouse=a
 set clipboard+=unnamedplus
 set noshowmode

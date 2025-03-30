@@ -19,6 +19,7 @@ fundamental-mode
 (t "(\\to " p ")" q)
 (css "#+attr_html: :style " r)
 (bg "#+attr_html: :style background-color: " r)
+(s "#sub(\"" p "\")" q)
 
 ;; Local Variables:
 ;; mode: lisp-data

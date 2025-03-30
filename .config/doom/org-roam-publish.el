@@ -43,6 +43,7 @@
 (add-to-list 'org-agenda-files (concat org-directory "/roam/"))
 
 (defun my-synchronous-org-roam-graph-svg (NODE DISTANCE)
+  (require 'dom)
   "Returns an svg-format graph of the surroundings of NODE, up to DISTANCE (DISTANCE 0 graphs everything)
 Replaces org-protocol links with relative links to exported html files."
   (require 'org-roam-graph)
